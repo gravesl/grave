@@ -1,4 +1,3 @@
-// script.js
 const music = document.getElementById("bg-music");
 const toggleBtn = document.getElementById("music-toggle");
 const terminalOutput = document.getElementById("terminal-output");
@@ -7,8 +6,6 @@ const commandInput = document.getElementById("command-input");
 let commandHistory = [];
 let historyIndex = 0;
 let currentDir = "/";
-let isLoggingIn = false;
-let loginStep = 0;
 
 const fileSystem = {
   "/": ["profile.jpg", "music.mp3", "index.html", "secrets/"],
@@ -109,7 +106,6 @@ function processCommand(cmd) {
     default:
       output += `Command not found: ${cmd}`;
   }
-
   terminalOutput.textContent += output + "\n";
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
