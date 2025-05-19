@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>grave.cx</title>
-  <style>
-    body {
-      background-color: #000;
-      color: #33ff33;
-      font-family: 'Courier New', Courier, monospace;
-      padding: 2rem;
-    }
-    a {
-      color: #33ff33;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .prompt {
-      color: #aaa;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>grave.lat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <pre>
-<span class="prompt">user@grave.cx</span>:~$ echo "welcome to grave.cx"
-welcome to grave.cx
+  <div id="boot">
+    <pre id="boot-log">
+[--] Loading kernel modules...
+[OK] CPU: AMD Ryzen 9 7950X @ 5.7 GHz
+[OK] Memory: 64GB DDR5-6000 CL30 initialized
+[--] Running memory diagnostic...
+[OK] PCI devices initialized
+[OK] Loading system drivers...
+[!!] ACPI: CPU temp high (75°C)
+[--] Starting system services...
+    </pre>
+    <div id="boot-complete">SYSTEM READY<br><span>click to continue</span></div>
+  </div>
 
-<span class="prompt">user@grave.cx</span>:~$ ls
-[ <a href="about.html">about</a> ]   [ <a href="projects.html">projects</a> ]   [ <a href="contact.html">contact</a> ]
+  <div id="menu" class="hidden">
+    <div class="logo">🧚</div>
+    <div class="commands">
+      <span>[ about ]</span>
+      <span>[ projects ]</span>
+      <span>[ contact ]</span>
+    </div>
+  </div>
 
-<span class="prompt">user@grave.cx</span>:~$ _
-  </pre>
+  <script src="script.js"></script>
 </body>
 </html>
