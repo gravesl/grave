@@ -10,26 +10,46 @@
 <body>
   <div class="stars"></div>
 
+  <!-- Music Controls -->
   <div class="music-player">
     <button id="music-toggle">Music</button>
     <audio id="bg-music" loop>
-      <source src="everynite.mp3" type="audio/mpeg" />
+      <source src="everynite.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
   </div>
 
+  <!-- Title -->
   <div class="title">grave.lat</div>
+
+  <!-- Profile Picture -->
   <div class="pfp">
     <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" alt="profile" />
   </div>
 
-  <div id="terminal">
-    <pre id="terminal-output">Type </pre>
-    <div class="terminal-input">
-      <span>@grave:</span><span id="current-dir">~</span>$ 
+  <!-- Social Links -->
+  <div class="socials">
+    <a href="https://t.me/expule" target="_blank">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPkzte-RM0l0epSz_kynH13dFcqEyne191RA&s" alt="Telegram" />
+    </a>
+    <a href="https://discord.com/users/expule" target="_blank">
+      <img src="https://img.freepik.com/premium-psd/discord-icon-isolated-white-background-social-media-app-button-logo-sign-symbol-front-view_989822-4786.jpg" alt="Discord" />
+    </a>
+    <a href="https://doxbin.com/user/lucent" target="_blank">
+      <img src="https://m.media-amazon.com/images/I/41GfzwUnlXL._UXNaN_FMjpg_QL85_.jpg" alt="Doxbin" />
+    </a>
+  </div>
+
+  <!-- Terminal -->
+  <div class="terminal">
+    <div id="terminal-output">Type 'help' to begin...</div>
+    <div>
+      <span>user@grave:~$</span>
       <input type="text" id="command-input" autocomplete="off" autofocus />
     </div>
   </div>
 
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
