@@ -6,6 +6,57 @@
   <title>grave.lat</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .title {
+      color: #888; /* darker gray instead of bright white */
+      font-size: 3em;
+      font-family: 'Share Tech Mono', monospace;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .pfp img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      filter: grayscale(100%) contrast(120%);
+    }
+    .socials img {
+      width: 40px;
+      height: 40px;
+      margin: 0 10px;
+      filter: brightness(0) invert(1); /* make icons white on black */
+    }
+    .music-player {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+    }
+    .music-player button {
+      font-family: 'Share Tech Mono', monospace;
+    }
+    #412801380 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    #412801380 button {
+      padding: 10px 20px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 16px;
+      background: #000;
+      color: #fff;
+      border: 1px solid #fff;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <!-- Stars background -->
@@ -22,23 +73,23 @@
   <div class="music-player">
     <button id="music-toggle">MUSIC</button>
     <audio id="bg-music" loop>
-      <source src="https://soundcloud.com/linaah-412801380/everynite"audio/mpeg">
+      <source src="everynite.mp3" type="audio/mpeg">
     </audio>
   </div>
 
   <!-- Title & PFP -->
   <div class="title glitch" data-text="𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕">𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕</div>
-  <div class="pfp">
+  <div class="pfp" style="text-align:center;">
     <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" alt="profile" />
   </div>
 
   <!-- Social Links -->
-  <div class="socials">
+  <div class="socials" style="text-align:center;margin-top:20px;">
     <a href="https://t.me/expule" target="_blank">
-      <img src="https://i.pinimg.com/736x/79/c3/15/79c315509d714f25c500ede412d38de7.jpg" />
+      <img src="/mnt/data/79157741-95a8-4adc-89aa-c8d277790fa3.png" alt="Telegram" />
     </a>
     <a href="https://discord.com/users/expule" target="_blank">
-      <img src="https://i.pinimg.com/originals/5b/d3/76/5bd376d4098adbe81e5f5f0eb6d2f766.png" alt="Discord" />
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord" />
     </a>
     <a href="https://doxbin.com/user/lucent" target="_blank">
       <img src="https://m.media-amazon.com/images/I/41GfzwUnlXL._UXNaN_FMjpg_QL85_.jpg" alt="Doxbin" />
@@ -54,14 +105,14 @@
   <script>
     const music = document.getElementById("bg-music");
     const toggleBtn = document.getElementById("music-toggle");
-    const audioPrompt = document.getElementById("audio-prompt");
-    const audioButton = audioPrompt.querySelector("button");
+    const promptOverlay = document.getElementById("412801380");
+    const promptBtn = promptOverlay.querySelector("button");
 
-    audioButton.addEventListener("click", () => {
+    promptBtn.addEventListener("click", () => {
       music.volume = 0.5;
       music.play().catch(err => console.log("Autoplay blocked:", err));
-      audioPrompt.style.display = "none";
-      startTyping(); // trigger terminal text
+      promptOverlay.style.display = "none";
+      startTyping();
     });
 
     toggleBtn.addEventListener("click", () => {
@@ -74,7 +125,6 @@
       }
     });
 
-    // Typing Effect
     const terminalOutput = document.getElementById("terminal-output");
     const lines = [
       "Initializing LAT protocol...",
