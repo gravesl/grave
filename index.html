@@ -4,345 +4,151 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Creepster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #000;
-      background-image: url("5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png");
-      background-repeat: repeat;
-      background-size: contain;
-      color: white;
+      background: #000 url("5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png") repeat;
       font-family: 'Share Tech Mono', monospace;
+      color: #00FF00;
     }
-
-    .title {
-      font-family: 'Creepster', cursive;
-      font-size: 3em;
-      text-align: center;
-      margin-top: 40px;
-      color: white;
-    }
-
-    .profile-card {
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 12px;
-      padding: 25px;
-      text-align: center;
-      width: 220px;
-      margin: 30px auto 10px auto;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-    }
-
-    .profile-pic {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #333;
-      margin-bottom: 10px;
-    }
-
-    .username {
-      font-size: 1.4em;
-      color: #ddd;
-    }
-
-    .role {
-      font-size: 0.85em;
-      color: #888;
-    }
-
-    .icon {
-      font-size: 1.2em;
-      margin-top: 5px;
-    }
-
-    .socials {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    .socials a {
-      color: #a282f3;
-      text-decoration: none;
-      margin: 0 8px;
-    }
-
-    .terminal {
-      margin: 40px auto;
-      width: 80%;
-      max-width: 600px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 20px;
-      border: 1px solid #444;
-    }
-
-    #terminal-output {
-      min-height: 120px;
-      margin-bottom: 5px;
-      white-space: pre-wrap;
-    }
-
-    #command-input {
-      background: none;
-      border: none;
-      color: #fff;
-      font-family: inherit;
-      width: calc(100% - 100px);
-      outline: none;
-    }
-
-    #boot-screen, #login-screen, #enter-screen {
+    #login-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       background: black;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      color: lime;
-      z-index: 9999;
-      font-size: 1.5em;
-      font-family: 'Share Tech Mono', monospace;
+      align-items: center;
+      flex-direction: column;
+      z-index: 999;
     }
-
-    #boot-screen.hidden, #login-screen.hidden, #enter-screen.hidden {
+    #login-box {
+      background: rgba(0,0,0,0.85);
+      border: 1px solid #0f0;
+      padding: 20px;
+      box-shadow: 0 0 10px #0f0;
+    }
+    #login-title {
+      margin-bottom: 12px;
+      font-size: 1.2em;
+      border-right: 2px solid #0f0;
+      width: fit-content;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(22) forwards, blink 0.7s step-end infinite;
+    }
+    input, button {
+      background: black;
+      border: 1px solid #0f0;
+      color: #0f0;
+      margin-top: 6px;
+      padding: 6px;
+      width: 200px;
+    }
+    #login-error {
+      color: red;
+      margin-top: 10px;
       display: none;
     }
-
-    #login-screen input, #login-screen button {
-      margin: 4px;
-      font-family: 'Share Tech Mono', monospace;
-      padding: 6px;
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
     }
-
-    .music-player {
-      position: fixed;
-      top: 8px;
-      left: 8px;
-      z-index: 10000;
-    }
-
-    #music-toggle {
-      font-family: 'Share Tech Mono', monospace;
-      padding: 4px 8px;
-      background: #000;
-      color: #fff;
-      border: 1px solid #555;
-      cursor: pointer;
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
   </style>
 </head>
 <body>
-  <!-- BOOT SCREEN -->
-  <div id="boot-screen" class="hidden">
-    Booting grave.lat<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
-  </div>
-
-  <!-- LOGIN -->
   <div id="login-screen">
-    grave.lat login<br>
-    <input id="login-user" placeholder="Username" />
-    <input id="login-pass" placeholder="Password" type="password" />
-    <label><input type="checkbox" id="remember-me" /> Remember me</label>
-    <button onclick="login()">Login</button>
-  </div>
-
-  <!-- ENTER BUTTON -->
-  <div id="enter-screen" class="hidden">
-    <button onclick="startSite()">Click to Enter</button>
-  </div>
-
-  <!-- MUSIC PLAYER -->
-  <div class="music-player">
-    <button id="music-toggle">MUSIC</button>
-    <audio id="bg-music" loop>
-      <source src="everynite.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="beep-sound">
-      <source src="beep.mp3" type="audio/mpeg" />
-    </audio>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div id="main-site" class="hidden">
-    <div class="title">grave.lat</div>
-
-    <div class="profile-card">
-      <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" class="profile-pic" />
-      <div class="username">Grave</div>
-      <div class="role">Founder</div>
-      <div class="icon">🐶</div>
+    <div id="login-box">
+      <div id="login-title">grave.lat login</div>
+      <input type="text" id="login-user" placeholder="Username">
+      <input type="password" id="login-pass" placeholder="Password">
+      <label><input type="checkbox" id="remember-me"> Remember me</label><br>
+      <button onclick="login()">Login</button>
+      <div id="login-error"></div>
     </div>
+  </div>
 
-    <div class="socials">
-      <a href="https://t.me/expule" target="_blank">telegram</a> |
-      <a href="https://discord.com/users/expule" target="_blank">discord</a> |
-      <a href="https://doxbin.com/user/lucent" target="_blank">doxbin</a>
-    </div>
-
+  <div id="main-site" style="display:none; padding: 20px;">
+    <h1>Welcome to grave.lat</h1>
+    <div id="welcome-msg"></div>
     <div class="terminal">
       <div id="terminal-output"></div>
-      <div><span>user@grave:~$ </span><input type="text" id="command-input" /></div>
+      <div><span>user@grave:~$ </span><input type="text" id="command-input"></div>
     </div>
   </div>
 
-  <!-- SCRIPT -->
   <script>
-    const music = document.getElementById("bg-music");
-    const beep = document.getElementById("beep-sound");
-    const loginScreen = document.getElementById("login-screen");
-    const enterScreen = document.getElementById("enter-screen");
-    const mainSite = document.getElementById("main-site");
-    const rememberMe = document.getElementById("remember-me");
-    const musicToggle = document.getElementById("music-toggle");
+    const users = {
+      grave: { password: "lat", role: "Founder" },
+      lucent: { password: "twilight", role: "Admin" },
+      expule: { password: "night", role: "Guest" }
+    };
+    const LOCKOUT_TIME = 5000;
+    let attempts = 0;
+    let lockedOutUntil = null;
+
+    const errorBox = document.getElementById("login-error");
+    const userField = document.getElementById("login-user");
+    const passField = document.getElementById("login-pass");
+    const loginBtn = document.querySelector("#login-box button");
 
     function login() {
-      if (rememberMe.checked) localStorage.setItem("loggedIn", "true");
-      loginScreen.classList.add("hidden");
-      enterScreen.classList.remove("hidden");
-    }
+      const now = Date.now();
+      if (lockedOutUntil && now < lockedOutUntil) {
+        const secondsLeft = Math.ceil((lockedOutUntil - now) / 1000);
+        showError(`SYSTEM LOCKED — Try again in ${secondsLeft} seconds`);
+        return;
+      }
 
-    function startSite() {
-      enterScreen.classList.add("hidden");
-      document.getElementById("boot-screen").classList.remove("hidden");
-      beep.play().catch(() => {});
+      const user = userField.value.trim().toLowerCase();
+      const pass = passField.value.trim();
 
-      setTimeout(() => {
-        document.getElementById("boot-screen").classList.add("hidden");
-        mainSite.classList.remove("hidden");
-        music.volume = 0.5;
-        music.play().catch(() => {});
-        startTyping();
-      }, 3000);
-    }
-
-    if (localStorage.getItem("loggedIn") === "true") {
-      loginScreen.classList.add("hidden");
-      enterScreen.classList.remove("hidden");
-    }
-
-    musicToggle.addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-        musicToggle.textContent = "PAUSE";
+      if (users[user] && users[user].password === pass) {
+        localStorage.setItem("loggedIn", user);
+        loadSite(user);
       } else {
-        music.pause();
-        musicToggle.textContent = "MUSIC";
-      }
-    });
-
-    const terminalOutput = document.getElementById("terminal-output");
-    const commandInput = document.getElementById("command-input");
-
-    const lines = [
-      "Initializing LAT protocol...",
-      "Loading grave.lat...",
-      "Connection established.",
-      "Welcome, wanderer.",
-      "Type 'help' to explore."
-    ];
-    let currentLine = 0;
-
-    function startTyping() {
-      if (currentLine >= lines.length) return;
-      let line = lines[currentLine];
-      let i = 0;
-      const interval = setInterval(() => {
-        terminalOutput.innerHTML += line[i++];
-        if (i >= line.length) {
-          terminalOutput.innerHTML += "<br>";
-          clearInterval(interval);
-          currentLine++;
-          setTimeout(startTyping, 500);
+        attempts++;
+        if (attempts >= 3) {
+          lockedOutUntil = now + LOCKOUT_TIME;
+          showError("SYSTEM LOCKED — Try again in 5 seconds");
+        } else {
+          showError("ACCESS DENIED");
         }
-      }, 40);
+      }
     }
 
-    commandInput.addEventListener("keydown", function(e) {
+    function showError(msg) {
+      errorBox.style.display = "block";
+      errorBox.textContent = msg;
+    }
+
+    function loadSite(username) {
+      const role = users[username].role;
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("main-site").style.display = "block";
+      document.getElementById("welcome-msg").textContent = `Logged in as: ${username} (${role})`;
+    }
+
+    if (localStorage.getItem("loggedIn")) {
+      const savedUser = localStorage.getItem("loggedIn");
+      if (users[savedUser]) loadSite(savedUser);
+    }
+
+    document.getElementById("command-input").addEventListener("keydown", function(e) {
       if (e.key === "Enter") {
-        const cmd = this.value.trim().toLowerCase();
-        printLine(`user@grave:~$ ${cmd}`);
+        const cmd = this.value.trim();
+        const output = document.getElementById("terminal-output");
+        output.innerHTML += `\nuser@grave:~$ ${cmd}`;
+        if (cmd === "help") output.innerHTML += `\nAvailable commands: help, clear`;
+        else if (cmd === "clear") output.innerHTML = "";
+        else output.innerHTML += `\nCommand not recognized: ${cmd}`;
         this.value = "";
-
-        switch (cmd) {
-          case "help":
-            typeOut("Commands: help, whoami, ascii, lat, grave, telegram, discord, doxbin, clear, exit, logout");
-            break;
-          case "whoami":
-            typeOut("grave");
-            break;
-          case "ascii":
-            typeOut("𝖌𝖗𝖆𝖛𝖊.𝖑𝖆𝖙");
-            break;
-          case "lat":
-            typeOut("LOST AFTER THOUGHT");
-            break;
-          case "grave":
-            typeOut("Founder of LAT.");
-            break;
-          case "clear":
-            terminalOutput.innerHTML = "";
-            break;
-          case "exit":
-            typeOut("Session terminated.");
-            break;
-          case "logout":
-            typeOut("[+] Logging out...");
-            localStorage.removeItem("loggedIn");
-            setTimeout(() => location.reload(), 1500);
-            break;
-          case "telegram":
-            window.open("https://t.me/expule", "_blank");
-            typeOut("Opening Telegram...");
-            break;
-          case "discord":
-            window.open("https://discord.com/users/expule", "_blank");
-            typeOut("Opening Discord...");
-            break;
-          case "doxbin":
-            window.open("https://doxbin.com/user/lucent", "_blank");
-            typeOut("Opening Doxbin...");
-            break;
-          default:
-            typeOut(`Command not found: ${cmd}`);
-        }
-
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
-      }
-    });
-
-    function printLine(text) {
-      terminalOutput.innerHTML += `<div>${text}</div>`;
-    }
-
-    function typeOut(text) {
-      let i = 0;
-      const div = document.createElement("div");
-      terminalOutput.appendChild(div);
-      const interval = setInterval(() => {
-        div.textContent += text[i++];
-        if (i >= text.length) clearInterval(interval);
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
-      }, 15);
-    }
-
-    // Disable Inspect
-    document.addEventListener("contextmenu", e => e.preventDefault());
-    document.addEventListener("keydown", function (e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key.toUpperCase() === "U")
-      ) {
-        e.preventDefault();
-        alert("🔒 DevTools are disabled on this page.");
+        output.scrollTop = output.scrollHeight;
       }
     });
   </script>
