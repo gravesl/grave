@@ -7,50 +7,20 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
 .tagline {
   position: absolute;
-  top: 20px;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 12px;
   color: #777;
   letter-spacing: 1px;
-}
-
-.center {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.domain {
-  font-size: 72px;
-  color: white;
-  margin-bottom: 10px;
-}
-
-.user {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.name {
-  font-size: 18px;
-  color: #aaa;
-  margin-bottom: 6px;
-}
-
-.pfp {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #444;
 }
 
 .music-toggle {
@@ -68,3 +38,24 @@ body {
   cursor: pointer;
   font-family: 'Share Tech Mono', monospace;
 }
+
+.center {
+  text-align: center;
+}
+
+.domain {
+  font-size: 64px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.user .name {
+  font-size: 18px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.pfp {
+  width: 64px;
+  height: 64px;
+  border
