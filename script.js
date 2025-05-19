@@ -48,3 +48,38 @@ boot.addEventListener("click", () => {
     menu.classList.remove("hidden");
   }
 });
+const terminalLog = document.getElementById("terminal-log");
+const terminalForm = document.getElementById("terminal-form");
+const terminalInput = document.getElementById("terminal-input");
+
+terminalForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const command = terminalInput.value.trim();
+  terminalInput.value = "";
+
+  appendToTerminal(`> ${command}`);
+
+  switch (command.toLowerCase()) {
+    case "help":
+      appendToTerminal("Available commands:\n- lat --meaning\n- cat about.txt\n- contact\n- clear");
+      break;
+    case "lat --meaning":
+      appendToTerminal("LAT = Lost After Thought (or) Lurking At Twilight.");
+      break;
+    case "cat about.txt":
+      appendToTerminal("This is a digital grave. Echoes of memory, code, and curiosity.");
+      break;
+    case "contact":
+      appendToTerminal("Email: echo@grave.lat");
+      break;
+    case "clear":
+      terminalLog.textContent = "";
+      break;
+    default:
+      appendToTerminal("Command not found. Type 'help' to see available commands.");
+  }
+});
+
+function appendToTerminal(text) {
+  terminalLog.textContent += text + "\n";
+}
