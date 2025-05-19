@@ -35,9 +35,13 @@ body {
   z-index: 3;
 }
 
-.music-player audio {
-  margin-top: 5px;
-  width: 140px;
+#music-toggle {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  padding: 4px 10px;
+  font-family: 'Share Tech Mono', monospace;
+  cursor: pointer;
 }
 
 .title {
@@ -45,6 +49,7 @@ body {
   color: white;
   z-index: 2;
   text-align: center;
+  font-family: 'Share Tech Mono', monospace;
 }
 
 .pfp {
