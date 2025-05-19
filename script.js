@@ -1,24 +1,23 @@
 const music = document.getElementById("bg-music");
-const toggleButton = document.getElementById("music-toggle");
+const toggleBtn = document.getElementById("music-toggle");
 
-// Toggle music on button click
-toggleButton.addEventListener("click", () => {
+// Toggle play/pause
+function toggleMusic() {
   if (music.paused) {
     music.play();
-    toggleButton.textContent = "MUSIC — PAUSE";
+    toggleBtn.innerText = "PAUSE";
   } else {
     music.pause();
-    toggleButton.textContent = "MUSIC — PLAY";
+    toggleBtn.innerText = "MUSIC";
   }
-});
+}
+
+toggleBtn.addEventListener("click", toggleMusic);
 
 // Try autoplay on load
 window.addEventListener("load", () => {
   music.volume = 0.5;
-  music.play().then(() => {
-    toggleButton.textContent = "MUSIC — PAUSE";
-  }).catch(() => {
-    console.log("Autoplay prevented. Waiting for user interaction.");
-    toggleButton.textContent = "MUSIC — PLAY";
+  music.play().catch(() => {
+    console.log("Autoplay prevented. User interaction required.");
   });
 });
