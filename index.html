@@ -4,8 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Creepster&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url("hjkhjk.png") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .title {
+      font-family: 'Creepster', cursive;
+      font-size: 3em;
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+    }
+
+    .profile-card {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      width: 220px;
+      margin: 20px auto;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      font-family: 'Share Tech Mono', monospace;
+      backdrop-filter: blur(10px);
+    }
+
+    .profile-card .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #444;
+      margin-bottom: 15px;
+    }
+
+    .profile-card .username {
+      font-size: 1.4em;
+      color: #ddd;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .profile-card .role {
+      font-size: 0.9em;
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    .profile-card .icon {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #ccc;
+    }
+  </style>
 </head>
 <body>
   <!-- Login Screen -->
@@ -31,15 +89,26 @@
 
   <!-- Main Site -->
   <div id="main-site" class="hidden">
-    <div class="title glitch" data-text="𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕">𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕</div>
+    <div class="title">grave.lat</div>
+
     <div class="pfp" style="text-align:center;">
-      <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" />
+      <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" style="width:120px;border-radius:50%;margin-top:20px;" />
     </div>
-    <div class="socials">
-      <a href="https://t.me/expule" target="_blank" class="link">telegram</a>
-      <a href="https://discord.com/users/expule" target="_blank" class="link">discord</a>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+      <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" alt="Profile Picture" class="profile-pic">
+      <h2 class="username">Grave</h2> 
+      <p class="role">Founder</p>
+      <div class="icon">🐶</div>
+    </div>
+
+    <div class="socials" style="text-align:center;margin-bottom:20px;">
+      <a href="https://t.me/expule" target="_blank" class="link">telegram</a> |
+      <a href="https://discord.com/users/expule" target="_blank" class="link">discord</a> |
       <a href="https://doxbin.com/user/lucent" target="_blank" class="link">doxbin</a>
     </div>
+
     <div class="terminal">
       <div id="terminal-output"></div>
       <div><span>user@grave:~$</span><input type="text" id="command-input" /></div>
@@ -151,7 +220,7 @@
           typeOut("Session terminated.");
           break;
         case "logout":
-          typeOut("[+] Session cleared.\\n[+] Logging out...");
+          typeOut("[+] Session cleared.\n[+] Logging out...");
           localStorage.removeItem("loggedIn");
           setTimeout(() => location.reload(), 1500);
           break;
@@ -202,13 +271,10 @@
     }, 15);
   }
 </script>
-</body>
-</html>
-<script>
-  // Disable right-click
-  document.addEventListener("contextmenu", event => event.preventDefault());
 
-  // Disable common DevTools keys
+<!-- Disable Inspect -->
+<script>
+  document.addEventListener("contextmenu", e => e.preventDefault());
   document.addEventListener("keydown", function (e) {
     if (
       e.key === "F12" ||
@@ -220,3 +286,5 @@
     }
   });
 </script>
+</body>
+</html>
