@@ -6,112 +6,19 @@
   <title>grave.lat</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      margin: 0;
-      background: black;
-      color: white;
-      font-family: 'Share Tech Mono', monospace;
-      overflow: hidden;
-    }
-
-    .music-player {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 10;
-    }
-
-    .title {
-      text-align: center;
-      font-size: 3em;
-      margin-top: 20vh;
-    }
-
-    .pfp {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .pfp img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 2px solid white;
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      gap: 20px;
-    }
-
-    .socials img {
-      width: 40px;
-      height: 40px;
-    }
-
-    #audio-prompt {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    #audio-prompt button {
-      padding: 10px 20px;
-      font-size: 18px;
-      background: black;
-      color: white;
-      border: 1px solid white;
-      cursor: pointer;
-    }
-
-    .terminal {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-    }
-
-    .terminal input {
-      background: black;
-      color: white;
-      border: none;
-      border-bottom: 1px solid white;
-      font-family: inherit;
-      font-size: 1em;
-      width: 50%;
-      text-align: left;
-    }
-
-    .stars {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: black;
-      z-index: -1;
-    }
-  </style>
 </head>
 <body>
-  <!-- Star Background -->
+  <!-- Stars background -->
   <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
 
-  <!-- Click to Start Prompt -->
+  <!-- Click to Enter Overlay -->
   <div id="audio-prompt">
     <button>Click to Enter</button>
   </div>
 
-  <!-- Music Player -->
+  <!-- Music Toggle -->
   <div class="music-player">
     <button id="music-toggle">MUSIC</button>
     <audio id="bg-music" loop>
@@ -119,15 +26,13 @@
     </audio>
   </div>
 
-  <!-- Title -->
-  <div class="title">𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕</div>
-
-  <!-- Profile Picture -->
+  <!-- Title & PFP -->
+  <div class="title glitch" data-text="𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕">𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕</div>
   <div class="pfp">
     <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" alt="profile" />
   </div>
 
-  <!-- Socials -->
+  <!-- Social Links -->
   <div class="socials">
     <a href="https://t.me/expule" target="_blank">
       <img src="https://i.pinimg.com/736x/79/c3/15/79c315509d714f25c500ede412d38de7.jpg" alt="Telegram" />
@@ -140,16 +45,12 @@
     </a>
   </div>
 
-  <!-- Terminal Interface -->
+  <!-- Terminal -->
   <div class="terminal">
-    <div id="terminal-output">Type 'help' to begin...</div>
-    <div>
-      <span>user@grave:~$</span>
-      <input type="text" id="command-input" autocomplete="off" autofocus />
-    </div>
+    <div id="terminal-output"></div>
+    <div><span>user@grave:~$</span><input type="text" id="command-input" autocomplete="off" /></div>
   </div>
 
-  <!-- JS Logic -->
   <script>
     const music = document.getElementById("bg-music");
     const toggleBtn = document.getElementById("music-toggle");
@@ -158,11 +59,9 @@
 
     audioButton.addEventListener("click", () => {
       music.volume = 0.5;
-      music.play().then(() => {
-        audioPrompt.style.display = "none";
-      }).catch(err => {
-        console.log("Playback error:", err);
-      });
+      music.play().catch(err => console.log("Autoplay blocked:", err));
+      audioPrompt.style.display = "none";
+      startTyping(); // trigger terminal text
     });
 
     toggleBtn.addEventListener("click", () => {
@@ -174,6 +73,32 @@
         toggleBtn.textContent = "MUSIC";
       }
     });
+
+    // Typing Effect
+    const terminalOutput = document.getElementById("terminal-output");
+    const lines = [
+      "Initializing LAT protocol...",
+      "Loading grave.lat...",
+      "Connection established.",
+      "Welcome, wanderer.",
+      "Type 'help' to explore."
+    ];
+    let currentLine = 0;
+
+    function startTyping() {
+      if (currentLine >= lines.length) return;
+      let line = lines[currentLine];
+      let i = 0;
+      const interval = setInterval(() => {
+        terminalOutput.innerHTML += line[i++];
+        if (i >= line.length) {
+          terminalOutput.innerHTML += "<br>";
+          clearInterval(interval);
+          currentLine++;
+          setTimeout(startTyping, 500);
+        }
+      }, 40);
+    }
   </script>
 </body>
 </html>
