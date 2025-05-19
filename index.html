@@ -6,24 +6,116 @@
   <title>grave.lat</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: 'Share Tech Mono', monospace;
+      overflow: hidden;
+    }
+
+    .music-player {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 3em;
+      margin-top: 20vh;
+    }
+
+    .pfp {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .pfp img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 20px;
+    }
+
+    .socials img {
+      width: 40px;
+      height: 40px;
+    }
+
+    #audio-prompt {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #audio-prompt button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background: black;
+      color: white;
+      border: 1px solid white;
+      cursor: pointer;
+    }
+
+    .terminal {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .terminal input {
+      background: black;
+      color: white;
+      border: none;
+      border-bottom: 1px solid white;
+      font-family: inherit;
+      font-size: 1em;
+      width: 50%;
+      text-align: left;
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
   <!-- Star Background -->
   <div class="stars"></div>
 
-  <!-- Click to Start Prompt (unblocks music autoplay) -->
-  <div id="audio-prompt" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;z-index:100;">
-    <button style="padding:10px 20px;font-family:'Share Tech Mono', monospace;font-size:16px;background:#000;color:#fff;border:1px solid #fff;cursor:pointer;">
-      Click to Enter
-    </button>
+  <!-- Click to Start Prompt -->
+  <div id="audio-prompt">
+    <button>Click to Enter</button>
   </div>
 
   <!-- Music Player -->
   <div class="music-player">
-    <button id="music-toggle">Music</button>
+    <button id="music-toggle">MUSIC</button>
     <audio id="bg-music" loop>
       <source src="everynite.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
     </audio>
   </div>
 
@@ -57,39 +149,13 @@
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script<script>
-  const music = document.getElementById("bg-music");
-  const toggleBtn = document.getElementById("music-toggle");
-  const audioPrompt = document.getElementById("audio-prompt");
-  const audioButton = audioPrompt.querySelector("button");
-
-  // Click to start (with fallback)
-  audioButton.addEventListener("click", () => {
-    audioPrompt.style.display = "none"; // Always hide the prompt
-    music.volume = 0.5;
-    music.play().catch(err => {
-      console.log("⚠️ Music failed to autoplay:", err);
-    });
-  });
-
-  toggleBtn.addEventListener("click", () => {
-    if (music.paused) {
-      music.play();
-      toggleBtn.textContent = "PAUSE";
-    } else {
-      music.pause();
-      toggleBtn.textContent = "MUSIC";
-    }
-  });
-</script>
->
+  <!-- JS Logic -->
+  <script>
     const music = document.getElementById("bg-music");
     const toggleBtn = document.getElementById("music-toggle");
     const audioPrompt = document.getElementById("audio-prompt");
     const audioButton = audioPrompt.querySelector("button");
 
-    // Start music manually on user click
     audioButton.addEventListener("click", () => {
       music.volume = 0.5;
       music.play().then(() => {
@@ -99,7 +165,6 @@
       });
     });
 
-    // Toggle music button
     toggleBtn.addEventListener("click", () => {
       if (music.paused) {
         music.play();
@@ -110,6 +175,5 @@
       }
     });
   </script>
-  <script src="script.js"></script>
 </body>
 </html>
