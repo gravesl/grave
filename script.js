@@ -28,9 +28,11 @@ toggleBtn.addEventListener("click", () => {
   if (music.paused) {
     music.play();
     toggleBtn.textContent = "PAUSE";
+    printLine("Music playing");
   } else {
     music.pause();
     toggleBtn.textContent = "MUSIC";
+    printLine("Music paused");
   }
 });
 
@@ -56,6 +58,11 @@ commandInput.addEventListener("keydown", function (e) {
   }
 });
 
+function printLine(text) {
+  terminalOutput.textContent += `${text}\n`;
+  terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
 function processCommand(cmd) {
   const prompt = `user@grave:${currentDir}$`;
   let output = `${prompt} ${cmd}\n`;
@@ -77,6 +84,10 @@ function processCommand(cmd) {
       break;
     case "cd":
       const target = args[1];
+      if (!target) {
+        output += "Usage: cd <directory>";
+        break;
+      }
       if (target === "..") {
         currentDir = "/";
       } else {
@@ -90,12 +101,23 @@ function processCommand(cmd) {
       break;
     case "cat":
       const file = args[1];
+      if (!file) {
+        output += "Usage: cat <file>";
+        break;
+      }
       const fullPath = currentDir === "/" ? `/${file}` : `${currentDir}/${file}`;
       output += fileContents[fullPath] || `No such file: ${file}`;
       break;
     case "music":
-      music.paused ? music.play() : music.pause();
-      output += music.paused ? "Music paused" : "Music playing";
+      if (music.paused) {
+        music.play();
+        output += "Music playing";
+        toggleBtn.textContent = "PAUSE";
+      } else {
+        music.pause();
+        output += "Music paused";
+        toggleBtn.textContent = "MUSIC";
+      }
       break;
     case "clear":
       terminalOutput.textContent = "";
