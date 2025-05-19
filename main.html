@@ -55,6 +55,18 @@
       text-shadow: 0 0 10px red;
     }
 
+    .socials {
+      font-size: 0.9em;
+      color: #f00;
+      margin-top: 8px;
+      text-shadow: 0 0 4px red;
+      line-height: 1.5;
+    }
+
+    .socials span {
+      font-weight: bold;
+    }
+
     #terminal-output {
       white-space: pre-wrap;
       min-height: 300px;
@@ -84,7 +96,7 @@
 
   <!-- ASCII Art at the Top -->
   <pre class="ascii">
-  
+   
 ░██████╗░██████╗░░█████╗░██╗░░░██╗███████╗░░░██╗░░░░░░█████╗░████████╗
 ██╔════╝░██╔══██╗██╔══██╗██║░░░██║██╔════╝░░░██║░░░░░██╔══██╗╚══██╔══╝
 ██║░░██╗░██████╔╝███████║╚██╗░██╔╝█████╗░░░░░██║░░░░░███████║░░░██║░░░
@@ -100,6 +112,11 @@
   <div id="profile">
     <img src="https://i.pinimg.com/736x/29/81/9f/29819fccc85164586b9809c08905dfd7.jpg" alt="ɠrave">
     <span>ɠrave</span>
+    <div class="socials">
+      <div>Doxbin: <span>@lucent</span></div>
+      <div>Discord: <span>@expule</span></div>
+      <div>Telegram: <span>@exule</span></div>
+    </div>
   </div>
 
   <!-- Terminal Area -->
@@ -112,6 +129,7 @@
 
   <script>
     const terminalOutput = document.getElementById('terminal-output');
+    const terminalInput = document.getElementById('terminal-input');
 
     function printOutput(text) {
       const line = document.createElement('div');
@@ -120,7 +138,13 @@
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    const terminalInput = document.getElementById('terminal-input');
+    const loggedInUser = localStorage.getItem("loggedInUser") || "guest";
+
+    if (loggedInUser === "admin") {
+      printOutput("This is the personal terminal of ɠrave.");
+    } else {
+      printOutput("Guest access granted. Limited commands available.");
+    }
 
     function processCommand(cmd) {
       if (cmd === "") return;
@@ -134,7 +158,11 @@
           terminalOutput.innerHTML = "";
           break;
         case "about":
-          printOutput("This is the personal terminal of ɠrave.");
+          if (loggedInUser === "admin") {
+            printOutput("This is the personal terminal of ɠrave.");
+          } else {
+            printOutput("Guest terminal. Limited access.");
+          }
           break;
         case "exit":
           window.location.href = "index.html";
