@@ -1,1 +1,107 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grave.lat – Terminal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: black url('assets/images/5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png') center center fixed;
+      background-size: cover;
+      color: #f00;
+      font-family: Consolas, monospace;
+    }
+    #terminal-output {
+      white-space: pre-wrap;
+      min-height: 300px;
+    }
+    #terminal-input-area {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    #prompt { margin-right: 5px; }
+    #terminal-input {
+      flex: 1;
+      background: transparent;
+      color: #f00;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+    }
+    #terminal-input:focus { outline: none; }
+  </style>
+</head>
+<body>
+  <div id="terminal">
+    <div id="terminal-output"></div>
+    <div id="terminal-input-area">
+      <span id="prompt">user@grave:~$</span>
+      <input id="terminal-input" type="text" autocomplete="off" autofocus />
+    </div>
+  </div>
+  <script>
+    const terminalOutput = document.getElementById('terminal-output');
+    function printOutput(text) {
+      const line = document.createElement('div');
+      line.textContent = text;
+      terminalOutput.appendChild(line);
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+
+    printOutput("Welcome to grave.lat");
+    printOutput("Logged in as: grave (Founder)");
+
+    const promptSpan = document.getElementById('prompt');
+    const terminalInput = document.getElementById('terminal-input');
+
+    function processCommand(cmd) {
+      if (cmd === "") return;
+      printOutput(promptSpan.textContent + " " + cmd);
+      switch (cmd.toLowerCase()) {
+        case "help":
+          printOutput("Available commands: clear, help, about, exit");
+          break;
+        case "clear":
+          terminalOutput.innerHTML = "";
+          break;
+        case "about":
+          printOutput("This is the personal terminal of grave.");
+          break;
+        case "exit":
+          window.location.href = "index.html";
+          break;
+        default:
+          printOutput("Unknown command: " + cmd + " (type 'help' for options)");
+      }
+    }
+
+    terminalInput.addEventListener('keydown', function(e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const command = terminalInput.value.trim();
+        processCommand(command);
+        terminalInput.value = "";
+      }
+    });
+
+    // Dev tools & right click protection
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+
+    terminalInput.focus();
+  </script>
+</body>
+</html>
