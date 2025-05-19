@@ -1,3 +1,4 @@
+/* style.css */
 body {
   margin: 0;
   background: #000;
@@ -6,13 +7,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  padding-top: 5vh;
+  padding-top: 60px;
 }
 
+/* Background stars */
 .stars {
   position: absolute;
   width: 100%;
@@ -35,83 +37,81 @@ body {
   }
 }
 
+/* Music Controls */
 .music-player {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   z-index: 3;
 }
-
 #music-toggle {
   background: transparent;
   color: white;
   border: 1px solid white;
-  padding: 4px 10px;
+  padding: 5px 10px;
   font-family: 'Share Tech Mono', monospace;
   cursor: pointer;
 }
 
+/* Title */
 .title {
   font-size: 3em;
   color: white;
   z-index: 2;
   text-align: center;
-  margin-bottom: 10px;
   text-shadow: 0 0 5px #fff, 0 0 15px #fff;
 }
 
+/* Profile Picture */
 .pfp {
+  margin-top: 10px;
   z-index: 2;
-  margin-bottom: 10px;
 }
-
 .pfp img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   border: 1px solid #555;
+  object-fit: cover;
 }
 
+/* Social Links */
 .socials {
+  margin-top: 10px;
   display: flex;
-  gap: 15px;
-  margin-bottom: 30px;
+  gap: 10px;
   z-index: 2;
 }
-
 .socials img {
   width: 32px;
   height: 32px;
-  border-radius: 4px;
-  border: 1px solid #444;
-  transition: transform 0.2s ease;
+  border-radius: 5px;
+  border: 1px solid #333;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
-
 .socials img:hover {
   transform: scale(1.1);
+  filter: brightness(1.4);
 }
 
-#terminal {
-  width: 100%;
-  max-width: 600px;
-  margin: auto;
-  color: white;
-  font-size: 0.9em;
+/* Terminal */
+.terminal {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  font-size: 14px;
   z-index: 2;
 }
-
 #terminal-output {
-  white-space: pre-wrap;
-  padding: 10px;
-  min-height: 150px;
+  white-space: pre-line;
+  margin-bottom: 4px;
 }
-
 #command-input {
-  width: 80%;
-  background: black;
+  background: transparent;
   border: none;
-  color: white;
+  border-bottom: 1px solid #ccc;
+  color: #fff;
   font-family: inherit;
-  font-size: 1em;
   outline: none;
+  width: 200px;
 }
