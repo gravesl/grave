@@ -4,266 +4,246 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
+    /* Base styling */
     body {
       margin: 0;
       padding: 0;
-      background: #000 url("5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png") repeat;
-      font-family: 'Press Start 2P', monospace;
-      color: #00FF00;
+      background: black url('assets/images/5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png') center center fixed;
+      background-size: cover;
+      color: #f00;
+      font-family: Consolas, monospace;
     }
-
-    #boot-screen, #login-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 999;
+    h1, h2, h3, p {
+      margin: 0.5em 0;
     }
-
-    #login-screen {
-      animation: fadeIn 2s ease-in;
-    }
-
-    #boot-text {
-      white-space: pre-wrap;
+    /* Neon glow effect for text and borders */
+    .neon-text { text-shadow: 0 0 5px #f00; }
+    .neon-box  { box-shadow: 0 0 10px #f00; }
+    /* Boot screen text styling */
+    #boot-screen {
+      font-family: Consolas, monospace;
+      white-space: pre; /* Preserve whitespace and line breaks */
       padding: 20px;
     }
-
-    #login-box {
-      background: rgba(0, 0, 0, 0.85);
-      border: 1px solid #f00;
+    /* Login form styling */
+    #login-container {
+      display: none; /* hidden by default, will be shown after boot sequence */
+      border: 2px solid #f00;
       padding: 20px;
+      width: 400px;
+      max-width: 90%;
+      margin: 100px auto;
+      text-align: left;
       box-shadow: 0 0 10px #f00;
     }
-
-    #login-title {
-      margin-bottom: 12px;
-      font-size: 1.2em;
-      border-right: 2px solid #f00;
-      width: fit-content;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 3s steps(22) forwards, blink 0.7s step-end infinite;
-      color: #f00;
+    #login-container h2 {
+      margin-bottom: 1em;
     }
-
-    input, button {
+    form { margin: 0; }
+    form .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1em;
+    }
+    form .row input[type="text"],
+    form .row input[type="password"] {
+      width: 48%;
+    }
+    input[type="text"], input[type="password"] {
       background: black;
-      border: 1px solid #f00;
       color: #f00;
-      margin-top: 6px;
-      padding: 6px;
-      width: 200px;
+      border: 1px solid #f00;
+      padding: 5px;
+      font-family: Consolas, monospace;
     }
-
-    label {
+    input::placeholder { color: #888; }
+    input:focus { outline: none; }
+    button {
+      background: black;
+      color: #f00;
+      border: 1px solid #f00;
+      padding: 5px 15px;
+      font-family: Consolas, monospace;
+      cursor: pointer;
+    }
+    button:focus { outline: none; }
+    /* Terminal interface styling (hidden on this page, shown on main.html or after login) */
+    #terminal {
+      display: none;
+      padding: 20px;
+      font-family: Consolas, monospace;
+    }
+    #terminal-output {
+      white-space: pre-wrap;
+      min-height: 200px;
+    }
+    #terminal-input-area {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 10px;
+      margin-top: 5px;
+    }
+    #terminal-input-area #prompt { margin-right: 5px; }
+    #terminal-input {
+      flex: 1;
+      background: transparent;
       color: #f00;
+      border: none;
+      padding: 0;
+      font-family: inherit;
     }
-
-    #login-error {
-      color: red;
-      margin-top: 10px;
-      display: none;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(-2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(2px, -2px); }
-      100% { transform: translate(0); }
-    }
-
-    input:focus, button:focus {
-      animation: glitch 0.3s;
-    }
+    #terminal-input:focus { outline: none; }
   </style>
 </head>
 <body>
+  <!-- Boot screen text output (simulated boot sequence) -->
+  <div id="boot-screen"></div>
 
-<!-- Boot Screen -->
-<div id="boot-screen">
-  <div id="boot-text"></div>
-</div>
-
-<!-- Login Screen -->
-<div id="login-screen" style="display:none">
-  <form id="login-box" onsubmit="login(event)">
-    <div id="login-title">grave.lat login</div>
-    <input type="text" id="login-user" placeholder="Username" required>
-    <input type="password" id="login-pass" placeholder="Password" required>
-    <label><input type="checkbox" id="remember-me"> Remember me</label>
-    <button type="submit">Login</button>
-    <div id="login-error"></div>
-  </form>
-</div>
-
-<!-- Terminal Interface -->
-<div id="main-site" style="display:none; padding:20px">
-  <h1>Welcome to grave.lat</h1>
-  <div id="welcome-msg"></div>
-  <div class="terminal">
-    <div id="terminal-output" style="white-space:pre-wrap"></div>
-    <div><span>user@grave:~$ </span><input type="text" id="command-input" autocomplete="off"></div>
+  <!-- Login interface -->
+  <div id="login-container" class="neon-box">
+    <h2 class="neon-text">grave.lat login</h2>
+    <form id="login-form">
+      <div class="row">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="password" name="password" placeholder="Password" required />
+      </div>
+      <div class="row">
+        <button type="submit">Login</button>
+        <label><input type="checkbox" name="remember" /> Remember me</label>
+      </div>
+    </form>
   </div>
-</div>
 
-<!-- Audio -->
-<audio id="type-sound" src="type.mp3" preload="auto"></audio>
-<audio id="boot-sound" src="boot.mp3" preload="auto"></audio>
-<audio id="boot-hum" src="boot-hum.mp3" preload="auto" loop></audio>
-<audio id="glitch-sound" src="glitch.mp3" preload="auto"></audio>
+  <!-- (Optional: Terminal interface could be embedded here if using one-page approach)
+       For multi-page approach, the terminal interface is in main.html -->
+  <div id="terminal">
+    <div id="terminal-output"></div>
+    <div id="terminal-input-area">
+      <span id="prompt">user@grave:~$</span>
+      <input id="terminal-input" type="text" autocomplete="off" />
+    </div>
+  </div>
 
-<script>
-const users = {
-  grave: { password: "lat", role: "Founder" },
-  lucent: { password: "twilight", role: "Admin" },
-  expule: { password: "night", role: "Guest" }
-};
+  <script>
+    // Audio elements for effects
+    const bootHumAudio = new Audio('assets/sounds/boot-hum.mp3');
+    const bootBeepAudio = new Audio('assets/sounds/boot.mp3');
+    const typeAudio    = new Audio('assets/sounds/type.mp3');
+    const glitchAudio  = new Audio('assets/sounds/glitch.mp3');
+    bootHumAudio.loop = true;
+    // Note: Browsers may block autoplay audio. Audio will play if allowed.
 
-const LOCKOUT_TIME = 5000;
-let attempts = 0;
-let lockedOutUntil = null;
+    // Boot sequence lines to display
+    const bootLines = [
+      "Booting GraveOS v0.1 ...",
+      "Loading modules .......... [OK]",
+      "Initializing systems ..... [OK]",
+      "Establishing secure link . [OK]",
+      "Welcome, user",
+      "Starting interface ..."
+    ];
+    const bootScreenEl   = document.getElementById('boot-screen');
+    const loginContainer = document.getElementById('login-container');
+    const loginForm      = document.getElementById('login-form');
 
-const fileSystem = {
-  '/': ['notes.txt', 'ghosts.log', 'music.mp3'],
-  '/notes.txt': 'Don\'t trust the light. It blinds you to the real horrors.',
-  '/ghosts.log': '13:00 - Unusual presence detected\n03:13 - Motion in sealed server room.'
-};
-
-const bootText = `Initializing grave.lat ...\nLoading system modules...\nVerifying user shell...\n\nReady.`;
-let i = 0;
-const bootOutput = document.getElementById("boot-text");
-const typeSound = document.getElementById("type-sound");
-const bootSound = document.getElementById("boot-sound");
-const bootHum = document.getElementById("boot-hum");
-const glitchSound = document.getElementById("glitch-sound");
-
-function typeBoot() {
-  if (i < bootText.length) {
-    bootOutput.textContent += bootText.charAt(i);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    i++;
-    setTimeout(typeBoot, 50);
-  } else {
-    bootSound.play();
-    bootHum.play();
-    setTimeout(() => {
-      document.getElementById("boot-screen").style.display = "none";
-      document.getElementById("login-screen").style.display = "flex";
-    }, 800);
-  }
-}
-
-window.onload = typeBoot;
-
-document.querySelectorAll("input, button").forEach(input => {
-  input.addEventListener("focus", () => {
-    glitchSound.currentTime = 0;
-    glitchSound.play();
-  });
-});
-
-function login(event) {
-  event.preventDefault();
-  const now = Date.now();
-  const user = document.getElementById("login-user").value.trim().toLowerCase();
-  const pass = document.getElementById("login-pass").value.trim();
-  const errorBox = document.getElementById("login-error");
-
-  if (lockedOutUntil && now < lockedOutUntil) {
-    const secondsLeft = Math.ceil((lockedOutUntil - now) / 1000);
-    errorBox.textContent = `SYSTEM LOCKED — Try again in ${secondsLeft} seconds`;
-    errorBox.style.display = "block";
-    return;
-  }
-
-  if (users[user] && users[user].password === pass) {
-    if (document.getElementById("remember-me").checked) {
-      localStorage.setItem("loggedIn", user);
-    } else {
-      localStorage.removeItem("loggedIn");
-    }
-    loadSite(user);
-  } else {
-    attempts++;
-    if (attempts >= 3) {
-      lockedOutUntil = now + LOCKOUT_TIME;
-      errorBox.textContent = "SYSTEM LOCKED — Try again in 5 seconds";
-    } else {
-      errorBox.textContent = "ACCESS DENIED";
-    }
-    errorBox.style.display = "block";
-  }
-}
-
-function loadSite(username) {
-  const role = users[username].role;
-  document.getElementById("login-screen").style.display = "none";
-  document.getElementById("main-site").style.display = "block";
-  document.getElementById("welcome-msg").textContent = `Logged in as: ${username} (${role})`;
-}
-
-const savedUser = localStorage.getItem("loggedIn");
-if (savedUser && users[savedUser]) loadSite(savedUser);
-
-let currentPath = "/";
-document.getElementById("command-input").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") {
-    const cmd = this.value.trim();
-    const output = document.getElementById("terminal-output");
-    output.innerHTML += `\nuser@grave:${currentPath}$ ${cmd}`;
-
-    if (cmd === "help") {
-      output.innerHTML += `\nCommands: help, clear, ls, cd [dir], cat [file]`;
-    } else if (cmd === "clear") {
-      output.innerHTML = "";
-    } else if (cmd === "ls") {
-      output.innerHTML += `\n${fileSystem[currentPath].join("  ")}`;
-    } else if (cmd.startsWith("cd ")) {
-      const dir = cmd.split(" ")[1];
-      if (dir === "..") currentPath = "/";
-      else if (fileSystem[`/${dir}`]) currentPath = `/${dir}`;
-      else output.innerHTML += `\nNo such directory: ${dir}`;
-    } else if (cmd.startsWith("cat ")) {
-      const file = cmd.split(" ")[1];
-      const key = `${currentPath}/${file}`.replace("//", "/");
-      if (fileSystem[key]) output.innerHTML += `\n${fileSystem[key]}`;
-      else output.innerHTML += `\nCannot read file: ${file}`;
-    } else {
-      output.innerHTML += `\nCommand not recognized: ${cmd}`;
+    // Type out a line with a glitchy typing effect
+    function typeLine(line, callback) {
+      let i = 0;
+      function typeChar() {
+        if (i < line.length) {
+          // Append next character
+          bootScreenEl.textContent += line.charAt(i);
+          // Occasionally insert a glitch character for effect
+          if (Math.random() < 0.1) {
+            const glitchChars = "#$%@&?";
+            const originalChar = line.charAt(i);
+            bootScreenEl.textContent = bootScreenEl.textContent.slice(0, -1) + glitchChars.charAt(Math.floor(Math.random()*glitchChars.length));
+            setTimeout(() => {
+              // Replace glitch char with the correct char
+              bootScreenEl.textContent = bootScreenEl.textContent.slice(0, -1) + originalChar;
+            }, 100);
+            glitchAudio.play();
+          } else {
+            typeAudio.play();
+          }
+          i++;
+          setTimeout(typeChar, 50 + Math.random()*100); // random speed for realism
+        } else {
+          bootScreenEl.textContent += "\n"; // New line after finishing the line
+          if (callback) callback();
+        }
+      }
+      typeChar();
     }
 
-    this.value = "";
-    output.scrollTop = output.scrollHeight;
-  }
-});
-</script>
+    // Start the boot sequence typing for each line
+    function startBootSequence() {
+      bootHumAudio.play();
+      let index = 0;
+      function nextLine() {
+        if (index < bootLines.length) {
+          const line = bootLines[index++];
+          typeLine(line, nextLine);
+        } else {
+          // Boot sequence finished
+          bootBeepAudio.play();
+          // After a short delay, trigger glitch transition to login screen
+          setTimeout(glitchTransition, 500);
+        }
+      }
+      nextLine();
+    }
+
+    // Glitch transition effect from boot screen to login
+    function glitchTransition() {
+      glitchAudio.play();  // Play glitch sound
+      // Quick flash/flicker effect
+      document.body.style.transition = "opacity 0.1s";
+      document.body.style.opacity = "0";
+      setTimeout(() => { document.body.style.opacity = "1"; }, 100);
+      setTimeout(() => { document.body.style.opacity = "0"; }, 200);
+      setTimeout(() => {
+        document.body.style.opacity = "1";
+        // End of glitch: hide boot screen, stop hum, show login form
+        bootScreenEl.style.display = 'none';
+        bootHumAudio.pause();
+        loginContainer.style.display = 'block';
+        loginForm.username.focus();  // focus the username field
+      }, 300);
+    }
+
+    // Prevent right-click context menu and block certain DevTools key combos
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.keyCode === 123 ||  // F12
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||  // Ctrl+Shift+I/J/C
+        (e.ctrlKey && e.key === 'U')  // Ctrl+U
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+
+    // Login form submission handling
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = loginForm.username.value.trim();
+      const password = loginForm.password.value.trim();
+      const VALID_USERNAME = "admin";
+      const VALID_PASSWORD = "grave";
+      if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+        // Access granted: proceed to main terminal interface
+        window.location.href = "main.html";
+      } else {
+        alert("Invalid username or password.");
+        loginForm.reset();
+      }
+    });
+
+    // Start the boot sequence on page load
+    startBootSequence();
+  </script>
 </body>
 </html>
