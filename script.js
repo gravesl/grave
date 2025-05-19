@@ -1,3 +1,4 @@
+const splash = document.getElementById("splash");
 const boot = document.getElementById("boot");
 const menu = document.getElementById("menu");
 const bootComplete = document.getElementById("boot-complete");
@@ -14,10 +15,10 @@ const lines = [
   "[--] Starting system services..."
 ];
 
-bootLog.textContent = ""; // clear existing lines
+bootLog.textContent = ""; // clear boot log
 
 let i = 0;
-const delay = 300; // milliseconds between lines
+const delay = 300; // ms between lines
 
 function typeLine() {
   if (i < lines.length) {
@@ -29,9 +30,13 @@ function typeLine() {
   }
 }
 
-setTimeout(typeLine, 500);
+// Show splash screen first
+setTimeout(() => {
+  splash.style.display = "none";
+  typeLine();
+}, 2000);
 
-// click to continue
+// Click to continue after boot
 boot.addEventListener("click", () => {
   if (bootComplete.style.display === "block") {
     boot.classList.add("hidden");
