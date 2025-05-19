@@ -4,16 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       background: #000 url("5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png") repeat;
-      font-family: 'Share Tech Mono', monospace;
+      font-family: 'Press Start 2P', monospace;
       color: #00FF00;
     }
-    #login-screen {
+
+    #boot-screen, #login-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
@@ -24,133 +25,245 @@
       flex-direction: column;
       z-index: 999;
     }
-    #login-box {
-      background: rgba(0,0,0,0.85);
-      border: 1px solid #0f0;
-      padding: 20px;
-      box-shadow: 0 0 10px #0f0;
+
+    #login-screen {
+      animation: fadeIn 2s ease-in;
     }
+
+    #boot-text {
+      white-space: pre-wrap;
+      padding: 20px;
+    }
+
+    #login-box {
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid #f00;
+      padding: 20px;
+      box-shadow: 0 0 10px #f00;
+    }
+
     #login-title {
       margin-bottom: 12px;
       font-size: 1.2em;
-      border-right: 2px solid #0f0;
+      border-right: 2px solid #f00;
       width: fit-content;
       white-space: nowrap;
       overflow: hidden;
       animation: typing 3s steps(22) forwards, blink 0.7s step-end infinite;
+      color: #f00;
     }
+
     input, button {
       background: black;
-      border: 1px solid #0f0;
-      color: #0f0;
+      border: 1px solid #f00;
+      color: #f00;
       margin-top: 6px;
       padding: 6px;
       width: 200px;
     }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      color: #f00;
+    }
+
     #login-error {
       color: red;
       margin-top: 10px;
       display: none;
     }
+
     @keyframes typing {
       from { width: 0; }
       to { width: 100%; }
     }
+
     @keyframes blink {
       50% { border-color: transparent; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+
+    input:focus, button:focus {
+      animation: glitch 0.3s;
     }
   </style>
 </head>
 <body>
-  <div id="login-screen">
-    <div id="login-box">
-      <div id="login-title">grave.lat login</div>
-      <input type="text" id="login-user" placeholder="Username">
-      <input type="password" id="login-pass" placeholder="Password">
-      <label><input type="checkbox" id="remember-me"> Remember me</label><br>
-      <button onclick="login()">Login</button>
-      <div id="login-error"></div>
-    </div>
+
+<!-- Boot Screen -->
+<div id="boot-screen">
+  <div id="boot-text"></div>
+</div>
+
+<!-- Login Screen -->
+<div id="login-screen" style="display:none">
+  <form id="login-box" onsubmit="login(event)">
+    <div id="login-title">grave.lat login</div>
+    <input type="text" id="login-user" placeholder="Username" required>
+    <input type="password" id="login-pass" placeholder="Password" required>
+    <label><input type="checkbox" id="remember-me"> Remember me</label>
+    <button type="submit">Login</button>
+    <div id="login-error"></div>
+  </form>
+</div>
+
+<!-- Terminal Interface -->
+<div id="main-site" style="display:none; padding:20px">
+  <h1>Welcome to grave.lat</h1>
+  <div id="welcome-msg"></div>
+  <div class="terminal">
+    <div id="terminal-output" style="white-space:pre-wrap"></div>
+    <div><span>user@grave:~$ </span><input type="text" id="command-input" autocomplete="off"></div>
   </div>
+</div>
 
-  <div id="main-site" style="display:none; padding: 20px;">
-    <h1>Welcome to grave.lat</h1>
-    <div id="welcome-msg"></div>
-    <div class="terminal">
-      <div id="terminal-output"></div>
-      <div><span>user@grave:~$ </span><input type="text" id="command-input"></div>
-    </div>
-  </div>
+<!-- Audio -->
+<audio id="type-sound" src="type.mp3" preload="auto"></audio>
+<audio id="boot-sound" src="boot.mp3" preload="auto"></audio>
+<audio id="boot-hum" src="boot-hum.mp3" preload="auto" loop></audio>
+<audio id="glitch-sound" src="glitch.mp3" preload="auto"></audio>
 
-  <script>
-    const users = {
-      grave: { password: "lat", role: "Founder" },
-      lucent: { password: "twilight", role: "Admin" },
-      expule: { password: "night", role: "Guest" }
-    };
-    const LOCKOUT_TIME = 5000;
-    let attempts = 0;
-    let lockedOutUntil = null;
+<script>
+const users = {
+  grave: { password: "lat", role: "Founder" },
+  lucent: { password: "twilight", role: "Admin" },
+  expule: { password: "night", role: "Guest" }
+};
 
-    const errorBox = document.getElementById("login-error");
-    const userField = document.getElementById("login-user");
-    const passField = document.getElementById("login-pass");
-    const loginBtn = document.querySelector("#login-box button");
+const LOCKOUT_TIME = 5000;
+let attempts = 0;
+let lockedOutUntil = null;
 
-    function login() {
-      const now = Date.now();
-      if (lockedOutUntil && now < lockedOutUntil) {
-        const secondsLeft = Math.ceil((lockedOutUntil - now) / 1000);
-        showError(`SYSTEM LOCKED — Try again in ${secondsLeft} seconds`);
-        return;
-      }
+const fileSystem = {
+  '/': ['notes.txt', 'ghosts.log', 'music.mp3'],
+  '/notes.txt': 'Don\'t trust the light. It blinds you to the real horrors.',
+  '/ghosts.log': '13:00 - Unusual presence detected\n03:13 - Motion in sealed server room.'
+};
 
-      const user = userField.value.trim().toLowerCase();
-      const pass = passField.value.trim();
+const bootText = `Initializing grave.lat ...\nLoading system modules...\nVerifying user shell...\n\nReady.`;
+let i = 0;
+const bootOutput = document.getElementById("boot-text");
+const typeSound = document.getElementById("type-sound");
+const bootSound = document.getElementById("boot-sound");
+const bootHum = document.getElementById("boot-hum");
+const glitchSound = document.getElementById("glitch-sound");
 
-      if (users[user] && users[user].password === pass) {
-        localStorage.setItem("loggedIn", user);
-        loadSite(user);
-      } else {
-        attempts++;
-        if (attempts >= 3) {
-          lockedOutUntil = now + LOCKOUT_TIME;
-          showError("SYSTEM LOCKED — Try again in 5 seconds");
-        } else {
-          showError("ACCESS DENIED");
-        }
-      }
+function typeBoot() {
+  if (i < bootText.length) {
+    bootOutput.textContent += bootText.charAt(i);
+    typeSound.currentTime = 0;
+    typeSound.play();
+    i++;
+    setTimeout(typeBoot, 50);
+  } else {
+    bootSound.play();
+    bootHum.play();
+    setTimeout(() => {
+      document.getElementById("boot-screen").style.display = "none";
+      document.getElementById("login-screen").style.display = "flex";
+    }, 800);
+  }
+}
+
+window.onload = typeBoot;
+
+document.querySelectorAll("input, button").forEach(input => {
+  input.addEventListener("focus", () => {
+    glitchSound.currentTime = 0;
+    glitchSound.play();
+  });
+});
+
+function login(event) {
+  event.preventDefault();
+  const now = Date.now();
+  const user = document.getElementById("login-user").value.trim().toLowerCase();
+  const pass = document.getElementById("login-pass").value.trim();
+  const errorBox = document.getElementById("login-error");
+
+  if (lockedOutUntil && now < lockedOutUntil) {
+    const secondsLeft = Math.ceil((lockedOutUntil - now) / 1000);
+    errorBox.textContent = `SYSTEM LOCKED — Try again in ${secondsLeft} seconds`;
+    errorBox.style.display = "block";
+    return;
+  }
+
+  if (users[user] && users[user].password === pass) {
+    if (document.getElementById("remember-me").checked) {
+      localStorage.setItem("loggedIn", user);
+    } else {
+      localStorage.removeItem("loggedIn");
+    }
+    loadSite(user);
+  } else {
+    attempts++;
+    if (attempts >= 3) {
+      lockedOutUntil = now + LOCKOUT_TIME;
+      errorBox.textContent = "SYSTEM LOCKED — Try again in 5 seconds";
+    } else {
+      errorBox.textContent = "ACCESS DENIED";
+    }
+    errorBox.style.display = "block";
+  }
+}
+
+function loadSite(username) {
+  const role = users[username].role;
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("main-site").style.display = "block";
+  document.getElementById("welcome-msg").textContent = `Logged in as: ${username} (${role})`;
+}
+
+const savedUser = localStorage.getItem("loggedIn");
+if (savedUser && users[savedUser]) loadSite(savedUser);
+
+let currentPath = "/";
+document.getElementById("command-input").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    const cmd = this.value.trim();
+    const output = document.getElementById("terminal-output");
+    output.innerHTML += `\nuser@grave:${currentPath}$ ${cmd}`;
+
+    if (cmd === "help") {
+      output.innerHTML += `\nCommands: help, clear, ls, cd [dir], cat [file]`;
+    } else if (cmd === "clear") {
+      output.innerHTML = "";
+    } else if (cmd === "ls") {
+      output.innerHTML += `\n${fileSystem[currentPath].join("  ")}`;
+    } else if (cmd.startsWith("cd ")) {
+      const dir = cmd.split(" ")[1];
+      if (dir === "..") currentPath = "/";
+      else if (fileSystem[`/${dir}`]) currentPath = `/${dir}`;
+      else output.innerHTML += `\nNo such directory: ${dir}`;
+    } else if (cmd.startsWith("cat ")) {
+      const file = cmd.split(" ")[1];
+      const key = `${currentPath}/${file}`.replace("//", "/");
+      if (fileSystem[key]) output.innerHTML += `\n${fileSystem[key]}`;
+      else output.innerHTML += `\nCannot read file: ${file}`;
+    } else {
+      output.innerHTML += `\nCommand not recognized: ${cmd}`;
     }
 
-    function showError(msg) {
-      errorBox.style.display = "block";
-      errorBox.textContent = msg;
-    }
-
-    function loadSite(username) {
-      const role = users[username].role;
-      document.getElementById("login-screen").style.display = "none";
-      document.getElementById("main-site").style.display = "block";
-      document.getElementById("welcome-msg").textContent = `Logged in as: ${username} (${role})`;
-    }
-
-    if (localStorage.getItem("loggedIn")) {
-      const savedUser = localStorage.getItem("loggedIn");
-      if (users[savedUser]) loadSite(savedUser);
-    }
-
-    document.getElementById("command-input").addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
-        const cmd = this.value.trim();
-        const output = document.getElementById("terminal-output");
-        output.innerHTML += `\nuser@grave:~$ ${cmd}`;
-        if (cmd === "help") output.innerHTML += `\nAvailable commands: help, clear`;
-        else if (cmd === "clear") output.innerHTML = "";
-        else output.innerHTML += `\nCommand not recognized: ${cmd}`;
-        this.value = "";
-        output.scrollTop = output.scrollHeight;
-      }
-    });
-  </script>
+    this.value = "";
+    output.scrollTop = output.scrollHeight;
+  }
+});
+</script>
 </body>
 </html>
