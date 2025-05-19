@@ -18,9 +18,10 @@ const fileContents = {
 
 window.addEventListener("load", () => {
   music.volume = 0.5;
-  music.play().catch(() => {
-    console.log("Autoplay blocked");
-  });
+  if (localStorage.getItem("loggedIn") === "true") {
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("enter-screen").classList.remove("hidden");
+  }
 });
 
 toggleBtn.addEventListener("click", () => {
@@ -63,7 +64,7 @@ function processCommand(cmd) {
 
   switch (base) {
     case "help":
-      output += "Available commands: help, whoami, ls, clear, music, exit, pwd, cd, cat";
+      output += "Available commands: help, whoami, ls, clear, music, exit, pwd, cd, cat, ascii, lat, grave, telegram, discord, doxbin, logout, sudo rm -rf /";
       break;
     case "whoami":
       output += "grave";
@@ -103,9 +104,51 @@ function processCommand(cmd) {
       output += "Exiting...\n[Session terminated]";
       setTimeout(() => location.reload(), 1000);
       break;
+    case "logout":
+      output += "[+] Session cleared.\n[+] Logging out...";
+      localStorage.removeItem("loggedIn");
+      setTimeout(() => location.reload(), 1500);
+      break;
+    case "telegram":
+      window.open("https://t.me/expule", "_blank");
+      output += "Opening Telegram...";
+      break;
+    case "discord":
+      window.open("https://discord.com/users/expule", "_blank");
+      output += "Opening Discord...";
+      break;
+    case "doxbin":
+      window.open("https://doxbin.com/user/lucent", "_blank");
+      output += "Opening Doxbin...";
+      break;
+    case "ascii":
+      output += "𝖌𝖗𝖆𝖛𝖊.𝖑𝖆𝖙";
+      break;
+    case "lat":
+      output += "  _      _____ _____ \n | |    |_   _|_   _|\n | |     | |   | |  \n | |___  | |   | |  \n |_____| |_|   |_|   (lost after thought)";
+      break;
+    case "grave":
+      output += "   ____ ____      _    __     __ ______ \n  / ___|  _ \\\\    / \\\\   \\\\ \\\\   / /|  _ \\\\ \\\n | |  _| | | |  / _ \\\\   \\\\ \\\\ / / | | | | |\n | |_| | |_| | / ___ \\\\   \\\\ V /  | |_| | |\n  \\\\____|____/ /_/   \\\\_\\\\   \\\\_/   |____/|_|";
+      break;
+    case "sudo":
+      if (args[1] === "rm" && args[2] === "-rf" && args[3] === "/") {
+        document.querySelector(".terminal").classList.add("red-alert");
+        let count = 0;
+        const wipe = setInterval(() => {
+          terminalOutput.textContent += `deleting /dev/null${count++}...\n`;
+          terminalOutput.scrollTop = terminalOutput.scrollHeight;
+          if (count > 10) {
+            clearInterval(wipe);
+            terminalOutput.textContent += "SYSTEM FAILURE. Goodbye.\n";
+            commandInput.disabled = true;
+          }
+        }, 200);
+        return;
+      }
     default:
       output += `Command not found: ${cmd}`;
   }
+
   terminalOutput.textContent += output + "\n";
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
