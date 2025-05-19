@@ -68,3 +68,29 @@ body {
   font-size: 12px;
   font-family: 'Share Tech Mono', monospace;
 }
+#terminal-log {
+  font-size: 14px;
+  max-width: 90%;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
+
+#terminal-form {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+#terminal-form span {
+  margin-right: 8px;
+}
+
+#terminal-input {
+  background: black;
+  border: none;
+  color: white;
+  font-family: monospace;
+  font-size: 14px;
+  outline: none;
+  width: 80%;
+}
