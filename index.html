@@ -58,7 +58,32 @@
   </div>
 
   <!-- Scripts -->
-  <script>
+  <script<script>
+  const music = document.getElementById("bg-music");
+  const toggleBtn = document.getElementById("music-toggle");
+  const audioPrompt = document.getElementById("audio-prompt");
+  const audioButton = audioPrompt.querySelector("button");
+
+  // Click to start (with fallback)
+  audioButton.addEventListener("click", () => {
+    audioPrompt.style.display = "none"; // Always hide the prompt
+    music.volume = 0.5;
+    music.play().catch(err => {
+      console.log("⚠️ Music failed to autoplay:", err);
+    });
+  });
+
+  toggleBtn.addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+      toggleBtn.textContent = "PAUSE";
+    } else {
+      music.pause();
+      toggleBtn.textContent = "MUSIC";
+    }
+  });
+</script>
+>
     const music = document.getElementById("bg-music");
     const toggleBtn = document.getElementById("music-toggle");
     const audioPrompt = document.getElementById("audio-prompt");
