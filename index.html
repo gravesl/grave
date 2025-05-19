@@ -5,12 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
   <style>
-    .title {
-      color: #888; /* darker shade */
-      font-size: 3em;
+    body {
+      margin: 0;
+      background: black;
+      color: #ccc;
       font-family: 'Share Tech Mono', monospace;
+      overflow: hidden;
+    }
+    .hidden { display: none; }
+    .centered {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      z-index: 9999;
+      flex-direction: column;
+    }
+    .centered input, .centered label {
+      font-family: 'Share Tech Mono', monospace;
+      margin: 5px;
+      background: #000;
+      color: #fff;
+      border: 1px solid #fff;
+      padding: 5px 10px;
+    }
+    .centered button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #000;
+      color: #fff;
+      border: 1px solid #fff;
+      cursor: pointer;
+    }
+    .title {
+      color: #888;
+      font-size: 3em;
       text-align: center;
       margin-top: 50px;
     }
@@ -20,111 +53,143 @@
       border-radius: 50%;
       filter: grayscale(100%) contrast(120%);
     }
-    .socials img {
-      width: 40px;
-      height: 40px;
-      margin: 0 10px;
+    .socials {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .link {
+      color: #ccc;
+      font-family: 'Share Tech Mono', monospace;
+      text-decoration: none;
+      margin: 0 15px;
+      position: relative;
+    }
+    .link:hover {
+      color: white;
+    }
+    .link::after {
+      content: "_";
+      margin-left: 2px;
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
     }
     .music-player {
       position: fixed;
       top: 10px;
       right: 10px;
-      z-index: 999;
-    }
-    .music-player button {
-      font-family: 'Share Tech Mono', monospace;
-    }
-    #412801380 {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       z-index: 100;
     }
-    #412801380 button {
-      padding: 10px 20px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 16px;
-      background: #000;
+    .terminal {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      font-size: 14px;
+      height: 300px;
+      overflow-y: auto;
+    }
+    .terminal input {
+      background: transparent;
+      border: none;
       color: #fff;
-      border: 1px solid #fff;
-      cursor: pointer;
+      font-family: 'Share Tech Mono', monospace;
+      width: 80%;
+      outline: none;
+    }
+    .red-alert {
+      background: #1e0000 !important;
+      color: red !important;
     }
   </style>
 </head>
 <body>
-  <!-- Stars background -->
-  <div class="stars"></div>
-  <div class="stars2"></div>
-  <div class="stars3"></div>
-
-  <!-- Click to Enter Overlay -->
-  <div id="412801380">
-    <button>Click to Enter</button>
+  <!-- Login Screen -->
+  <div id="login-screen" class="centered">
+    <div>grave.lat login</div>
+    <input id="login-user" placeholder="Username" />
+    <input id="login-pass" placeholder="Password" type="password" />
+    <label><input type="checkbox" id="remember-me" /> Remember me</label>
+    <button onclick="login()">Login</button>
   </div>
 
-  <!-- Music Toggle -->
+  <!-- Click to Enter -->
+  <div id="enter-screen" class="centered hidden">
+    <button onclick="startSite()">Click to Enter</button>
+  </div>
+
+  <!-- Beep + Music -->
   <div class="music-player">
     <button id="music-toggle">MUSIC</button>
-    <audio id="bg-music" loop>
-      <source src="everynite.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bg-music" loop><source src="everynite.mp3" type="audio/mpeg"></audio>
+    <audio id="beep-sound"><source src="beep.mp3" type="audio/mpeg"></audio>
   </div>
 
-  <!-- Title & PFP -->
-  <div class="title glitch" data-text="𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕">𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕</div>
-  <div class="pfp" style="text-align:center;">
-    <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" alt="profile" />
-  </div>
-
-  <!-- Social Links -->
-  <div class="socials" style="text-align:center;margin-top:20px;">
-    <a href="https://t.me/expule" target="_blank">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL4VOLg0fj85jo6AHLlofNddvNfCuvB8xFaQ&s" alt="Telegram" />
-    </a>
-    <a href="https://discord.com/users/expule" target="_blank">
-      <img src="https://cdn.creazilla.com/icons/3201503/discord-alt-icon-lg.png" alt="Discord" />
-    </a>
-    <a href="https://doxbin.com/user/lucent" target="_blank">
-      <img src="https://lowendbox.com/wp-content/uploads/2024/05/doxbin-logo.png" alt="Doxbin" />
-    </a>
-  </div>
-
-  <!-- Terminal -->
-  <div class="terminal">
-    <div id="terminal-output"></div>
-    <div><span>user@grave:~$</span><input type="text" id="command-input" autocomplete="off" /></div>
+  <!-- Main Content -->
+  <div id="main-site" class="hidden">
+    <div class="title glitch" data-text="𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕">𝒈𝒓𝒂𝒗𝒆.𝒍𝒂𝒕</div>
+    <div class="pfp" style="text-align:center;">
+      <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" />
+    </div>
+    <div class="socials">
+      <a href="https://t.me/expule" target="_blank" class="link">telegram</a>
+      <a href="https://discord.com/users/expule" target="_blank" class="link">discord</a>
+      <a href="https://doxbin.com/user/lucent" target="_blank" class="link">doxbin</a>
+    </div>
+    <div class="terminal">
+      <div id="terminal-output"></div>
+      <div><span>user@grave:~$</span><input type="text" id="command-input" /></div>
+    </div>
   </div>
 
   <script>
     const music = document.getElementById("bg-music");
-    const toggleBtn = document.getElementById("music-toggle");
-    const promptOverlay = document.getElementById("412801380");
-    const promptBtn = promptOverlay.querySelector("button");
+    const beep = document.getElementById("beep-sound");
+    const enterScreen = document.getElementById("enter-screen");
+    const loginScreen = document.getElementById("login-screen");
+    const mainSite = document.getElementById("main-site");
+    const rememberMe = document.getElementById("remember-me");
+    const musicToggle = document.getElementById("music-toggle");
 
-    promptBtn.addEventListener("click", () => {
+    function login() {
+      if (rememberMe.checked) {
+        localStorage.setItem("loggedIn", "true");
+      }
+      loginScreen.classList.add("hidden");
+      enterScreen.classList.remove("hidden");
+    }
+
+    function startSite() {
+      enterScreen.classList.add("hidden");
+      mainSite.classList.remove("hidden");
       music.volume = 0.5;
-      music.play().catch(err => console.log("Autoplay blocked:", err));
-      promptOverlay.style.display = "none";
+      music.play().catch(() => {});
+      beep.play().catch(() => {});
       startTyping();
-    });
+    }
 
-    toggleBtn.addEventListener("click", () => {
+    // Skip login if remembered
+    if (localStorage.getItem("loggedIn") === "true") {
+      loginScreen.classList.add("hidden");
+      enterScreen.classList.remove("hidden");
+    }
+
+    musicToggle.addEventListener("click", () => {
       if (music.paused) {
         music.play();
-        toggleBtn.textContent = "PAUSE";
+        musicToggle.textContent = "PAUSE";
       } else {
         music.pause();
-        toggleBtn.textContent = "MUSIC";
+        musicToggle.textContent = "MUSIC";
       }
     });
 
+    // Terminal logic
     const terminalOutput = document.getElementById("terminal-output");
+    const commandInput = document.getElementById("command-input");
+
     const lines = [
       "Initializing LAT protocol...",
       "Loading grave.lat...",
@@ -147,6 +212,94 @@
           setTimeout(startTyping, 500);
         }
       }, 40);
+    }
+
+    commandInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        const cmd = this.value.trim().toLowerCase();
+        printLine(`user@grave:~$ ${cmd}`);
+        this.value = "";
+
+        switch (cmd) {
+          case "help":
+            typeOut("Commands: help, whoami, ascii, lat, grave, telegram, discord, doxbin, clear, exit, logout");
+            break;
+          case "whoami":
+            typeOut("grave");
+            break;
+          case "ascii":
+            typeOut(`𝖌𝖗𝖆𝖛𝖊.𝖑𝖆𝖙`);
+            break;
+          case "lat":
+            typeOut(`  _      _____ _____ 
+ | |    |_   _|_   _|
+ | |     | |   | |  
+ | |___  | |   | |  
+ |_____| |_|   |_|   (lost after thought)`);
+            break;
+          case "grave":
+            typeOut(`   ____ ____      _    __     __ ______ 
+  / ___|  _ \\    / \\   \\ \\   / /|  _ \\ \\
+ | |  _| | | |  / _ \\   \\ \\ / / | | | | |
+ | |_| | |_| | / ___ \\   \\ V /  | |_| | |
+  \\____|____/ /_/   \\_\\   \\_/   |____/|_|`);
+            break;
+          case "clear":
+            terminalOutput.innerHTML = "";
+            break;
+          case "exit":
+            typeOut("Session terminated.");
+            break;
+          case "logout":
+            typeOut("[+] Session cleared.\n[+] Logging out...");
+            localStorage.removeItem("loggedIn");
+            setTimeout(() => location.reload(), 1500);
+            break;
+          case "telegram":
+            window.open("https://t.me/expule", "_blank");
+            typeOut("Opening Telegram...");
+            break;
+          case "discord":
+            window.open("https://discord.com/users/expule", "_blank");
+            typeOut("Opening Discord...");
+            break;
+          case "doxbin":
+            window.open("https://doxbin.com/user/lucent", "_blank");
+            typeOut("Opening Doxbin...");
+            break;
+          case "sudo rm -rf /":
+            document.querySelector(".terminal").classList.add("red-alert");
+            let count = 0;
+            const wipe = setInterval(() => {
+              typeOut(`deleting /dev/null${count++}...`);
+              if (count > 10) {
+                clearInterval(wipe);
+                typeOut("SYSTEM FAILURE. Goodbye.");
+                commandInput.disabled = true;
+              }
+            }, 200);
+            break;
+          default:
+            typeOut(`Command not found: ${cmd}`);
+        }
+
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }
+    });
+
+    function printLine(text) {
+      terminalOutput.innerHTML += `<div>${text}</div>`;
+    }
+
+    function typeOut(text) {
+      let i = 0;
+      const div = document.createElement("div");
+      terminalOutput.appendChild(div);
+      const interval = setInterval(() => {
+        div.textContent += text[i++];
+        if (i >= text.length) clearInterval(interval);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }, 15);
     }
   </script>
 </body>
