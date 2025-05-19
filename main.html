@@ -20,6 +20,14 @@
       line-height: 1.2;
       color: #f00;
       text-shadow: 0 0 5px red;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #f00;
+      text-shadow: 0 0 4px red;
       margin-bottom: 30px;
     }
 
@@ -76,16 +84,17 @@
 
   <!-- ASCII Art at the Top -->
   <pre class="ascii">
-   ▄████████  ▄█     ▄████████ ▄█      ▄██████▄
-  ███    ███ ███    ███    ███ ███     ███    ███
-  ███    ███ ███▌   ███    █▀  ███     ███    ███
- ▄███▄▄▄▄██▀ ███▌   ███        ███     ███    ███
-▀▀███▀▀▀▀▀   ███▌ ▀███████████ ███     ███    ███
-▀███████████ ███           ███ ███     ███    ███
-  ███    ███ ███     ▄█    ███ ███▌    ███    ███
-  ███    ███ █▀    ▄████████▀  █████▄▄ ████████▀
-  ███    ███
+  
+░██████╗░██████╗░░█████╗░██╗░░░██╗███████╗░░░██╗░░░░░░█████╗░████████╗
+██╔════╝░██╔══██╗██╔══██╗██║░░░██║██╔════╝░░░██║░░░░░██╔══██╗╚══██╔══╝
+██║░░██╗░██████╔╝███████║╚██╗░██╔╝█████╗░░░░░██║░░░░░███████║░░░██║░░░
+██║░░╚██╗██╔══██╗██╔══██║░╚████╔╝░██╔══╝░░░░░██║░░░░░██╔══██║░░░██║░░░
+╚██████╔╝██║░░██║██║░░██║░░╚██╔╝░░███████╗██╗███████╗██║░░██║░░░██║░░░
+░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝╚══════╝╚═╝░░╚═╝░░░╚═╝░░░
   </pre>
+
+  <!-- Subtitle -->
+  <div class="subtitle">Lost after Thought</div>
 
   <!-- Profile Section -->
   <div id="profile">
@@ -110,8 +119,6 @@
       terminalOutput.appendChild(line);
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
-
-    printOutput("(type 'help' for commands...)\n");
 
     const terminalInput = document.getElementById('terminal-input');
 
@@ -161,5 +168,6 @@
 
     terminalInput.focus();
   </script>
+
 </body>
 </html>
