@@ -1,117 +1,138 @@
-/* style.css */
 body {
   margin: 0;
-  background: #000;
-  color: #ccc;
+  padding: 0;
+  background: black;
   font-family: 'Share Tech Mono', monospace;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100vh;
+  color: white;
   overflow: hidden;
+}
+
+.title {
+  text-align: center;
+  font-size: 3em;
+  margin-top: 20vh;
   position: relative;
-  padding-top: 60px;
+  z-index: 2;
 }
 
-/* Background stars */
-.stars {
+.glitch {
+  position: relative;
+  color: white;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
   position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  height: 100%;
-  background: radial-gradient(#111 1px, transparent 1px),
-              radial-gradient(#111 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: 0 0, 20px 20px;
-  animation: glitch-grid 20s linear infinite;
-  z-index: 0;
-  opacity: 0.08;
+  overflow: hidden;
+  color: #f0f;
+  z-index: -1;
+}
+.glitch::before {
+  animation: glitchTop 2s infinite;
+}
+.glitch::after {
+  animation: glitchBottom 2s infinite;
+  color: #0ff;
 }
 
-@keyframes glitch-grid {
-  0% {
-    background-position: 0 0, 20px 20px;
-  }
-  100% {
-    background-position: 100px 100px, 120px 120px;
-  }
+@keyframes glitchTop {
+  0% { clip-path: inset(0 0 90% 0); }
+  50% { clip-path: inset(20% 0 60% 0); }
+  100% { clip-path: inset(40% 0 30% 0); }
+}
+@keyframes glitchBottom {
+  0% { clip-path: inset(80% 0 0 0); }
+  50% { clip-path: inset(30% 0 50% 0); }
+  100% { clip-path: inset(60% 0 20% 0); }
 }
 
-/* Music Controls */
-.music-player {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 3;
+.pfp {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
-#music-toggle {
-  background: transparent;
+.pfp img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+.socials img {
+  width: 40px;
+  height: 40px;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+.socials img:hover {
+  filter: grayscale(0%);
+}
+
+#audio-prompt {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+#audio-prompt button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background: black;
   color: white;
   border: 1px solid white;
-  padding: 5px 10px;
-  font-family: 'Share Tech Mono', monospace;
   cursor: pointer;
 }
 
-/* Title */
-.title {
-  font-size: 3em;
-  color: white;
-  z-index: 2;
-  text-align: center;
-  text-shadow: 0 0 5px #fff, 0 0 15px #fff;
+.music-player {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
 }
 
-/* Profile Picture */
-.pfp {
-  margin-top: 10px;
-  z-index: 2;
-}
-.pfp img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 1px solid #555;
-  object-fit: cover;
-}
-
-/* Social Links */
-.socials {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
-  z-index: 2;
-}
-.socials img {
-  width: 32px;
-  height: 32px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-.socials img:hover {
-  transform: scale(1.1);
-  filter: brightness(1.4);
-}
-
-/* Terminal */
 .terminal {
   position: absolute;
   bottom: 30px;
-  left: 30px;
-  font-size: 14px;
-  z-index: 2;
+  width: 100%;
+  text-align: center;
 }
-#terminal-output {
-  white-space: pre-line;
-  margin-bottom: 4px;
-}
-#command-input {
-  background: transparent;
+.terminal input {
+  background: black;
+  color: white;
   border: none;
-  border-bottom: 1px solid #ccc;
-  color: #fff;
+  border-bottom: 1px solid white;
   font-family: inherit;
-  outline: none;
-  width: 200px;
+  font-size: 1em;
+  width: 50%;
+}
+
+.stars, .stars2, .stars3 {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-repeat: repeat;
+  background-size: cover;
+  top: 0; left: 0;
+  z-index: 0;
+}
+.stars { background-image: url("https://www.transparenttextures.com/patterns/stardust.png"); animation: starAnim 200s linear infinite; }
+.stars2 { background-image: url("https://www.transparenttextures.com/patterns/stardust.png"); animation: starAnim 300s linear infinite; opacity: 0.5; }
+.stars3 { background-image: url("https://www.transparenttextures.com/patterns/stardust.png"); animation: starAnim 400s linear infinite; opacity: 0.3; }
+
+@keyframes starAnim {
+  0% { background-position: 0 0; }
+  100% { background-position: 10000px 5000px; }
 }
