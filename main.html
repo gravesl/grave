@@ -90,19 +90,68 @@
     #terminal-input:focus {
       outline: none;
     }
+
+    /* Music controls */
+    #music-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #000;
+      border: 1px solid red;
+      padding: 10px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 10px red;
+    }
+
+    #music-toggle {
+      background: black;
+      color: red;
+      border: 1px solid red;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 5px;
+      width: 40px;
+    }
+
+    #volume-slider,
+    #progress-bar {
+      width: 100%;
+      margin: 4px 0;
+    }
+
+    #visualizer {
+      width: 100%;
+      background: black;
+      display: block;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Music Control UI -->
+  <div id="music-controls">
+    <button id="music-toggle" title="Toggle Music">♫</button>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" title="Volume">
+    <input type="range" id="progress-bar" min="0" max="100" value="0" step="1" title="Seek">
+    <canvas id="visualizer" width="300" height="40"></canvas>
+  </div>
+
+  <audio id="bg-music" src="assets/sounds/everynight.mp3" preload="auto" loop></audio>
+
   <!-- ASCII Art at the Top -->
   <pre class="ascii">
-   
-░██████╗░██████╗░░█████╗░██╗░░░██╗███████╗░░░██╗░░░░░░█████╗░████████╗
-██╔════╝░██╔══██╗██╔══██╗██║░░░██║██╔════╝░░░██║░░░░░██╔══██╗╚══██╔══╝
-██║░░██╗░██████╔╝███████║╚██╗░██╔╝█████╗░░░░░██║░░░░░███████║░░░██║░░░
-██║░░╚██╗██╔══██╗██╔══██║░╚████╔╝░██╔══╝░░░░░██║░░░░░██╔══██║░░░██║░░░
-╚██████╔╝██║░░██║██║░░██║░░╚██╔╝░░███████╗██╗███████╗██║░░██║░░░██║░░░
-░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═╝╚══════╝╚═╝░░╚═╝░░░╚═╝░░░
+   ▄████████  ▄█     ▄████████ ▄█      ▄██████▄
+  ███    ███ ███    ███    ███ ███     ███    ███
+  ███    ███ ███▌   ███    █▀  ███     ███    ███
+ ▄███▄▄▄▄██▀ ███▌   ███        ███     ███    ███
+▀▀███▀▀▀▀▀   ███▌ ▀███████████ ███     ███    ███
+▀███████████ ███           ███ ███     ███    ███
+  ███    ███ ███     ▄█    ███ ███▌    ███    ███
+  ███    ███ █▀    ▄████████▀  █████▄▄ ████████▀
+  ███    ███
   </pre>
 
   <!-- Subtitle -->
@@ -194,7 +243,68 @@
       }
     });
 
-    terminalInput.focus();
+    // 🎵 Music logic
+    const music = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("music-toggle");
+    const volumeSlider = document.getElementById("volume-slider");
+    const progressBar = document.getElementById("progress-bar");
+    const canvas = document.getElementById("visualizer");
+    const ctx = canvas.getContext("2d");
+
+    let musicOn = true;
+
+    window.addEventListener("load", () => {
+      music.volume = parseFloat(volumeSlider.value);
+      music.play().catch(() => {});
+      toggleBtn.textContent = "♫";
+    });
+
+    toggleBtn.addEventListener("click", () => {
+      musicOn = !musicOn;
+      if (musicOn) {
+        music.play();
+        toggleBtn.textContent = "♫";
+      } else {
+        music.pause();
+        toggleBtn.textContent = "✕";
+      }
+    });
+
+    volumeSlider.addEventListener("input", () => {
+      music.volume = parseFloat(volumeSlider.value);
+    });
+
+    music.addEventListener("timeupdate", () => {
+      progressBar.value = (music.currentTime / music.duration) * 100 || 0;
+    });
+
+    progressBar.addEventListener("input", () => {
+      music.currentTime = (progressBar.value / 100) * music.duration;
+    });
+
+    // Visualizer
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioCtx.createMediaElementSource(music);
+    const analyser = audioCtx.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    analyser.fftSize = 64;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function draw() {
+      requestAnimationFrame(draw);
+      analyser.getByteFrequencyData(dataArray);
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i] / 2;
+        const x = i * (canvas.width / bufferLength);
+        ctx.fillStyle = "red";
+        ctx.fillRect(x, canvas.height - barHeight, 3, barHeight);
+      }
+    }
+    draw();
   </script>
 
 </body>
