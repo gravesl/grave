@@ -204,3 +204,19 @@
 </script>
 </body>
 </html>
+<script>
+  // Disable right-click
+  document.addEventListener("contextmenu", event => event.preventDefault());
+
+  // Disable common DevTools keys
+  document.addEventListener("keydown", function (e) {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+      (e.ctrlKey && e.key.toUpperCase() === "U")
+    ) {
+      e.preventDefault();
+      alert("🔒 DevTools are disabled on this page.");
+    }
+  });
+</script>
