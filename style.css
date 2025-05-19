@@ -53,3 +53,7 @@ body {
   50% { opacity: 0; }
 }
 
+#boot-log::after {
+  content: "_";
+  animation: blink 1s step-end infinite;
+}
