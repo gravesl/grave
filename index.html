@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Creepster&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: url("hjkhjk.png") no-repeat center center fixed;
-      background-size: cover;
+      background-color: #000;
+      background-image: url("ce5f00e6-186d-48f6-b95c-cd6d274b1629.png");
+      background-repeat: repeat;
+      background-size: contain;
       color: white;
       font-family: 'Share Tech Mono', monospace;
     }
@@ -32,7 +33,6 @@
       width: 220px;
       margin: 20px auto;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-      font-family: 'Share Tech Mono', monospace;
       backdrop-filter: blur(10px);
     }
 
@@ -63,9 +63,47 @@
       margin-top: 10px;
       color: #ccc;
     }
+
+    #boot-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: black;
+      color: lime;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.5em;
+      z-index: 9999;
+    }
+
+    #boot-screen.hidden {
+      display: none;
+    }
+
+    #boot-screen .dot {
+      animation: blink 1s infinite;
+      opacity: 0;
+    }
+
+    #boot-screen .dot:nth-child(1) { animation-delay: 0s; }
+    #boot-screen .dot:nth-child(2) { animation-delay: 0.2s; }
+    #boot-screen .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      50% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
+  <!-- Boot Screen -->
+  <div id="boot-screen" class="hidden">
+    <div class="boot-text">Booting grave.lat<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+  </div>
+
   <!-- Login Screen -->
   <div id="login-screen" class="centered">
     <div>grave.lat login</div>
@@ -95,10 +133,9 @@
       <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" style="width:120px;border-radius:50%;margin-top:20px;" />
     </div>
 
-    <!-- Profile Card -->
     <div class="profile-card">
       <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" alt="Profile Picture" class="profile-pic">
-      <h2 class="username">Grave</h2> 
+      <h2 class="username">Grave</h2>
       <p class="role">Founder</p>
       <div class="icon">🐶</div>
     </div>
@@ -115,176 +152,163 @@
     </div>
   </div>
 
-<script>
-  const music = document.getElementById("bg-music");
-  const beep = document.getElementById("beep-sound");
-  const enterScreen = document.getElementById("enter-screen");
-  const loginScreen = document.getElementById("login-screen");
-  const mainSite = document.getElementById("main-site");
-  const rememberMe = document.getElementById("remember-me");
-  const musicToggle = document.getElementById("music-toggle");
+  <script>
+    const music = document.getElementById("bg-music");
+    const beep = document.getElementById("beep-sound");
+    const enterScreen = document.getElementById("enter-screen");
+    const loginScreen = document.getElementById("login-screen");
+    const mainSite = document.getElementById("main-site");
+    const rememberMe = document.getElementById("remember-me");
+    const musicToggle = document.getElementById("music-toggle");
 
-  function login() {
-    if (rememberMe.checked) {
-      localStorage.setItem("loggedIn", "true");
-    }
-    loginScreen.classList.add("hidden");
-    enterScreen.classList.remove("hidden");
-  }
-
-  function startSite() {
-    enterScreen.classList.add("hidden");
-    mainSite.classList.remove("hidden");
-    music.volume = 0.5;
-    music.play().catch(() => {});
-    beep.play().catch(() => {});
-    startTyping();
-  }
-
-  if (localStorage.getItem("loggedIn") === "true") {
-    loginScreen.classList.add("hidden");
-    enterScreen.classList.remove("hidden");
-  }
-
-  musicToggle.addEventListener("click", () => {
-    if (music.paused) {
-      music.play();
-      musicToggle.textContent = "PAUSE";
-    } else {
-      music.pause();
-      musicToggle.textContent = "MUSIC";
-    }
-  });
-
-  const terminalOutput = document.getElementById("terminal-output");
-  const commandInput = document.getElementById("command-input");
-
-  const lines = [
-    "Initializing LAT protocol...",
-    "Loading grave.lat...",
-    "Connection established.",
-    "Welcome, wanderer.",
-    "Type 'help' to explore."
-  ];
-  let currentLine = 0;
-
-  function startTyping() {
-    if (currentLine >= lines.length) return;
-    let line = lines[currentLine];
-    let i = 0;
-    const interval = setInterval(() => {
-      terminalOutput.innerHTML += line[i++];
-      if (i >= line.length) {
-        terminalOutput.innerHTML += "<br>";
-        clearInterval(interval);
-        currentLine++;
-        setTimeout(startTyping, 500);
+    function login() {
+      if (rememberMe.checked) {
+        localStorage.setItem("loggedIn", "true");
       }
-    }, 40);
-  }
+      loginScreen.classList.add("hidden");
+      enterScreen.classList.remove("hidden");
+    }
 
-  commandInput.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-      const cmd = this.value.trim().toLowerCase();
-      printLine(`user@grave:~$ ${cmd}`);
-      this.value = "";
+    function startSite() {
+      enterScreen.classList.add("hidden");
+      document.getElementById("boot-screen").classList.remove("hidden");
+      beep.play().catch(() => {});
 
-      switch (cmd) {
-        case "help":
-          typeOut("Commands: help, whoami, ascii, lat, grave, telegram, discord, doxbin, clear, exit, logout");
-          break;
-        case "whoami":
-          typeOut("grave");
-          break;
-        case "ascii":
-          typeOut(`𝖌𝖗𝖆𝖛𝖊.𝖑𝖆𝖙`);
-          break;
-        case "lat":
-          typeOut(`  _      _____ _____ 
- | |    |_   _|_   _|
- | |     | |   | |  
- | |___  | |   | |  
- |_____| |_|   |_|   (lost after thought)`);
-          break;
-        case "grave":
-          typeOut(`   ____ ____      _    __     __ ______ 
-  / ___|  _ \\    / \\   \\ \\   / /|  _ \\ \\
- | |  _| | | |  / _ \\   \\ \\ / / | | | | |
+      setTimeout(() => {
+        document.getElementById("boot-screen").classList.add("hidden");
+        mainSite.classList.remove("hidden");
+        music.volume = 0.5;
+        music.play().catch(() => {});
+        startTyping();
+      }, 3000);
+    }
+
+    if (localStorage.getItem("loggedIn") === "true") {
+      loginScreen.classList.add("hidden");
+      enterScreen.classList.remove("hidden");
+    }
+
+    musicToggle.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        musicToggle.textContent = "PAUSE";
+      } else {
+        music.pause();
+        musicToggle.textContent = "MUSIC";
+      }
+    });
+
+    const terminalOutput = document.getElementById("terminal-output");
+    const commandInput = document.getElementById("command-input");
+
+    const lines = [
+      "Initializing LAT protocol...",
+      "Loading grave.lat...",
+      "Connection established.",
+      "Welcome, wanderer.",
+      "Type 'help' to explore."
+    ];
+    let currentLine = 0;
+
+    function startTyping() {
+      if (currentLine >= lines.length) return;
+      let line = lines[currentLine];
+      let i = 0;
+      const interval = setInterval(() => {
+        terminalOutput.innerHTML += line[i++];
+        if (i >= line.length) {
+          terminalOutput.innerHTML += "<br>";
+          clearInterval(interval);
+          currentLine++;
+          setTimeout(startTyping, 500);
+        }
+      }, 40);
+    }
+
+    commandInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        const cmd = this.value.trim().toLowerCase();
+        printLine(`user@grave:~$ ${cmd}`);
+        this.value = "";
+
+        switch (cmd) {
+          case "help":
+            typeOut("Commands: help, whoami, ascii, lat, grave, telegram, discord, doxbin, clear, exit, logout");
+            break;
+          case "whoami":
+            typeOut("grave");
+            break;
+          case "ascii":
+            typeOut(`\u{1D56C}\u{1D568}\u{1D552}\u{1D55E}\u{002E}\u{1D55C}\u{1D552}\u{1D561}`);
+            break;
+          case "lat":
+            typeOut(`  _      _____ _____ \n | |    |_   _|_   _|\n | |     | |   | |  \n | |___  | |   | |  \n |_____| |_|   |_|   (lost after thought)`);
+            break;
+          case "grave":
+            typeOut(`   ____ ____      _    __     __ ______ \n  / ___|  _ \\    / \\   \\ \\   / /|  _ \\ \\\n | |  _| | | |  / _ \\   \\ \\ / / | | | | |
  | |_| | |_| | / ___ \\   \\ V /  | |_| | |
   \\____|____/ /_/   \\_\\   \\_/   |____/|_|`);
-          break;
-        case "clear":
-          terminalOutput.innerHTML = "";
-          break;
-        case "exit":
-          typeOut("Session terminated.");
-          break;
-        case "logout":
-          typeOut("[+] Session cleared.\n[+] Logging out...");
-          localStorage.removeItem("loggedIn");
-          setTimeout(() => location.reload(), 1500);
-          break;
-        case "telegram":
-          window.open("https://t.me/expule", "_blank");
-          typeOut("Opening Telegram...");
-          break;
-        case "discord":
-          window.open("https://discord.com/users/expule", "_blank");
-          typeOut("Opening Discord...");
-          break;
-        case "doxbin":
-          window.open("https://doxbin.com/user/lucent", "_blank");
-          typeOut("Opening Doxbin...");
-          break;
-        case "sudo rm -rf /":
-          document.querySelector(".terminal").classList.add("red-alert");
-          let count = 0;
-          const wipe = setInterval(() => {
-            typeOut(`deleting /dev/null${count++}...`);
-            if (count > 10) {
-              clearInterval(wipe);
-              typeOut("SYSTEM FAILURE. Goodbye.");
-              commandInput.disabled = true;
-            }
-          }, 200);
-          break;
-        default:
-          typeOut(`Command not found: ${cmd}`);
+            break;
+          case "clear":
+            terminalOutput.innerHTML = "";
+            break;
+          case "exit":
+            typeOut("Session terminated.");
+            break;
+          case "logout":
+            typeOut("[+] Session cleared.\n[+] Logging out...");
+            localStorage.removeItem("loggedIn");
+            setTimeout(() => location.reload(), 1500);
+            break;
+          case "telegram":
+            window.open("https://t.me/expule", "_blank");
+            typeOut("Opening Telegram...");
+            break;
+          case "discord":
+            window.open("https://discord.com/users/expule", "_blank");
+            typeOut("Opening Discord...");
+            break;
+          case "doxbin":
+            window.open("https://doxbin.com/user/lucent", "_blank");
+            typeOut("Opening Doxbin...");
+            break;
+          default:
+            typeOut(`Command not found: ${cmd}`);
+        }
+
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
       }
+    });
 
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    function printLine(text) {
+      terminalOutput.innerHTML += `<div>${text}</div>`;
     }
-  });
 
-  function printLine(text) {
-    terminalOutput.innerHTML += `<div>${text}</div>`;
-  }
-
-  function typeOut(text) {
-    let i = 0;
-    const div = document.createElement("div");
-    terminalOutput.appendChild(div);
-    const interval = setInterval(() => {
-      div.textContent += text[i++];
-      if (i >= text.length) clearInterval(interval);
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }, 15);
-  }
-</script>
-
-<!-- Disable Inspect -->
-<script>
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("keydown", function (e) {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
-      (e.ctrlKey && e.key.toUpperCase() === "U")
-    ) {
-      e.preventDefault();
-      alert("🔒 DevTools are disabled on this page.");
+    function typeOut(text) {
+      let i = 0;
+      const div = document.createElement("div");
+      terminalOutput.appendChild(div);
+      const interval = setInterval(() => {
+        div.textContent += text[i++];
+        if (i >= text.length) clearInterval(interval);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }, 15);
     }
-  });
-</script>
+  </script>
+
+  <!-- Disable Inspect -->
+  <script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("keydown", function (e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === "U")
+      ) {
+        e.preventDefault();
+        alert("\ud83d\udd10 DevTools are disabled on this page.");
+      }
+    });
+  </script>
 </body>
 </html>
