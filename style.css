@@ -14,9 +14,9 @@ body {
 
 .tagline {
   position: absolute;
-  top: 15px;
+  top: 20px;
   font-size: 12px;
-  color: #666;
+  color: #777;
   letter-spacing: 1px;
 }
 
@@ -26,18 +26,23 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
 }
 
 .domain {
-  font-size: 48px;
+  font-size: 72px;
   color: white;
+  margin-bottom: 10px;
+}
+
+.user {
+  text-align: center;
+  margin-top: 10px;
 }
 
 .name {
-  font-size: 16px;
+  font-size: 18px;
   color: #aaa;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .pfp {
@@ -50,16 +55,16 @@ body {
 
 .music-toggle {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 15px;
+  right: 20px;
 }
 
 .music-toggle button {
   background: none;
-  border: 1px solid #444;
-  padding: 4px 10px;
-  font-size: 12px;
+  border: 1px solid #555;
   color: white;
-  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  padding: 5px 10px;
   cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
 }
