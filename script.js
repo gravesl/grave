@@ -7,6 +7,8 @@ const commandInput = document.getElementById("command-input");
 let commandHistory = [];
 let historyIndex = 0;
 let currentDir = "/";
+let isLoggingIn = false;
+let loginStep = 0;
 
 const fileSystem = {
   "/": ["profile.jpg", "music.mp3", "index.html", "secrets/"],
@@ -107,6 +109,7 @@ function processCommand(cmd) {
     default:
       output += `Command not found: ${cmd}`;
   }
+
   terminalOutput.textContent += output + "\n";
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
