@@ -2,33 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>grave.lat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head><body>
+  <title>grave.lat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #ccc;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(#888 0.5px, transparent 0.5px);
+      background-size: 3px 3px;
+      animation: drift 60s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes drift {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+
+    .music-player {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 0.8em;
+      color: #ccc;
+      z-index: 3;
+    }
+    .music-player audio {
+      margin-top: 5px;
+      width: 140px;
+    }
+
+    .title {
+      font-size: 3em;
+      color: white;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .pfp {
+      margin-top: 20px;
+      z-index: 2;
+    }
+
+    .pfp img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1px solid #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
   <div class="music-player">
-    <div>Now Playing: <strong>6geeked – everynite</strong></div>
+    <div>Now Playing: <strong>6geeked - everynite</strong></div>
     <audio controls autoplay loop>
-      <source src="everynite.mp3" type="audio/mpeg">
+      <source src="everynite.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
   </div>
 
-  <!-- everything else follows here... -->
-
-<body>
-
-  <!-- Tagline -->
-  <div class="tagline">Lost After Thought</div>
-
-  <!-- Music Toggle Button -->
-  <div class="music-toggle">
-    <button onclick="toggleMusic()">MUSIC</button>
+  <div class="title">grave.lat</div>
+  <div class="pfp">
+    <img src="https://i.pinimg.com/736x/35/59/2c/35592c7d4ff41b9a144b22cc85ab609d.jpg" alt="profile" />
   </div>
-
-  <!-- Audio Element -->
-  <audio id="bg-music" src="music.mp3" loop></audio>
-
-  <!-- Centered Content -->
-  <div class="center">
+</body>
+</html>
