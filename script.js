@@ -16,13 +16,18 @@ const lines = [
 ];
 
 bootLog.textContent = ""; // clear boot log
-
 let i = 0;
 const delay = 300; // ms between lines
+
+// Load typing sound
+const typeSound = new Audio("type.mp3");
+typeSound.volume = 0.3;
 
 function typeLine() {
   if (i < lines.length) {
     bootLog.textContent += lines[i] + "\n";
+    typeSound.currentTime = 0;
+    typeSound.play();
     i++;
     setTimeout(typeLine, delay);
   } else {
@@ -30,13 +35,13 @@ function typeLine() {
   }
 }
 
-// Show splash screen first
+// Show splash first, then start boot
 setTimeout(() => {
   splash.style.display = "none";
   typeLine();
 }, 2000);
 
-// Click to continue after boot
+// After boot, click to show menu
 boot.addEventListener("click", () => {
   if (bootComplete.style.display === "block") {
     boot.classList.add("hidden");
