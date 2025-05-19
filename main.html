@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +13,43 @@
       color: #f00;
       font-family: Consolas, monospace;
     }
+
+    #profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    #profile img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid red;
+      box-shadow: 0 0 10px red;
+    }
+
+    #profile span {
+      font-size: 1.3em;
+      font-weight: bold;
+      text-shadow: 0 0 6px red;
+    }
+
     #terminal-output {
       white-space: pre-wrap;
       min-height: 300px;
     }
+
     #terminal-input-area {
       display: flex;
       align-items: center;
       margin-top: 5px;
     }
-    #prompt { margin-right: 5px; }
+
+    #prompt {
+      margin-right: 5px;
+    }
+
     #terminal-input {
       flex: 1;
       background: transparent;
@@ -32,10 +58,21 @@
       padding: 0;
       font-family: inherit;
     }
-    #terminal-input:focus { outline: none; }
+
+    #terminal-input:focus {
+      outline: none;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Profile Info -->
+  <div id="profile">
+    <img src="https://i.pinimg.com/736x/29/81/9f/29819fccc85164586b9809c08905dfd7.jpg" alt="ɠrave">
+    <span>ɠrave</span>
+  </div>
+
+  <!-- Terminal Area -->
   <div id="terminal">
     <div id="terminal-output"></div>
     <div id="terminal-input-area">
@@ -43,8 +80,10 @@
       <input id="terminal-input" type="text" autocomplete="off" autofocus />
     </div>
   </div>
+
   <script>
     const terminalOutput = document.getElementById('terminal-output');
+
     function printOutput(text) {
       const line = document.createElement('div');
       line.textContent = text;
@@ -53,7 +92,7 @@
     }
 
     printOutput("Welcome to grave.lat");
-    printOutput("Logged in as: grave (Founder)");
+    printOutput("Logged in as: ɠrave (Founder)");
 
     const promptSpan = document.getElementById('prompt');
     const terminalInput = document.getElementById('terminal-input');
@@ -61,6 +100,7 @@
     function processCommand(cmd) {
       if (cmd === "") return;
       printOutput(promptSpan.textContent + " " + cmd);
+
       switch (cmd.toLowerCase()) {
         case "help":
           printOutput("Available commands: clear, help, about, exit");
@@ -69,7 +109,7 @@
           terminalOutput.innerHTML = "";
           break;
         case "about":
-          printOutput("This is the personal terminal of grave.");
+          printOutput("This is the personal terminal of ɠrave.");
           break;
         case "exit":
           window.location.href = "index.html";
@@ -88,7 +128,7 @@
       }
     });
 
-    // Dev tools & right click protection
+    // Right-click and DevTools protection
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', function(e) {
       if (
