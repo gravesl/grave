@@ -7,10 +7,79 @@
   <style>
     body {
       margin: 0;
+      padding: 20px;
+      background: black url('assets/images/5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png') center center fixed;
+      background-size: cover;
+      color: #f00;
+      font-family: Consolas, monospace;
+    }
+    pre.ascii {
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.2;
+      color: #f00;
+      text-shadow: 0 0 5px red;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #f00;
+      text-shadow: 0 0 4px red;
+      margin-bottom: 30px;
+    }
+    #profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    #profile img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid red;
+      box-shadow: 0 0 25px red;
+      margin-bottom: 15px;
+    }
+    #profile span {
+      font-size: 2em;
+      font-weight: bold;
+      text-shadow: 0 0 10px red;
+    }
+    .socials {
+      font-size: 0.9em;
+      color: #f00;
+      margin-top: 8px;
+      text-shadow: 0 0 4px red;
+      line-height: 1.5;
+    }
+    .socials span {
+      font-weight: bold;
+    }
+    #terminal {
+      margin-top: 30px;
+    }
+    #terminal-output {
+      white-space: pre-wrap;
+      min-height: 300px;
+    }
+    #terminal-input-area {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    #terminal-input {
+      width: 100%;
+      background: transparent;
+      color: #f00;
+      border: none;
       padding: 0;
-      background: black;
-      color: red;
-      font-family: monospace;
+      font-family: inherit;
+    }
+    #terminal-input:focus {
+      outline: none;
     }
     #music-toggle {
       position: fixed;
@@ -80,34 +149,57 @@
 </head>
 <body>
 
-<!-- Toggle Button -->
-<button id="music-toggle">MUSIC</button>
+<pre class="ascii">
+ ██████╗ ██████╗  █████╗ ██╗   ██╗███████╗   ██╗      █████╗ ████████╗
+██╔════╝ ██╔══██╗██╔══██╗██║   ██║██╔════╝   ██║     ██╔══██╗╚══██╔══╝
+██║  ███╗██████╔╝███████║██║   ██║█████╗     ██║     ███████║   ██║   
+██║   ██║██╔══██╗██╔══██║╚██╗ ██╔╝██╔══╝     ██║     ██╔══██║   ██║   
+╚██████╔╝██║  ██║██║  ██║ ╚████╔╝ ███████╗██╗███████╗██║  ██║   ██║   
+ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   
+                                                                      
+</pre>
+<div class="subtitle">Lost after Thought</div>
 
-<!-- Player Window -->
+<div id="profile">
+  <img src="https://i.pinimg.com/736x/29/81/9f/29819fccc85164586b9809c08905dfd7.jpg" alt="ɠrave">
+  <span>ɠrave</span>
+  <div class="socials">
+    <div>Doxbin: <span>@lucent</span></div>
+    <div>Discord: <span>@expule</span></div>
+    <div>Telegram: <span>@exule</span></div>
+  </div>
+</div>
+
+<div id="terminal">
+  <div id="terminal-output"></div>
+  <div id="terminal-input-area">
+    <input id="terminal-input" type="text" autocomplete="off" autofocus />
+  </div>
+</div>
+
+<button id="music-toggle">MUSIC</button>
 <div id="music-player">
   <header>
     GRAVE.SH Media Player
     <button onclick="playerBox.style.display='none'">✕</button>
   </header>
-
   <div id="controls">
     <button onclick="prevTrack()">⏮</button>
     <button onclick="togglePlay()">⏯</button>
     <button onclick="nextTrack()">⏭</button>
     <button onclick="toggleMute()">🔇</button>
   </div>
-
   <div id="sliders">
     <input type="range" id="seek" value="0" min="0" max="100">
     <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
   </div>
-
   <div id="playlist"></div>
-
   <audio id="audio" preload="auto"></audio>
 </div>
 
 <script>
+  const terminalOutput = document.getElementById('terminal-output');
+  const terminalInput = document.getElementById('terminal-input');
   const musicToggle = document.getElementById('music-toggle');
   const playerBox = document.getElementById('music-player');
   const audio = document.getElementById('audio');
@@ -126,6 +218,43 @@
   musicToggle.onclick = () => {
     playerBox.style.display = playerBox.style.display === 'flex' ? 'none' : 'flex';
   };
+
+  function printOutput(text) {
+    const line = document.createElement('div');
+    line.textContent = text;
+    terminalOutput.appendChild(line);
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  }
+
+  function processCommand(cmd) {
+    if (cmd === '') return;
+    printOutput('> ' + cmd);
+    switch (cmd.toLowerCase()) {
+      case 'help':
+        printOutput('Available commands: clear, help, about, exit');
+        break;
+      case 'clear':
+        terminalOutput.innerHTML = '';
+        break;
+      case 'about':
+        printOutput('This is the personal terminal of ɠrave.');
+        break;
+      case 'exit':
+        window.location.href = 'index.html';
+        break;
+      default:
+        printOutput('Unknown command: ' + cmd);
+    }
+  }
+
+  terminalInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const command = terminalInput.value.trim();
+      processCommand(command);
+      terminalInput.value = '';
+    }
+  });
 
   function loadTrack(index) {
     const track = tracks[index];
@@ -175,7 +304,6 @@
     });
   }
 
-  // Render playlist
   tracks.forEach((track, index) => {
     const div = document.createElement('div');
     div.textContent = track.title;
@@ -186,8 +314,21 @@
     playlistDiv.appendChild(div);
   });
 
-  // Load first track
+  // Play first song
   loadTrack(currentTrack);
+
+  // Disable right-click and devtools
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', function(e) {
+    if (
+      e.keyCode === 123 ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+      (e.ctrlKey && e.key === 'U')
+    ) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
 </script>
 </body>
 </html>
