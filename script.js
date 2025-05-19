@@ -174,3 +174,20 @@ function processCommand(cmd) {
   terminalOutput.textContent += output + "\n";
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
 }
+
+// 🔒 Anti-inspect protection
+window.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+  alert("Right-click is disabled.");
+});
+
+window.addEventListener("keydown", function (e) {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+    (e.ctrlKey && e.key.toUpperCase() === "U")
+  ) {
+    e.preventDefault();
+    alert("DevTools are disabled.");
+  }
+});
