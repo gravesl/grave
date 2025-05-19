@@ -16,21 +16,22 @@
 
     #profile {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     #profile img {
-      width: 64px;
-      height: 64px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       border: 2px solid red;
-      box-shadow: 0 0 10px red;
+      box-shadow: 0 0 12px red;
+      margin-bottom: 10px;
     }
 
     #profile span {
-      font-size: 1.3em;
+      font-size: 1.6em;
       font-weight: bold;
       text-shadow: 0 0 6px red;
     }
@@ -46,12 +47,8 @@
       margin-top: 5px;
     }
 
-    #prompt {
-      margin-right: 5px;
-    }
-
     #terminal-input {
-      flex: 1;
+      width: 100%;
       background: transparent;
       color: #f00;
       border: none;
@@ -72,11 +69,10 @@
     <span>ɠrave</span>
   </div>
 
-  <!-- Terminal Area -->
+  <!-- Terminal -->
   <div id="terminal">
     <div id="terminal-output"></div>
     <div id="terminal-input-area">
-      <span id="prompt">user@grave:~$</span>
       <input id="terminal-input" type="text" autocomplete="off" autofocus />
     </div>
   </div>
@@ -94,12 +90,11 @@
     printOutput("Welcome to grave.lat");
     printOutput("Logged in as: ɠrave (Founder)");
 
-    const promptSpan = document.getElementById('prompt');
     const terminalInput = document.getElementById('terminal-input');
 
     function processCommand(cmd) {
       if (cmd === "") return;
-      printOutput(promptSpan.textContent + " " + cmd);
+      printOutput("> " + cmd);
 
       switch (cmd.toLowerCase()) {
         case "help":
