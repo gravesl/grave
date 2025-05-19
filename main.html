@@ -18,22 +18,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 30px;
+      justify-content: center;
+      text-align: center;
+      margin: 40px auto 50px;
     }
 
     #profile img {
-      width: 100px;
-      height: 100px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      border: 2px solid red;
-      box-shadow: 0 0 12px red;
-      margin-bottom: 10px;
+      border: 3px solid red;
+      box-shadow: 0 0 25px red;
+      margin-bottom: 15px;
     }
 
     #profile span {
-      font-size: 1.6em;
+      font-size: 2em;
       font-weight: bold;
-      text-shadow: 0 0 6px red;
+      text-shadow: 0 0 10px red;
     }
 
     #terminal-output {
@@ -63,13 +65,13 @@
 </head>
 <body>
 
-  <!-- Profile Info -->
+  <!-- Profile Section -->
   <div id="profile">
     <img src="https://i.pinimg.com/736x/29/81/9f/29819fccc85164586b9809c08905dfd7.jpg" alt="ɠrave">
     <span>ɠrave</span>
   </div>
 
-  <!-- Terminal -->
+  <!-- Terminal Area -->
   <div id="terminal">
     <div id="terminal-output"></div>
     <div id="terminal-input-area">
@@ -87,8 +89,22 @@
       terminalOutput.scrollTop = terminalOutput.scrollHeight;
     }
 
-    printOutput("Welcome to grave.lat");
-    printOutput("Logged in as: ɠrave (Founder)");
+    // ASCII art banner
+    const asciiBanner = [
+      "   ▄████████  ▄█     ▄████████ ▄█      ▄██████▄   ",
+      "  ███    ███ ███    ███    ███ ███     ███    ███ ",
+      "  ███    ███ ███▌   ███    █▀  ███     ███    ███ ",
+      " ▄███▄▄▄▄██▀ ███▌   ███        ███     ███    ███ ",
+      "▀▀███▀▀▀▀▀   ███▌ ▀███████████ ███     ███    ███ ",
+      "▀███████████ ███           ███ ███     ███    ███ ",
+      "  ███    ███ ███     ▄█    ███ ███▌    ███    ███ ",
+      "  ███    ███ █▀    ▄████████▀  █████▄▄ ████████▀  ",
+      "  ███    ███                        ▀             ",
+      "                                                 ",
+      "           ɠ r a v e . l a t                     "
+    ];
+    asciiBanner.forEach(line => printOutput(line));
+    printOutput("\n(type 'help' for commands...)\n");
 
     const terminalInput = document.getElementById('terminal-input');
 
@@ -123,7 +139,7 @@
       }
     });
 
-    // Right-click and DevTools protection
+    // Right-click & DevTools protection
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', function(e) {
       if (
