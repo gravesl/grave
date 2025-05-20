@@ -142,7 +142,7 @@
   </style>
 
   <script>
-    // Disable right click + dev tools
+    // Disable dev tools + right click
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = function (e) {
       if (
@@ -157,26 +157,24 @@
   </script>
 </head>
 <body>
-  <!-- Background Ambient Sound -->
+  <!-- Ambient background -->
   <audio src="ambient.mp3" autoplay loop></audio>
-
-  <!-- Terminal Beep -->
   <audio id="beep" src="beep.mp3"></audio>
 
   <h1>GRAVE.LAT</h1>
   <p class="subtitle">Lost after Thought</p>
 
   <div class="profile">
-    <!-- grave -->
+    <!-- GRAVE -->
     <div class="user">
-      <img src="a0e8a312-4179-4060-890f-fc3b3b03c33b.png" class="profile pulse" alt="grave">
+      <img src="01b58110-eaa8-4bdf-a3b3-5a5930fa930a.png" class="profile pulse" alt="grave">
       <h2>grave</h2>
       <p>Doxbin: <span style="color: red">@lucent</span></p>
       <p>Discord: <span style="color: red">@expule</span></p>
       <p>Telegram: <span style="color: red">@exule</span></p>
     </div>
 
-    <!-- Klowner -->
+    <!-- KLOWNER -->
     <div class="user">
       <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" class="profile pulse" alt="klowner">
       <h2>Klowner</h2>
@@ -188,7 +186,7 @@
     Guest access granted. Limited commands available.
   </div>
 
-  <!-- Terminal -->
+  <!-- Terminal Output -->
   <div class="terminal" id="terminal">
     <div class="command" id="terminal-output"></div>
   </div>
