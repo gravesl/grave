@@ -3,109 +3,169 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grave.lat Login</title>
+  <title>grave.lat login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Consolas', monospace;
       background: black;
-      overflow: hidden;
       color: red;
+      font-family: 'Share Tech Mono', monospace;
+      overflow: hidden;
+      user-select: none;
     }
 
+    /* Stars */
     .stars {
       width: 100%;
       height: 100%;
-      background: url('stars.png') repeat;
-      background-size: cover;
+      background: black url('https://i.imgur.com/wT9jzvU.png') repeat;
       position: fixed;
-      top: 0;
-      left: 0;
-      animation: moveStars 90s linear infinite;
       z-index: -1;
+      animation: moveStars 60s linear infinite;
     }
 
     @keyframes moveStars {
       from { background-position: 0 0; }
-      to { background-position: -10000px 5000px; }
+      to { background-position: 10000px 5000px; }
     }
 
-    .login-section {
+    /* Glitch Title */
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin: 40px 0 30px;
+      text-shadow: 0 0 5px red, 0 0 10px red;
+      animation: glitch 1s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px -2px #f00; }
+      50% { text-shadow: 2px -2px #f00; }
+      75% { text-shadow: -2px 2px red; }
+      100% { text-shadow: 0 0 5px red; }
+    }
+
+    .container {
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
-      gap: 50px;
+      gap: 60px;
     }
 
     .login-box {
-      background-color: rgba(0, 0, 0, 0.7);
       border: 2px solid red;
       padding: 30px;
-      width: 300px;
       box-shadow: 0 0 20px red;
+      width: 300px;
+      background-color: rgba(0, 0, 0, 0.8);
     }
 
     .login-box h2 {
       text-align: center;
       margin-bottom: 20px;
-      color: red;
-      text-shadow: 0 0 10px red;
     }
 
-    .login-box input {
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
-      background: black;
-      color: red;
+      margin: 10px 0;
+      background: #000;
       border: 1px solid red;
+      color: red;
     }
 
     .login-box button {
       width: 100%;
       padding: 10px;
-      background: black;
-      color: red;
+      background: #000;
       border: 1px solid red;
+      color: red;
       cursor: pointer;
     }
 
-    .login-image {
-      width: 200px;
-      display: block;
-      margin: 0 auto 30px;
-      filter: drop-shadow(0 0 10px red);
+    .login-box button:hover {
+      background: red;
+      color: black;
+    }
+
+    #music-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: black;
+      border: 1px solid red;
+      padding: 10px;
+      color: red;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
+
+  <script>
+    // Disable right-click and dev tools
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function (e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === 'U')
+      ) {
+        return false;
+      }
+    };
+  </script>
 </head>
 <body>
+  <!-- Stars background -->
   <div class="stars"></div>
 
-  <img src="assets/images/your-login-image.png" alt="Login Art" class="login-image" />
+  <!-- Music -->
+  <audio id="bg-music" src="everynight.mp3" autoplay loop></audio>
+  <button id="music-toggle">Pause Music</button>
 
-  <div class="login-section">
-    <!-- Admin Login -->
-    <form class="login-box" id="admin-login">
+  <!-- Glitching Title -->
+  <h1>grave.lat login</h1>
+
+  <!-- Login Boxes -->
+  <div class="container">
+    <div class="login-box">
       <h2>Admin Login</h2>
-      <input type="text" id="admin-username" placeholder="Username" required />
-      <input type="password" id="admin-password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-
-    <!-- Guest Login -->
-    <form class="login-box" id="guest-login">
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+      <button>Login</button>
+    </div>
+    <div class="login-box">
       <h2>Guest Login</h2>
-      <input type="text" id="guest-username" placeholder="Username" required />
-      <input type="password" id="guest-password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+      <button>Login</button>
+    </div>
   </div>
 
-  <audio id="login-sound" src="assets/sounds/boot.mp3" preload="auto"></audio>
-  <audio id="bg-music" src="music/everyn
+  <script>
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle');
+
+    toggleBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        toggleBtn.textContent = 'Pause Music';
+      } else {
+        music.pause();
+        toggleBtn.textContent = 'Play Music';
+      }
+    });
+  </script>
+</body>
+</html>
