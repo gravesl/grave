@@ -190,4 +190,16 @@ window.addEventListener("keydown", function (e) {
     e.preventDefault();
     alert("DevTools are disabled.");
   }
+// Autoplay background music on login
+window.addEventListener("load", () => {
+  const audio = new Audio("ty-i-ia.mp3");
+  audio.loop = true;
+  audio.volume = 0.6;
+
+  // Try to autoplay immediately
+  audio.play().catch(() => {
+    // Wait for user interaction if autoplay fails
+    document.body.addEventListener("click", () => audio.play(), { once: true });
+  });
+});
 });
