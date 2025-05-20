@@ -101,31 +101,6 @@
       48% { opacity: 1; transform: scale(1); }
     }
 
-    .wing {
-      position: absolute;
-      top: 50%;
-      width: 100px;
-      height: 100px;
-      transform: translateY(-50%);
-      opacity: 0.9;
-      animation: flap 1.5s ease-in-out infinite;
-    }
-
-    .wing.left {
-      left: -110px;
-      transform: translateY(-50%) rotateY(0deg);
-    }
-
-    .wing.right {
-      right: -110px;
-      transform: translateY(-50%) rotateY(180deg);
-    }
-
-    @keyframes flap {
-      0%, 100% { transform: translateY(-50%) scaleY(1); }
-      50% { transform: translateY(-60%) scaleY(1.2); }
-    }
-
     .footer {
       margin-top: 60px;
       color: red;
@@ -160,10 +135,6 @@
     }
 
     @media (max-width: 700px) {
-      .wing {
-        display: none;
-      }
-
       .terminal {
         font-size: 14px;
       }
@@ -171,7 +142,7 @@
   </style>
 
   <script>
-    // Disable dev tools + right click
+    // Disable right click + dev tools
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = function (e) {
       if (
@@ -186,10 +157,10 @@
   </script>
 </head>
 <body>
-  <!-- Audio: ambient loop -->
+  <!-- Background Ambient Sound -->
   <audio src="ambient.mp3" autoplay loop></audio>
 
-  <!-- Audio: terminal beep -->
+  <!-- Terminal Beep -->
   <audio id="beep" src="beep.mp3"></audio>
 
   <h1>GRAVE.LAT</h1>
@@ -198,9 +169,7 @@
   <div class="profile">
     <!-- grave -->
     <div class="user">
-      <img src="7116acc557a00ad1d8f5351f428b8f0f.jpg" class="profile pulse" alt="grave">
-      <img src="80d582fb-2e46-46cc-9606-6f1c25f8cc06.png" class="wing left" alt="left wing">
-      <img src="80d582fb-2e46-46cc-9606-6f1c25f8cc06.png" class="wing right" alt="right wing">
+      <img src="https://files.oaiusercontent.com/file-LM7kWmSc73twTt3mPizroY?se=2025-05-20T19%3A34%3A37Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7116acc557a00ad1d8f5351f428b8f0f.jpg&sig=IHOfz2MWUjyJBv0X%2BBt5fgOgv68GLxfBBRWew/AHwsw%3D" class="profile pulse" alt="grave">
       <h2>grave</h2>
       <p>Doxbin: <span style="color: red">@lucent</span></p>
       <p>Discord: <span style="color: red">@expule</span></p>
@@ -251,38 +220,4 @@
 
       const currentLine = lines[lineIndex];
       const lineDivs = document.querySelectorAll(".command");
-      let current = lineDivs[lineDivs.length - 1];
-
-      if (!current || !current.innerText.includes("guest@grave:~$")) {
-        const newLine = document.createElement("div");
-        newLine.classList.add("command");
-        newLine.innerHTML = `guest@grave:~$ `;
-        terminal.appendChild(newLine);
-        current = newLine;
-      }
-
-      current.innerHTML = `guest@grave:~$ ${currentLine.substring(0, charIndex)}<span class="cursor"></span>`;
-
-      if (charIndex < currentLine.length) {
-        charIndex++;
-        beep.currentTime = 0;
-        beep.play();
-        setTimeout(typeNextChar, 40);
-      } else {
-        charIndex = 0;
-        lineIndex++;
-        setTimeout(() => {
-          const newLine = document.createElement("div");
-          newLine.classList.add("command");
-          terminal.appendChild(newLine);
-          typeNextChar();
-        }, 300);
-      }
-    }
-
-    window.onload = () => {
-      typeNextChar();
-    };
-  </script>
-</body>
-</html>
+     
