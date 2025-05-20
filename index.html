@@ -1,209 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grave.lat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grave.lat login</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: black url('assets/images/5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png') center center fixed;
-      background-size: cover;
+      background-color: black;
       color: #f00;
       font-family: Consolas, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
-    h1, h2, h3, p {
-      margin: 0.5em 0;
+    h1 {
+      text-shadow: 0 0 8px red;
     }
-    .neon-text { text-shadow: 0 0 5px #f00; }
-    .neon-box  { box-shadow: 0 0 10px #f00; }
-    #boot-screen {
-      font-family: Consolas, monospace;
-      white-space: pre;
-      padding: 20px;
+    .login-container {
+      display: flex;
+      gap: 40px;
     }
-    #login-container {
-      display: none;
+    .login-box {
       border: 2px solid #f00;
       padding: 20px;
-      width: 400px;
-      max-width: 90%;
-      margin: 100px auto;
-      text-align: left;
-      box-shadow: 0 0 10px #f00;
-    }
-    #login-container h2 {
-      margin-bottom: 1em;
-    }
-    form .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1em;
+      box-shadow: 0 0 15px red;
+      width: 280px;
+      text-align: center;
     }
     input[type="text"], input[type="password"] {
       background: black;
-      color: #f00;
       border: 1px solid #f00;
-      padding: 5px;
-      font-family: Consolas, monospace;
-      width: 48%;
+      color: #f00;
+      padding: 8px;
+      width: 90%;
+      margin: 10px 0;
     }
-    input::placeholder { color: #888; }
-    input:focus { outline: none; }
+    input::placeholder {
+      color: #888;
+    }
     button {
       background: black;
-      color: #f00;
       border: 1px solid #f00;
-      padding: 5px 15px;
-      font-family: Consolas, monospace;
+      color: #f00;
+      padding: 8px 15px;
       cursor: pointer;
+      font-family: inherit;
     }
-    button:focus { outline: none; }
+    button:hover {
+      background: #f00;
+      color: black;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Boot screen -->
-  <div id="boot-screen"></div>
-
-  <!-- Login -->
-  <div id="login-container" class="neon-box">
-    <h2 class="neon-text">grave.lat login</h2>
-    <form id="login-form">
-      <div class="row">
-        <input type="text" name="username" placeholder="Username" required />
-        <input type="password" name="password" placeholder="Password" required />
-      </div>
-      <div class="row">
+  <h1>grave.lat login</h1>
+  <div class="login-container">
+    <div class="login-box">
+      <h2>Admin Login</h2>
+      <form onsubmit="return login(event, 'admin')">
+        <input type="text" placeholder="Username" id="admin-user" required>
+        <input type="password" placeholder="Password" id="admin-pass" required>
         <button type="submit">Login</button>
-        <label><input type="checkbox" name="remember" /> Remember me</label>
-      </div>
-    </form>
+      </form>
+    </div>
+
+    <div class="login-box">
+      <h2>Guest Login</h2>
+      <form onsubmit="return login(event, 'guest')">
+        <input type="text" placeholder="Username" id="guest-user" required>
+        <input type="password" placeholder="Password" id="guest-pass" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   </div>
 
-  <!-- Background music -->
-  <audio id="background-music" src="music/everynight.mp3" loop></audio>
-
   <script>
-    // Audio elements
-    const bootHumAudio = new Audio('assets/sounds/boot-hum.mp3');
-    const bootBeepAudio = new Audio('assets/sounds/boot.mp3');
-    const typeAudio    = new Audio('assets/sounds/type.mp3');
-    const glitchAudio  = new Audio('assets/sounds/glitch.mp3');
-    const music = document.getElementById('background-music');
-    music.volume = 0.5;
-
-    const bootScreenEl   = document.getElementById('boot-screen');
-    const loginContainer = document.getElementById('login-container');
-    const loginForm      = document.getElementById('login-form');
-
-    const bootLines = [
-      "Booting GraveOS v0.1 ...",
-      "Loading modules .......... [OK]",
-      "Initializing systems ..... [OK]",
-      "Establishing secure link . [OK]",
-      "Welcome, user",
-      "Starting interface ..."
-    ];
-
-    function typeLine(line, callback) {
-      let i = 0;
-      function typeChar() {
-        if (i < line.length) {
-          bootScreenEl.textContent += line.charAt(i);
-          if (Math.random() < 0.1) {
-            const glitchChars = "#$%@&?";
-            const originalChar = line.charAt(i);
-            bootScreenEl.textContent = bootScreenEl.textContent.slice(0, -1) + glitchChars.charAt(Math.floor(Math.random()*glitchChars.length));
-            setTimeout(() => {
-              bootScreenEl.textContent = bootScreenEl.textContent.slice(0, -1) + originalChar;
-            }, 100);
-            glitchAudio.play();
-          } else {
-            typeAudio.play();
-          }
-          i++;
-          setTimeout(typeChar, 50 + Math.random()*100);
-        } else {
-          bootScreenEl.textContent += "\n";
-          if (callback) callback();
-        }
-      }
-      typeChar();
-    }
-
-    function startBootSequence() {
-      bootHumAudio.play();
-      let index = 0;
-      function nextLine() {
-        if (index < bootLines.length) {
-          const line = bootLines[index++];
-          typeLine(line, nextLine);
-        } else {
-          bootBeepAudio.play();
-          setTimeout(glitchTransition, 500);
-        }
-      }
-      nextLine();
-    }
-
-    // Save original glitchTransition
-    const originalGlitch = glitchTransition;
-
-    function glitchTransition() {
-      glitchAudio.play();
-      document.body.style.transition = "opacity 0.1s";
-      document.body.style.opacity = "0";
-      setTimeout(() => { document.body.style.opacity = "1"; }, 100);
-      setTimeout(() => { document.body.style.opacity = "0"; }, 200);
-      setTimeout(() => {
-        document.body.style.opacity = "1";
-        bootScreenEl.style.display = 'none';
-        bootHumAudio.pause();
-        loginContainer.style.display = 'block';
-        loginForm.username.focus();
-      }, 300);
-
-      // Try to play background music
-      setTimeout(() => {
-        music.play()
-          .then(() => console.log("🎵 Music started"))
-          .catch(err => console.warn("⚠️ Music autoplay failed:", err));
-      }, 400);
-    }
-
-    // DevTools protection
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', function(e) {
-      if (
-        e.keyCode === 123 || 
-        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
-        (e.ctrlKey && e.key === 'U')
-      ) {
+      if (e.keyCode === 123 || // F12
+          (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key)) ||
+          (e.ctrlKey && e.key === 'U')) {
         e.preventDefault();
         e.stopPropagation();
       }
     });
 
-    // Login logic
-    loginForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const username = loginForm.username.value.trim();
-      const password = loginForm.password.value.trim();
-      const VALID_USERNAME = "admin";
-      const VALID_PASSWORD = "grave";
-      if (username === VALID_USERNAME && password === VALID_PASSWORD) {
-        window.location.href = "main.html";
-      } else {
-        alert("Invalid username or password.");
-        loginForm.reset();
-      }
-    });
+    function login(event, type) {
+      event.preventDefault();
+      let user = document.getElementById(`${type}-user`).value.trim();
+      let pass = document.getElementById(`${type}-pass`).value.trim();
 
-    // Boot!
-    startBootSequence();
+      if (type === 'admin' && user === 'admin' && pass === 'grave') {
+        window.location.href = 'main.html';
+      } else if (type === 'guest' && user === 'guest' && pass === 'graveisdad') {
+        window.location.href = 'main.html';
+      } else {
+        alert('Invalid credentials');
+      }
+      return false;
+    }
   </script>
 </body>
 </html>
