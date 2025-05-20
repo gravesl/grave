@@ -56,6 +56,13 @@
       border-radius: 50%;
       border: 3px solid red;
       box-shadow: 0 0 20px red;
+      animation: glitchFlicker 2s infinite;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .user img.profile:hover {
+      filter: contrast(2) invert(1) blur(1px);
+      transform: scale(1.05) rotate(1deg);
     }
 
     .user h2 {
@@ -65,6 +72,33 @@
 
     .user p {
       margin: 5px 0;
+    }
+
+    .pulse {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px red, 0 0 30px red;
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px red, 0 0 60px red;
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px red, 0 0 30px red;
+      }
+    }
+
+    @keyframes glitchFlicker {
+      0%, 100% { opacity: 1; }
+      45% { opacity: 0.8; transform: scale(1.01); }
+      46% { opacity: 0.4; transform: scale(1.05); }
+      47% { opacity: 0.9; transform: scale(1.01); }
+      48% { opacity: 1; transform: scale(1); }
     }
 
     .wing {
@@ -97,7 +131,6 @@
       color: red;
     }
 
-    /* Terminal */
     .terminal {
       background: #000;
       border-top: 2px solid red;
@@ -153,24 +186,30 @@
   </script>
 </head>
 <body>
+  <!-- Audio: ambient loop -->
+  <audio src="ambient.mp3" autoplay loop></audio>
+
+  <!-- Audio: terminal beep -->
+  <audio id="beep" src="beep.mp3"></audio>
+
   <h1>GRAVE.LAT</h1>
   <p class="subtitle">Lost after Thought</p>
 
   <div class="profile">
-    <!-- grave profile -->
+    <!-- grave -->
     <div class="user">
-      <img src="c91a8bf3-a708-4ed9-8b77-e7d950f67cdf.png" class="profile" alt="grave">
-      <img src="c91a8bf3-a708-4ed9-8b77-e7d950f67cdf.png" class="wing left" alt="left wing">
-      <img src="c91a8bf3-a708-4ed9-8b77-e7d950f67cdf.png" class="wing right" alt="right wing">
+      <img src="7116acc557a00ad1d8f5351f428b8f0f.jpg" class="profile pulse" alt="grave">
+      <img src="80d582fb-2e46-46cc-9606-6f1c25f8cc06.png" class="wing left" alt="left wing">
+      <img src="80d582fb-2e46-46cc-9606-6f1c25f8cc06.png" class="wing right" alt="right wing">
       <h2>grave</h2>
       <p>Doxbin: <span style="color: red">@lucent</span></p>
       <p>Discord: <span style="color: red">@expule</span></p>
       <p>Telegram: <span style="color: red">@exule</span></p>
     </div>
 
-    <!-- Klowner profile -->
+    <!-- Klowner -->
     <div class="user">
-      <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" class="profile" alt="klowner">
+      <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" class="profile pulse" alt="klowner">
       <h2>Klowner</h2>
       <p>Discord: <span style="color: red">@kl0wner</span></p>
     </div>
@@ -180,13 +219,15 @@
     Guest access granted. Limited commands available.
   </div>
 
-  <!-- Terminal below -->
+  <!-- Terminal -->
   <div class="terminal" id="terminal">
     <div class="command" id="terminal-output"></div>
   </div>
 
   <script>
     const terminal = document.getElementById("terminal-output");
+    const beep = document.getElementById("beep");
+
     const lines = [
       "login guest",
       "Access level: Guest",
@@ -224,6 +265,8 @@
 
       if (charIndex < currentLine.length) {
         charIndex++;
+        beep.currentTime = 0;
+        beep.play();
         setTimeout(typeNextChar, 40);
       } else {
         charIndex = 0;
