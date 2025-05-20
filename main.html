@@ -98,7 +98,7 @@
       right: 20px;
       width: 280px;
       background: #000;
-      border: 1px solid white;
+      border: 1px red;
       display: none;
       flex-direction: column;
       font-size: 13px;
@@ -106,7 +106,7 @@
     #music-player header {
       background: #111;
       padding: 8px;
-      color: white;
+      color: red;
       font-weight: bold;
       display: flex;
       justify-content: space-between;
@@ -328,7 +328,11 @@
       e.preventDefault();
       e.stopPropagation();
     }
-  });
+  });audio.addEventListener("play", () => console.log("✅ Music started"));
+audio.addEventListener("error", (e) => {
+  console.error("❌ Music failed", e);
+});
+
 </script>
 </body>
 </html>
