@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
   <style>
-    /* Base styling */
     body {
       margin: 0;
       padding: 0;
@@ -17,18 +16,15 @@
     h1, h2, h3, p {
       margin: 0.5em 0;
     }
-    /* Neon glow effect for text and borders */
     .neon-text { text-shadow: 0 0 5px #f00; }
     .neon-box  { box-shadow: 0 0 10px #f00; }
-    /* Boot screen text styling */
     #boot-screen {
       font-family: Consolas, monospace;
-      white-space: pre; /* Preserve whitespace and line breaks */
+      white-space: pre;
       padding: 20px;
     }
-    /* Login form styling */
     #login-container {
-      display: none; /* hidden by default, will be shown after boot sequence */
+      display: none;
       border: 2px solid #f00;
       padding: 20px;
       width: 400px;
@@ -40,16 +36,11 @@
     #login-container h2 {
       margin-bottom: 1em;
     }
-    form { margin: 0; }
     form .row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1em;
-    }
-    form .row input[type="text"],
-    form .row input[type="password"] {
-      width: 48%;
     }
     input[type="text"], input[type="password"] {
       background: black;
@@ -57,6 +48,7 @@
       border: 1px solid #f00;
       padding: 5px;
       font-family: Consolas, monospace;
+      width: 48%;
     }
     input::placeholder { color: #888; }
     input:focus { outline: none; }
@@ -69,38 +61,14 @@
       cursor: pointer;
     }
     button:focus { outline: none; }
-    /* Terminal interface styling (hidden on this page, shown on main.html or after login) */
-    #terminal {
-      display: none;
-      padding: 20px;
-      font-family: Consolas, monospace;
-    }
-    #terminal-output {
-      white-space: pre-wrap;
-      min-height: 200px;
-    }
-    #terminal-input-area {
-      display: flex;
-      align-items: center;
-      margin-top: 5px;
-    }
-    #terminal-input-area #prompt { margin-right: 5px; }
-    #terminal-input {
-      flex: 1;
-      background: transparent;
-      color: #f00;
-      border: none;
-      padding: 0;
-      font-family: inherit;
-    }
-    #terminal-input:focus { outline: none; }
   </style>
 </head>
 <body>
-  <!-- Boot screen text output (simulated boot sequence) -->
+
+  <!-- Boot screen -->
   <div id="boot-screen"></div>
 
-  <!-- Login interface -->
+  <!-- Login -->
   <div id="login-container" class="neon-box">
     <h2 class="neon-text">grave.lat login</h2>
     <form id="login-form">
@@ -115,26 +83,22 @@
     </form>
   </div>
 
-  <!-- (Optional: Terminal interface could be embedded here if using one-page approach)
-       For multi-page approach, the terminal interface is in main.html -->
-  <div id="terminal">
-    <div id="terminal-output"></div>
-    <div id="terminal-input-area">
-      <span id="prompt">user@grave:~$</span>
-      <input id="terminal-input" type="text" autocomplete="off" />
-    </div>
-  </div>
+  <!-- Background music -->
+  <audio id="background-music" src="music/everynight.mp3" loop></audio>
 
   <script>
-    // Audio elements for effects
+    // Audio elements
     const bootHumAudio = new Audio('assets/sounds/boot-hum.mp3');
     const bootBeepAudio = new Audio('assets/sounds/boot.mp3');
     const typeAudio    = new Audio('assets/sounds/type.mp3');
     const glitchAudio  = new Audio('assets/sounds/glitch.mp3');
-    bootHumAudio.loop = true;
-    // Note: Browsers may block autoplay audio. Audio will play if allowed.
+    const music = document.getElementById('background-music');
+    music.volume = 0.5;
 
-    // Boot sequence lines to display
+    const bootScreenEl   = document.getElementById('boot-screen');
+    const loginContainer = document.getElementById('login-container');
+    const loginForm      = document.getElementById('login-form');
+
     const bootLines = [
       "Booting GraveOS v0.1 ...",
       "Loading modules .......... [OK]",
@@ -143,24 +107,17 @@
       "Welcome, user",
       "Starting interface ..."
     ];
-    const bootScreenEl   = document.getElementById('boot-screen');
-    const loginContainer = document.getElementById('login-container');
-    const loginForm      = document.getElementById('login-form');
 
-    // Type out a line with a glitchy typing effect
     function typeLine(line, callback) {
       let i = 0;
       function typeChar() {
         if (i < line.length) {
-          // Append next character
           bootScreenEl.textContent += line.charAt(i);
-          // Occasionally insert a glitch character for effect
           if (Math.random() < 0.1) {
             const glitchChars = "#$%@&?";
             const originalChar = line.charAt(i);
             bootScreenEl.textContent = bootScreenEl.textContent.slice(0, -1) + glitchChars.charAt(Math.floor(Math.random()*glitchChars.length));
             setTimeout(() => {
-              // Replace glitch char with the correct char
               bootScreenEl.textContent = bootScreenEl.textContent.slice(0, -1) + originalChar;
             }, 100);
             glitchAudio.play();
@@ -168,16 +125,15 @@
             typeAudio.play();
           }
           i++;
-          setTimeout(typeChar, 50 + Math.random()*100); // random speed for realism
+          setTimeout(typeChar, 50 + Math.random()*100);
         } else {
-          bootScreenEl.textContent += "\n"; // New line after finishing the line
+          bootScreenEl.textContent += "\n";
           if (callback) callback();
         }
       }
       typeChar();
     }
 
-    // Start the boot sequence typing for each line
     function startBootSequence() {
       bootHumAudio.play();
       let index = 0;
@@ -186,47 +142,52 @@
           const line = bootLines[index++];
           typeLine(line, nextLine);
         } else {
-          // Boot sequence finished
           bootBeepAudio.play();
-          // After a short delay, trigger glitch transition to login screen
           setTimeout(glitchTransition, 500);
         }
       }
       nextLine();
     }
 
-    // Glitch transition effect from boot screen to login
+    // Save original glitchTransition
+    const originalGlitch = glitchTransition;
+
     function glitchTransition() {
-      glitchAudio.play();  // Play glitch sound
-      // Quick flash/flicker effect
+      glitchAudio.play();
       document.body.style.transition = "opacity 0.1s";
       document.body.style.opacity = "0";
       setTimeout(() => { document.body.style.opacity = "1"; }, 100);
       setTimeout(() => { document.body.style.opacity = "0"; }, 200);
       setTimeout(() => {
         document.body.style.opacity = "1";
-        // End of glitch: hide boot screen, stop hum, show login form
         bootScreenEl.style.display = 'none';
         bootHumAudio.pause();
         loginContainer.style.display = 'block';
-        loginForm.username.focus();  // focus the username field
+        loginForm.username.focus();
       }, 300);
+
+      // Try to play background music
+      setTimeout(() => {
+        music.play()
+          .then(() => console.log("🎵 Music started"))
+          .catch(err => console.warn("⚠️ Music autoplay failed:", err));
+      }, 400);
     }
 
-    // Prevent right-click context menu and block certain DevTools key combos
+    // DevTools protection
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', function(e) {
       if (
-        e.keyCode === 123 ||  // F12
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||  // Ctrl+Shift+I/J/C
-        (e.ctrlKey && e.key === 'U')  // Ctrl+U
+        e.keyCode === 123 || 
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+        (e.ctrlKey && e.key === 'U')
       ) {
         e.preventDefault();
         e.stopPropagation();
       }
     });
 
-    // Login form submission handling
+    // Login logic
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const username = loginForm.username.value.trim();
@@ -234,7 +195,6 @@
       const VALID_USERNAME = "admin";
       const VALID_PASSWORD = "grave";
       if (username === VALID_USERNAME && password === VALID_PASSWORD) {
-        // Access granted: proceed to main terminal interface
         window.location.href = "main.html";
       } else {
         alert("Invalid username or password.");
@@ -242,7 +202,7 @@
       }
     });
 
-    // Start the boot sequence on page load
+    // Boot!
     startBootSequence();
   </script>
 </body>
