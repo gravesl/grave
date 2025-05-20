@@ -16,7 +16,6 @@
       overflow-x: hidden;
     }
 
-    /* Glitchy title */
     h1 {
       font-size: 4rem;
       margin-top: 40px;
@@ -68,7 +67,6 @@
       margin: 5px 0;
     }
 
-    /* Wing animation */
     .wing {
       position: absolute;
       top: 50%;
@@ -99,7 +97,7 @@
       color: red;
     }
 
-    /* Terminal Section */
+    /* Terminal */
     .terminal {
       background: #000;
       border-top: 2px solid red;
@@ -140,7 +138,7 @@
   </style>
 
   <script>
-    // Disable right-click and dev tools
+    // Disable dev tools + right click
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = function (e) {
       if (
@@ -158,20 +156,19 @@
   <h1>GRAVE.LAT</h1>
   <p class="subtitle">Lost after Thought</p>
 
-  <!-- Profile Display -->
   <div class="profile">
-    <!-- grave -->
+    <!-- grave profile -->
     <div class="user">
-      <img src="b5022c7d-b150-451f-8158-13e5783da6f4.png" class="profile" alt="grave">
-      <img src="b5022c7d-b150-451f-8158-13e5783da6f4.png" class="wing left" alt="left wing">
-      <img src="b5022c7d-b150-451f-8158-13e5783da6f4.png" class="wing right" alt="right wing">
+      <img src="c91a8bf3-a708-4ed9-8b77-e7d950f67cdf.png" class="profile" alt="grave">
+      <img src="c91a8bf3-a708-4ed9-8b77-e7d950f67cdf.png" class="wing left" alt="left wing">
+      <img src="c91a8bf3-a708-4ed9-8b77-e7d950f67cdf.png" class="wing right" alt="right wing">
       <h2>grave</h2>
       <p>Doxbin: <span style="color: red">@lucent</span></p>
       <p>Discord: <span style="color: red">@expule</span></p>
       <p>Telegram: <span style="color: red">@exule</span></p>
     </div>
 
-    <!-- klowner -->
+    <!-- Klowner profile -->
     <div class="user">
       <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" class="profile" alt="klowner">
       <h2>Klowner</h2>
@@ -183,7 +180,7 @@
     Guest access granted. Limited commands available.
   </div>
 
-  <!-- Terminal -->
+  <!-- Terminal below -->
   <div class="terminal" id="terminal">
     <div class="command" id="terminal-output"></div>
   </div>
@@ -204,7 +201,6 @@
 
     let lineIndex = 0;
     let charIndex = 0;
-    let currentLine = "";
 
     function typeNextChar() {
       if (lineIndex >= lines.length) {
@@ -212,7 +208,7 @@
         return;
       }
 
-      currentLine = lines[lineIndex];
+      const currentLine = lines[lineIndex];
       const lineDivs = document.querySelectorAll(".command");
       let current = lineDivs[lineDivs.length - 1];
 
