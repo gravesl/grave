@@ -1,119 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: black url('assets/images/5f40be8a-8f3c-419e-ba5d-a9d1150a5071.png') center center fixed;
-      background-size: cover;
-      font-family: monospace;
-      color: red;
-    }
-
-    #enter-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
       background: black;
       color: red;
-      font-size: 2rem;
       font-family: monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 9999;
-      transition: opacity 1s ease;
-    }
-
-    #enter-overlay.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .ascii {
-      white-space: pre;
       text-align: center;
-      font-size: 12px;
-      text-shadow: 0 0 6px red;
     }
 
-    #profile {
+    h1 {
+      font-size: 64px;
+      color: red;
+      text-shadow: 0 0 8px red;
+      margin-top: 30px;
+    }
+
+    .profile-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px 0;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 80px;
+      margin-top: 40px;
+      flex-wrap: wrap;
     }
 
-    #profile img {
-      width: 150px;
-      height: 150px;
+    .profile {
+      max-width: 300px;
+      padding: 20px;
+    }
+
+    .profile img {
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       border: 3px solid red;
       box-shadow: 0 0 25px red;
     }
 
-    #profile span {
-      font-size: 2em;
-      font-weight: bold;
-      margin-top: 10px;
+    .profile h2 {
+      font-size: 32px;
+      margin: 20px 0 10px;
+      color: red;
       text-shadow: 0 0 10px red;
     }
 
     .socials {
-      text-align: center;
       margin-top: 10px;
-    }
-
-    .socials p a {
+      font-size: 16px;
       color: red;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.2em;
+      text-shadow: 0 0 5px red;
     }
 
-    .socials p a:hover {
-      text-shadow: 0 0 5px red;
+    .socials span {
+      font-weight: bold;
+    }
+
+    .socials a, .socials button {
+      color: red;
+      font-weight: bold;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 16px;
+      padding: 0;
+    }
+
+    .socials a:hover, .socials button:hover {
+      text-shadow: 0 0 5px white;
     }
   </style>
 </head>
 <body>
-  <div id="enter-overlay">Click to Enter</div>
-  <audio id="background-music" src="music/everynight.mp3" loop></audio>
+  <h1>GRAVE.LAT</h1>
 
-  <pre class="ascii">
- ██████╗ ██████╗  █████ ╗ ██╗   ██  ███████╗   ██╗     ███████╗ ██████████╗
-██╔════╝ ██╔══██╗██╔══██╗ ██║   ██║ ██╔════╝   ██║     ██╔══██╗ ╚══██╔══╝
-██║  ███╗██████╔╝███████║ ██║   ██║ █████╗     ██║     ███████║    ██║   
-██║   ██║██╔══██╗██╔══██║ ╚██╗ ██╔╝ ██╔══╝     ██║     ██╔══██║    ██║   
-╚██████╔╝██║  ██║██║  ██║  ╚████╔╝  ███████╗██╗███████╗██║  ██║    ██║   
- ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═══╝   ╚══════╝╚═╝╚══════╝╚═╝  ╚═╝    ╚═╝ 
-  </pre>
+  <div class="profile-container">
+    <!-- grave -->
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/29/81/9f/29819fccc85164586b9809c08905dfd7.jpg" alt="grave" />
+      <h2>grave</h2>
+      <div class="socials">
+        <div>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></div>
+        <div>Discord: <button onclick="alert('Discord: @expule')">@expule</button></div>
+        <div>Telegram: <a href="https://t.me/exule" target="_blank">@exule</a></div>
+      </div>
+    </div>
 
-  <div id="profile">
-    <img src="https://i.pinimg.com/736x/29/81/9f/29819fccc85164586b9809c08905dfd7.jpg" alt="grave">
-    <span>grave</span>
-    <div class="socials">
-      <p>Doxbin: <a href="https://doxbin.com/user/lucent" target="_blank">@lucent</a></p>
-      <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
-      <p>Telegram: <a href="https://t.me/exule" target="_blank">@exule</a></p>
+    <!-- Klowner -->
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" alt="Klower" />
+      <h2>Klower</h2>
+      <div class="socials">
+        <div>Discord: <button onclick="alert('Discord: @kl0wner')">@kl0wner</button></div>
+      </div>
     </div>
   </div>
 
   <script>
-    document.getElementById('enter-overlay').addEventListener('click', function () {
-      this.classList.add('fade-out');
-      const audio = document.getElementById('background-music');
-      audio.volume = 0.6;
-      audio.play().catch(err => console.log("Autoplay failed:", err));
-      setTimeout(() => {
-        this.remove();
-      }, 1000);
+    // Disable right-click
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+    // Block F12, Ctrl+Shift+I/J/C, Ctrl+U
+    document.addEventListener("keydown", function (e) {
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
     });
   </script>
 </body>
