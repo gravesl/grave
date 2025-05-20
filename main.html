@@ -3,130 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GRAVE.LAT</title>
+  <title>grave.lat Login</title>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Consolas', monospace;
       background: black;
+      overflow: hidden;
       color: red;
-      font-family: monospace;
-      text-align: center;
     }
 
-    h1 {
-      font-size: 70px;
-      color: red;
-      text-shadow: 0 0 8px red;
-      font-family: 'Courier New', monospace;
-      margin-top: 40px;
+    .stars {
+      width: 100%;
+      height: 100%;
+      background: url('stars.png') repeat;
+      background-size: cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      animation: moveStars 90s linear infinite;
+      z-index: -1;
     }
 
-    .profiles {
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: -10000px 5000px; }
+    }
+
+    .login-section {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      margin-top: 50px;
-      gap: 100px;
-    }
-
-    .profile {
-      display: flex;
-      flex-direction: column;
       align-items: center;
+      height: 100vh;
+      gap: 50px;
     }
 
-    .profile img {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 3px solid red;
-      box-shadow: 0 0 25px red;
+    .login-box {
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid red;
+      padding: 30px;
+      width: 300px;
+      box-shadow: 0 0 20px red;
     }
 
-    .name {
-      font-size: 2em;
-      font-weight: bold;
-      margin: 10px 0;
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: red;
       text-shadow: 0 0 10px red;
     }
 
-    .socials {
-      font-size: 1em;
-      line-height: 1.6;
-      margin-top: 5px;
-    }
-
-    .socials a {
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      background: black;
       color: red;
-      text-decoration: none;
-      font-weight: bold;
+      border: 1px solid red;
     }
 
-    .socials span {
-      font-weight: bold;
-      color: #ff4444;
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background: black;
+      color: red;
+      border: 1px solid red;
+      cursor: pointer;
     }
 
-    audio {
-      display: none;
+    .login-image {
+      width: 200px;
+      display: block;
+      margin: 0 auto 30px;
+      filter: drop-shadow(0 0 10px red);
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
 
-  <h1>GRAVE.LAT</h1>
+  <img src="assets/images/your-login-image.png" alt="Login Art" class="login-image" />
 
-  <div class="profiles">
-    <!-- Grave -->
-    <div class="profile">
-      <img src="https://i.pinimg.com/736x/29/81/9f/29819fccc85164586b9809c08905dfd7.jpg" alt="grave">
-      <div class="name">grave</div>
-      <div class="socials">
-        <div><span>Doxbin:</span> <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></div>
-        <div><span>Discord:</span> <a href="https://discord.com/users/expule" target="_blank">@expule</a></div>
-        <div><span>Telegram:</span> <a href="https://t.me/exule" target="_blank">@exule</a></div>
-      </div>
-    </div>
+  <div class="login-section">
+    <!-- Admin Login -->
+    <form class="login-box" id="admin-login">
+      <h2>Admin Login</h2>
+      <input type="text" id="admin-username" placeholder="Username" required />
+      <input type="password" id="admin-password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
 
-    <!-- Klowner -->
-    <div class="profile">
-      <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" alt="klowner">
-      <div class="name">klowner</div>
-      <div class="socials">
-        <div><span>Discord:</span> <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></div>
-      </div>
-    </div>
+    <!-- Guest Login -->
+    <form class="login-box" id="guest-login">
+      <h2>Guest Login</h2>
+      <input type="text" id="guest-username" placeholder="Username" required />
+      <input type="password" id="guest-password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
   </div>
 
-  <audio id="bg-music" src="music/everynight.mp3" autoplay loop></audio>
-
-  <script>
-    // Attempt to autoplay
-    window.addEventListener('DOMContentLoaded', () => {
-      const music = document.getElementById("bg-music");
-      music.volume = 0.5;
-
-      music.play()
-        .then(() => console.log("✅ Music autoplayed"))
-        .catch(err => console.warn("⚠️ Music autoplay failed:", err));
-    });
-
-    // Block right-click
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // Block F12 / Ctrl+Shift+I/J/C/U
-    document.addEventListener('keydown', e => {
-      if (
-        e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
-        (e.ctrlKey && e.key === 'U')
-      ) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    });
-  </script>
-
-</body>
-</html>
+  <audio id="login-sound" src="assets/sounds/boot.mp3" preload="auto"></audio>
+  <audio id="bg-music" src="music/everyn
