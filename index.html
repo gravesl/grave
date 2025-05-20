@@ -1,107 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>grave.lat login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: black;
-      color: #f00;
-      font-family: Consolas, monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      background: black;
+      font-family: 'Share Tech Mono', monospace;
+      color: red;
+      user-select: none;
+      overflow: hidden;
     }
+
+    .stars {
+      width: 100%;
+      height: 100%;
+      background: url("5d6b63d7-767c-4f53-a22b-3eb3711a2ab4.png") repeat;
+      position: fixed;
+      z-index: -1;
+      animation: moveStars 60s linear infinite;
+    }
+
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: 10000px 5000px; }
+    }
+
     h1 {
-      text-shadow: 0 0 8px red;
-    }
-    .login-container {
-      display: flex;
-      gap: 40px;
-    }
-    .login-box {
-      border: 2px solid #f00;
-      padding: 20px;
-      box-shadow: 0 0 15px red;
-      width: 280px;
       text-align: center;
+      font-size: 2rem;
+      margin: 40px 0 30px;
+      text-shadow: 0 0 10px red;
+      animation: glitch 1s infinite;
     }
-    input[type="text"], input[type="password"] {
-      background: black;
-      border: 1px solid #f00;
-      color: #f00;
-      padding: 8px;
-      width: 90%;
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px -2px red; }
+      50% { text-shadow: 2px -2px red; }
+      75% { text-shadow: -2px 2px red; }
+      100% { text-shadow: 0 0 5px red; }
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .login-box {
+      border: 2px solid red;
+      padding: 30px;
+      box-shadow: 0 0 20px red;
+      width: 300px;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
       margin: 10px 0;
-    }
-    input::placeholder {
-      color: #888;
-    }
-    button {
       background: black;
-      border: 1px solid #f00;
-      color: #f00;
-      padding: 8px 15px;
-      cursor: pointer;
-      font-family: inherit;
+      border: 1px solid red;
+      color: red;
     }
-    button:hover {
-      background: #f00;
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background: black;
+      border: 1px solid red;
+      color: red;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background: red;
       color: black;
     }
+
+    #music-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: black;
+      border: 1px solid red;
+      padding: 10px;
+      color: red;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   </style>
+
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function (e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === 'U')
+      ) {
+        return false;
+      }
+    };
+  </script>
 </head>
 <body>
+  <div class="stars"></div>
+
+  <audio id="bg-music" src="everynight.mp3" autoplay loop></audio>
+  <button id="music-toggle">Pause Music</button>
+
   <h1>grave.lat login</h1>
-  <div class="login-container">
+
+  <div class="container">
     <div class="login-box">
       <h2>Admin Login</h2>
-      <form onsubmit="return login(event, 'admin')">
-        <input type="text" placeholder="Username" id="admin-user" required>
-        <input type="password" placeholder="Password" id="admin-pass" required>
-        <button type="submit">Login</button>
-      </form>
+      <input type="text" id="admin-user" placeholder="Username">
+      <input type="password" id="admin-pass" placeholder="Password">
+      <button onclick="login()">Login</button>
     </div>
 
     <div class="login-box">
       <h2>Guest Login</h2>
-      <form onsubmit="return login(event, 'guest')">
-        <input type="text" placeholder="Username" id="guest-user" required>
-        <input type="password" placeholder="Password" id="guest-pass" required>
-        <button type="submit">Login</button>
-      </form>
+      <input type="text" id="guest-user" placeholder="Username">
+      <input type="password" id="guest-pass" placeholder="Password">
+      <button onclick="login()">Login</button>
     </div>
   </div>
 
   <script>
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', function(e) {
-      if (e.keyCode === 123 || // F12
-          (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key)) ||
-          (e.ctrlKey && e.key === 'U')) {
-        e.preventDefault();
-        e.stopPropagation();
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle');
+
+    toggleBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.play();
+        toggleBtn.textContent = 'Pause Music';
+      } else {
+        music.pause();
+        toggleBtn.textContent = 'Play Music';
       }
     });
 
-    function login(event, type) {
-      event.preventDefault();
-      let user = document.getElementById(`${type}-user`).value.trim();
-      let pass = document.getElementById(`${type}-pass`).value.trim();
-
-      if (type === 'admin' && user === 'admin' && pass === 'grave') {
-        window.location.href = 'main.html';
-      } else if (type === 'guest' && user === 'guest' && pass === 'graveisdad') {
-        window.location.href = 'main.html';
-      } else {
-        alert('Invalid credentials');
-      }
-      return false;
+    function login() {
+      window.location.href = "main.html";
     }
   </script>
 </body>
