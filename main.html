@@ -140,20 +140,6 @@
     @keyframes blink {
       50% { opacity: 0; }
     }
-
-    #music-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: black;
-      color: red;
-      font-family: 'Share Tech Mono', monospace;
-      border: 1px solid red;
-      padding: 5px 15px;
-      cursor: pointer;
-      z-index: 999;
-      text-shadow: 0 0 5px red;
-    }
   </style>
 
   <script>
@@ -171,10 +157,7 @@
   </script>
 </head>
 <body>
-  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto"></audio>
   <audio id="beep" src="beep.mp3"></audio>
-
-  <button id="music-toggle">MUSIC: ON</button>
 
   <pre class="ascii-header">                                        _                                 ..                  s   
                                        u                            x .d88"                  :8   
@@ -218,6 +201,53 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
   <div class="terminal" id="terminal">
     <div class="command" id="terminal-output"></div>
   </div>
+
+  <!-- 🎵 MUSIC PLAYER -->
+  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
+  <div id="music-player">
+    <button id="music-btn">⏸</button>
+    <span class="music-title">Now Playing: ty-i-ia.mp3</span>
+  </div>
+
+  <style>
+    #music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: black;
+      border: 1px solid red;
+      color: red;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px red;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      animation: glitchFlicker 2s infinite;
+    }
+
+    #music-btn {
+      background: none;
+      border: 1px solid red;
+      color: red;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px 10px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    #music-btn:hover {
+      background: red;
+      color: black;
+    }
+
+    .music-title {
+      font-size: 14px;
+      text-shadow: 0 0 5px red;
+    }
+  </style>
 
   <script>
     const terminal = document.getElementById("terminal-output");
@@ -279,27 +309,21 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
       typeNextChar();
 
       const music = document.getElementById("loginMusic");
-      const toggleBtn = document.getElementById("music-toggle");
+      const musicBtn = document.getElementById("music-btn");
 
-      const playMusic = () => {
-        music.volume = 0.5;
+      music.volume = 0.5;
+      music.play().catch(() => {});
+      document.body.addEventListener("click", () => {
         music.play().catch(() => {});
-      };
+      }, { once: true });
 
-      // Autoplay attempt
-      setTimeout(playMusic, 500);
-
-      // Click fallback
-      document.body.addEventListener("click", playMusic, { once: true });
-
-      // Toggle music on/off
-      toggleBtn.addEventListener("click", () => {
+      musicBtn.addEventListener("click", () => {
         if (music.paused) {
           music.play();
-          toggleBtn.textContent = "MUSIC: ON";
+          musicBtn.textContent = "⏸";
         } else {
           music.pause();
-          toggleBtn.textContent = "MUSIC: OFF";
+          musicBtn.textContent = "▶";
         }
       });
     };
