@@ -140,7 +140,76 @@
     @keyframes blink {
       50% { opacity: 0; }
     }
+  </style>
 
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function (e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === "U")
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    };
+  </script>
+</head>
+<body>
+  <audio id="beep" src="beep.mp3"></audio>
+
+  <pre class="ascii-header">                                        _                                 ..                  s   
+                                       u                            x .d88"                  :8   
+               .u    .                88Nu.   u.                     5888R                  .88   
+     uL      .d88B :@8c        u     '88888.o888c      .u            '888R         u       :888ooo
+ .ue888Nc.. ="8888f8888r    us888u.   ^8888  8888   ud8888.           888R      us888u.  -*8888888
+d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@88 "8888"   8888   
+888E  888E    4888> '    9888  9888    8888  8888 d888 '88%"          888R   9888  9888    8888   
+888E  888E    4888>      9888  9888    8888  8888 8888.+"             888R   9888  9888    8888   
+888E  888E   .d888L .+   9888  9888   .8888b.888P 8888L         .     888R   9888  9888   .8888Lu=
+888& .888E   ^"8888*"    9888  9888    ^Y8888*""  '8888c. .+  .@8c   .888B . 9888  9888   ^%888*  
+*888" 888&      "Y"      "888*""888"     `Y"       "88888%   '%888"  ^*888%  "888*""888"    'Y"   
+ `"   "888E               ^Y"   ^Y'                  "YP'      ^*      "%     ^Y"   ^Y'           
+.dWi   `88E                                                                                       
+4888~  J8%                                                                                        
+ ^"===*"`                                                                                         </pre>
+  <p class="subtitle">Lost after Thought</p>
+
+  <div class="profile">
+    <!-- grave -->
+    <div class="user">
+      <img src="https://i.pinimg.com/736x/32/60/d7/3260d7990f2e65fe9ab80fb3546bd6a6.jpg" class="profile pulse" alt="grave" />
+      <h2>grave</h2>
+      <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
+      <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
+      <p>Telegram: <a href="https://t.me/exule" target="_blank">@exule</a></p>
+    </div>
+
+    <!-- klowner -->
+    <div class="user">
+      <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" class="profile pulse" alt="klowner" />
+      <h2>Klowner</h2>
+      <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    Guest access granted. Limited commands available.
+  </div>
+
+  <div class="terminal" id="terminal">
+    <div class="command" id="terminal-output"></div>
+  </div>
+
+  <!-- 🎵 MUSIC PLAYER -->
+  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
+  <div id="music-player">
+    <button id="music-btn">⏸</button>
+    <span class="music-title">Now Playing: ty-i-ia.mp3</span>
+  </div>
+
+  <style>
     #music-player {
       position: fixed;
       bottom: 20px;
@@ -181,42 +250,8 @@
   </style>
 
   <script>
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = function (e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key.toUpperCase() === "U")
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    };
-  </script>
-</head>
-<body>
-  <audio id="beep" src="beep.mp3"></audio>
-  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
-  <div id="music-player">
-    <button id="music-btn">\u23f8</button>
-    <span class="music-title">Now Playing: ty-i-ia.mp3</span>
-  </div>
-
-  <pre class="ascii-header">[...]</pre> <!-- ASCII ART CLIPPED FOR SPACE -->
-  <p class="subtitle">Lost after Thought</p>
-
-  <div class="profile">[...]</div> <!-- Profiles clipped for space -->
-
-  <div class="footer">Guest access granted. Limited commands available.</div>
-  <div class="terminal" id="terminal">
-    <div class="command" id="terminal-output"></div>
-  </div>
-
-  <script>
     const terminal = document.getElementById("terminal-output");
     const beep = document.getElementById("beep");
-    const music = document.getElementById("loginMusic");
-    const musicBtn = document.getElementById("music-btn");
 
     const lines = [
       "login guest",
@@ -270,37 +305,25 @@
       }
     }
 
-    function fadeInAudio(audio, duration = 2000) {
-      audio.volume = 0;
-      const step = 0.05;
-      const interval = duration / (1 / step);
-      const fade = setInterval(() => {
-        if (audio.volume < 0.5) {
-          audio.volume = Math.min(audio.volume + step, 0.5);
-        } else {
-          clearInterval(fade);
-        }
-      }, interval);
-    }
-
     window.onload = () => {
       typeNextChar();
 
-      const enableAudio = () => {
-        music.play().then(() => {
-          fadeInAudio(music);
-        }).catch(() => {});
-        document.removeEventListener("click", enableAudio);
-      };
-      document.addEventListener("click", enableAudio, { once: true });
+      const music = document.getElementById("loginMusic");
+      const musicBtn = document.getElementById("music-btn");
+
+      music.volume = 0.5;
+      music.play().catch(() => {});
+      document.body.addEventListener("click", () => {
+        music.play().catch(() => {});
+      }, { once: true });
 
       musicBtn.addEventListener("click", () => {
         if (music.paused) {
-          music.play().then(() => fadeInAudio(music));
-          musicBtn.textContent = "\u23f8"; // Pause icon
+          music.play();
+          musicBtn.textContent = "⏸";
         } else {
           music.pause();
-          musicBtn.textContent = "\u25b6"; // Play icon
+          musicBtn.textContent = "▶";
         }
       });
     };
