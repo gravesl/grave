@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>arcangel.lol login</title>
+  <title>arcangels.lol login</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
@@ -35,7 +35,11 @@
       font-size: 2rem;
       margin: 40px 0 30px;
       text-shadow: 0 0 10px red;
-      animation: glitch 1s infinite;
+      animation: glitch 1s infinite, typeIn 2s steps(20);
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      display: inline-block;
     }
 
     @keyframes glitch {
@@ -46,10 +50,16 @@
       100% { text-shadow: 0 0 5px red; }
     }
 
+    @keyframes typeIn {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
     .container {
       display: flex;
       justify-content: center;
       gap: 60px;
+      z-index: 2;
     }
 
     .login-box {
@@ -81,6 +91,7 @@
       border: 1px solid red;
       color: red;
       cursor: pointer;
+      transition: all 0.2s ease-in-out;
     }
 
     .login-box button:hover {
@@ -110,7 +121,7 @@
   </style>
 
   <script>
-    // Security: Disable Right Click, F12, Inspect, View Source
+    // Right-click, DevTools block
     document.addEventListener('contextmenu', e => e.preventDefault());
 
     document.onkeydown = function (e) {
@@ -123,16 +134,6 @@
         return false;
       }
     };
-
-    window.addEventListener('keydown', function (e) {
-      if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && ['I', 'C', 'J'].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key === 'u')
-      ) {
-        e.preventDefault();
-      }
-    });
   </script>
 </head>
 <body>
@@ -141,20 +142,20 @@
   <audio id="bg-music" src="everynight.mp3" autoplay loop></audio>
   <button id="music-toggle">Pause Music</button>
 
-  <h1>𝖌𝖗𝖆𝖛𝖊.𝖑𝖆𝖙</h1>
+  <h1>𝖆𝖗𝖈𝖆𝖓𝖌𝖊𝖑𝖘</h1>
 
   <div class="container">
     <div class="login-box">
       <h2>Admin Login</h2>
-      <input type="text" id="admin-user" placeholder="Username">
-      <input type="password" id="admin-pass" placeholder="Password">
+      <input type="text" placeholder="Username">
+      <input type="text" placeholder="Password">
       <button onclick="login()">Login</button>
     </div>
 
     <div class="login-box">
       <h2>Guest Login</h2>
-      <input type="text" id="guest-user" placeholder="Username">
-      <input type="password" id="guest-pass" placeholder="Password">
+      <input type="text" placeholder="Username">
+      <input type="text" placeholder="Password">
       <button onclick="login()">Login</button>
     </div>
   </div>
