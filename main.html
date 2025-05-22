@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>grave.lat</title>
+  <title>arcangels.lol</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -19,7 +19,7 @@
     .ascii-header {
       font-family: monospace;
       color: red;
-      font-size: 10px;
+      font-size: 12px;
       white-space: pre;
       text-align: center;
       margin-top: 40px;
@@ -31,6 +31,8 @@
     .subtitle {
       margin-top: -10px;
       font-size: 1rem;
+      letter-spacing: 2px;
+      color: #ff4444;
     }
 
     .profile {
@@ -40,11 +42,26 @@
       gap: 80px;
       margin-top: 60px;
       flex-wrap: wrap;
+      position: relative;
+    }
+
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(255,0,0,0.05) 50%, transparent 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      animation: flicker 1.2s infinite;
+      z-index: 1;
     }
 
     .user {
       text-align: center;
       position: relative;
+      z-index: 2;
     }
 
     .user img.profile {
@@ -105,81 +122,67 @@
       75% { text-shadow: -2px 2px red; }
       100% { text-shadow: 0 0 5px red; }
     }
-    .footer {
-      margin-top: 60px;
-      color: red;
-    }
 
-    .terminal {
-      background: #000;
-      border-top: 2px solid red;
-      padding: 30px 20px;
-      margin-top: 50px;
-      text-align: left;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      font-size: 18px;
+      letter-spacing: 1px;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 16px;
     }
 
-    .command {
-      color: red;
-      margin-bottom: 10px;
-      white-space: pre-wrap;
+    .splash-screen.fade-out {
+      animation: fadeOut 2s forwards;
     }
 
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: red;
-      animation: blink 1s step-start infinite;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
   </style>
-
-  <script>
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = function (e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key.toUpperCase() === "U")
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    };
-  </script>
 </head>
 <body>
-  <audio id="beep" src="beep.mp3"></audio>
+  <!-- Splash Intro -->
+  <div class="splash-screen" id="splash">
+    <div>ARCANGELS ONLINE.</div>
+    <div>ENTERING REALM...</div>
+  </div>
 
-  <pre class="ascii-header">                                        _                                 ..                  s   
-                                       u                            x .d88"                  :8   
-               .u    .                88Nu.   u.                     5888R                  .88   
-     uL      .d88B :@8c        u     '88888.o888c      .u            '888R         u       :888ooo
- .ue888Nc.. ="8888f8888r    us888u.   ^8888  8888   ud8888.           888R      us888u.  -*8888888
-d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@88 "8888"   8888   
-888E  888E    4888> '    9888  9888    8888  8888 d888 '88%"          888R   9888  9888    8888   
-888E  888E    4888>      9888  9888    8888  8888 8888.+"             888R   9888  9888    8888   
-888E  888E   .d888L .+   9888  9888   .8888b.888P 8888L         .     888R   9888  9888   .8888Lu= 
-888& .888E   ^"8888*"    9888  9888    ^Y8888*""  '8888c. .+  .@8c   .888B . 9888  9888   ^%888*  
-*888" 888&      "Y"      "888*""888"     `Y"       "88888%   '%888"  ^*888%  "888*""888"    'Y"   
- `"   "888E               ^Y"   ^Y'                  "YP'      ^*      "%     ^Y"   ^Y'           
-.dWi   `88E                                                                                       
-4888~  J8%                                                                                         
- ^"===*"`                                                                                         </pre>
-  <p class="subtitle">Lost after Thought</p>
+  <!-- Music + Beep -->
+  <audio id="beep" src="beep.mp3"></audio>
+  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
+
+  <!-- ASCII Header -->
+  <pre class="ascii-header">
+                 █████╗ ██████╗  ██████╗ █████╗ ███╗   ██╗ ██████╗  █████╗ ███╗   ██╗ ██████╗ ██╗     ███████╗
+                ██╔══██╗██╔══██╗██╔════╝██╔══██╗████╗  ██║██╔════╝ ██╔══██╗████╗  ██║██╔════╝ ██║     ██╔════╝
+                ███████║██████╔╝██║     ███████║██╔██╗ ██║██║  ███╗███████║██╔██╗ ██║██║  ███╗██║     █████╗  
+                ██╔══██║██╔═══╝ ██║     ██╔══██║██║╚██╗██║██║   ██║██╔══██║██║╚██╗██║██║   ██║██║     ██╔══╝  
+                ██║  ██║██║     ╚██████╗██║  ██║██║ ╚████║╚██████╔╝██║  ██║██║ ╚████║╚██████╔╝███████╗███████╗
+                ╚═╝  ╚═╝╚═╝      ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚══════╝
+  </pre>
+  <p class="subtitle">Fallen but watching. Welcome to the arc.</p>
 
   <div class="profile">
+    <div class="scanline"></div>
+
+    <!-- Profiles will go here (grave, Klowner, Cruel) -->
     <!-- grave -->
     <div class="user">
       <img src="https://i.pinimg.com/736x/32/60/d7/3260d7990f2e65fe9ab80fb3546bd6a6.jpg" class="profile pulse" alt="grave" />
-      <h2>ɠrave</h2>
+      <h2>grave</h2>
       <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
       <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
       <p>Telegram: <a href="https://t.me/exule" target="_blank">@exule</a></p>
@@ -187,30 +190,28 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
 
     <!-- klowner -->
     <div class="user">
-      <img src="https://i.pinimg.com/736x/06/0f/74/060f74c548378f85fa835f424022f85b.jpg" class="profile pulse" alt="klowner" />
+      <img src="https://i.pinimg.com/736x/cb/03/a6/cb03a683470a1ad54e55146cd87b238c.jpg" class="profile pulse" alt="klowner" />
       <h2>Klowner</h2>
       <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
     </div>
 
     <!-- cruel -->
     <div class="user">
-      <img src="https://i.pinimg.com/736x/97/f8/a7/97f8a790ce4c53d28e4dc129a9485736.jpg" class="profile pulse" alt="cruel" />
+      <img src="cruel-profile-final.png" class="profile pulse" alt="cruel" />
       <h2>Cruel</h2>
       <p>Diablo: <a href="https://diablo.st/u/cruel" target="_blank">@cruel</a></p>
       <p>Discord: <a href="https://discord.com/users/dislimbedwhore" target="_blank">@dislimbedwhore</a></p>
       <p>Telegram: <a href="https://t.me/fentfag" target="_blank">@fentfag</a></p>
     </div>
   </div>
-  <div class="footer">
-    Guest access granted. Limited commands available.
-  </div>
+
+  <div class="footer">Guest access granted. Terminal emulation enabled.</div>
 
   <div class="terminal" id="terminal">
     <div class="command" id="terminal-output"></div>
   </div>
 
-  <!-- MUSIC PLAYER -->
-  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
+  <!-- Music Player -->
   <div id="music-player">
     <button id="music-btn">⏸</button>
     <span class="music-title">Now Playing: ty-i-ia.mp3</span>
@@ -242,7 +243,6 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
       font-size: 18px;
       cursor: pointer;
       padding: 5px 10px;
-      font-family: 'Share Tech Mono', monospace;
     }
 
     #music-btn:hover {
@@ -257,19 +257,25 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
   </style>
 
   <script>
+    const splash = document.getElementById("splash");
     const terminal = document.getElementById("terminal-output");
     const beep = document.getElementById("beep");
+    const music = document.getElementById("loginMusic");
+    const musicBtn = document.getElementById("music-btn");
 
     const lines = [
       "login guest",
-      "Access level: Guest",
+      "Access level: GUEST",
+      "cat realm.txt",
+      "Welcome to arcangels.lol - fallen system initialized.",
       "whoami",
-      "User: grave.lat/guest",
-      "cat welcome.txt",
-      "Welcome to GRAVE.LAT :: Lost After Thought",
-      "Loading profiles...",
-      "Profiles loaded: grave, Klowner, Cruel",
-      "Type 'help' for a list of available commands."
+      "User: /arcangels/guest",
+      "ls",
+      "grave/  klowner/  cruel/  legacy/",
+      "cat legacy/grave.lat",
+      "Warning: system deprecated. Legacy node: GRAVE.LAT",
+      "help",
+      "Available commands: help, whoami, ls, cat, logout"
     ];
 
     let lineIndex = 0;
@@ -277,7 +283,7 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
 
     function typeNextChar() {
       if (lineIndex >= lines.length) {
-        terminal.innerHTML += `<div class="command">guest@grave:~$ <span class="cursor"></span></div>`;
+        terminal.innerHTML += `<div class="command">guest@arcangels:~$ <span class="cursor"></span></div>`;
         return;
       }
 
@@ -285,15 +291,15 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
       const lineDivs = document.querySelectorAll(".command");
       let current = lineDivs[lineDivs.length - 1];
 
-      if (!current || !current.innerText.includes("guest@grave:~$")) {
+      if (!current || !current.innerText.includes("guest@arcangels:~$")) {
         const newLine = document.createElement("div");
         newLine.classList.add("command");
-        newLine.innerHTML = `guest@grave:~$ `;
+        newLine.innerHTML = `guest@arcangels:~$ `;
         terminal.appendChild(newLine);
         current = newLine;
       }
 
-      current.innerHTML = `guest@grave:~$ ${currentLine.substring(0, charIndex)}<span class="cursor"></span>`;
+      current.innerHTML = `guest@arcangels:~$ ${currentLine.substring(0, charIndex)}<span class="cursor"></span>`;
 
       if (charIndex < currentLine.length) {
         charIndex++;
@@ -313,13 +319,18 @@ d88E`"888E`   4888>'88"  .@88 "8888"   8888  8888 :888'8888.          888R   .@8
     }
 
     window.onload = () => {
-      typeNextChar();
+      // Fade out splash, then start typing/music
+      setTimeout(() => {
+        splash.classList.add("fade-out");
+        setTimeout(() => {
+          splash.remove();
+          typeNextChar();
+          music.volume = 0.5;
+          music.play().catch(() => {});
+        }, 2000);
+      }, 2400);
 
-      const music = document.getElementById("loginMusic");
-      const musicBtn = document.getElementById("music-btn");
-
-      music.volume = 0.5;
-      music.play().catch(() => {});
+      // Music controls
       document.body.addEventListener("click", () => {
         music.play().catch(() => {});
       }, { once: true });
