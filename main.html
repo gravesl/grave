@@ -343,5 +343,32 @@
       });
     };
   </script>
+  <!-- ⛔ Anti-DevTools + Right-Click Block -->
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Detect DevTools
+(function devToolsWatcher() {
+  let opened = false;
+  const threshold = 160;
+
+  setInterval(() => {
+    const start = performance.now();
+    debugger;
+    const end = performance.now();
+
+    if (end - start > threshold) {
+      if (!opened) {
+        opened = true;
+        alert("Dev tools are not allowed. Redirecting...");
+        window.close(); // May fail if not opened via script
+        window.location.href = "https://google.com"; // fallback redirect
+      }
+    }
+  }, 500);
+})();
+</script>
+
 </body>
 </html>
