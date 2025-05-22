@@ -8,39 +8,12 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: black;
-      background-image: url('assets/lines-bg.png');
-      background-repeat: repeat;
-      background-size: cover;
-      animation: moveBackground 60s linear infinite, flicker 5s infinite;
+      background: black;
       font-family: 'Share Tech Mono', monospace;
       color: red;
       text-align: center;
       user-select: none;
       overflow-x: hidden;
-    }
-
-    @keyframes moveBackground {
-      from { background-position: 0 0; }
-      to { background-position: 2000px 1000px; }
-    }
-
-    @keyframes flicker {
-      0%, 100% { filter: brightness(1); }
-      48% { filter: brightness(1.05); }
-      50% { filter: brightness(0.8); }
-      52% { filter: brightness(1.1); }
-    }
-
-    .grain-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background-image: url('assets/grain.png');
-      opacity: 0.05;
-      z-index: 9999;
     }
 
     .ascii-header {
@@ -149,10 +122,253 @@
       75% { text-shadow: -2px 2px red; }
       100% { text-shadow: 0 0 5px red; }
     }
+
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      font-size: 18px;
+      letter-spacing: 1px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .splash-screen.fade-out {
+      animation: fadeOut 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="grain-overlay"></div>
-  <!-- existing body content remains unchanged -->
+  <!-- Splash Intro -->
+  <div class="splash-screen" id="splash">
+    <div>ARCANGELS ONLINE.</div>
+    <div>ENTERING REALM...</div>
+  </div>
+
+  <!-- Music + Beep -->
+  <audio id="beep" src="beep.mp3"></audio>
+  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
+
+  <!-- ASCII Header -->
+  <pre class="ascii-header">
+                     ..                                                                                            .
+  :**888H: `: .xH""                                                                          x .d88"
+ X   `8888k XX888       .u    .                            u.    u.                           5888R 
+'8hx  48888 ?8888     .d88B :@8c        .         u      x@88k u@88c.      uL          .u     '888R 
+'8888 '8888 `8888    ="8888f8888r  .udR88N     us888u.  ^"8888""8888"  .ue888Nc..   ud8888.    888R 
+ %888>'8888  8888      4888>'88"  <888'888k .@88 "8888"   8888  888R  d88E`"888E` :888'8888.   888R 
+   "8 '888"  8888      4888> '    9888 'Y"  9888  9888    8888  888R  888E  888E  d888 '88%"   888R 
+  .-` X*"    8888      4888>      9888      9888  9888    8888  888R  888E  888E  8888.+"      888R 
+    .xhx.    8888     .d888L .+   9888      9888  9888    8888  888R  888E  888E  8888L        888R 
+  .H88888h.~`8888.>   ^"8888*"    ?8888u../ 9888  9888   "*88*" 8888" 888& .888E  '8888c. .+  .888B 
+ .~  `%88!` '888*~       "Y"       "8888P'  "888*""888"    ""   'Y"   *888" 888&   "88888%    ^*888%
+       `"     ""                     "P'     ^Y"   ^Y'                 `"   "888E    "YP'       "%  
+                                                                      .dWi   `88E                   
+                                                                      4888~  J8%                    
+                                                                       ^"===*"`                     
+  </pre>
+  <p class="subtitle">Fallen but watching. Welcome to the arc.</p>
+
+  <div class="profile">
+    <div class="scanline"></div>
+
+    <!-- Profiles will go here (grave, Klowner, Cruel) -->
+    <!-- grave -->
+    <div class="user">
+      <img src="https://i.pinimg.com/736x/dc/1a/f6/dc1af6f90009501e7b3e4c4f60948a05.jpg" class="profile pulse" alt="grave" />
+      <h2>ɠrave</h2>
+      <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
+      <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
+      <p>Telegram: <a href="https://t.me/exule" target="_blank">@exule</a></p>
+    </div>
+
+    <!-- klowner -->
+    <div class="user">
+      <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile pulse" alt="klowner" />
+      <h2>Desultory</h2>
+      <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
+    </div>
+
+    <!-- cruel -->
+    <div class="user">
+      <img src="https://i.pinimg.com/736x/0b/3e/cd/0b3ecdc23da21d04fec062f01da08a12.jpg" class="profile pulse" alt="cruel" />
+      <h2>Cruel</h2>
+      <p>Diablo: <a href="https://diablo.st/u/cruel" target="_blank">@cruel</a></p>
+      <p>Discord: <a href="https://discord.com/users/dislimbedwhore" target="_blank">@dislimbedwhore</a></p>
+      <p>Telegram: <a href="https://t.me/fentfag" target="_blank">@fentfag</a></p>
+    </div>
+  </div>
+
+  <div class="footer">Ur a cuck.</div>
+
+  <div class="terminal" id="terminal">
+    <div class="command" id="terminal-output"></div>
+  </div>
+
+  <!-- Music Player -->
+  <div id="music-player">
+    <button id="music-btn">⏸</button>
+    <span class="music-title">Ты и Я</span>
+  </div>
+
+  <style>
+    #music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: black;
+      border: 1px solid red;
+      color: red;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px red;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      animation: glitchFlicker 2s infinite;
+    }
+
+    #music-btn {
+      background: none;
+      border: 1px solid red;
+      color: red;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+
+    #music-btn:hover {
+      background: red;
+      color: black;
+    }
+
+    .music-title {
+      font-size: 14px;
+      text-shadow: 0 0 5px red;
+    }
+  </style>
+
+  <script>
+    const splash = document.getElementById("splash");
+    const terminal = document.getElementById("terminal-output");
+    const beep = document.getElementById("beep");
+    const music = document.getElementById("loginMusic");
+    const musicBtn = document.getElementById("music-btn");
+
+    const lines = [  
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeNextChar() {
+      if (lineIndex >= lines.length) {
+        terminal.innerHTML += `<div class="command">guest@arcangels:~$ <span class="cursor"></span></div>`;
+        return;
+      }
+
+      const currentLine = lines[lineIndex];
+      const lineDivs = document.querySelectorAll(".command");
+      let current = lineDivs[lineDivs.length - 1];
+
+      if (!current || !current.innerText.includes("guest@arcangels:~$")) {
+        const newLine = document.createElement("div");
+        newLine.classList.add("command");
+        newLine.innerHTML = `guest@arcangels:~$ `;
+        terminal.appendChild(newLine);
+        current = newLine;
+      }
+
+      current.innerHTML = `guest@arcangels:~$ ${currentLine.substring(0, charIndex)}<span class="cursor"></span>`;
+
+      if (charIndex < currentLine.length) {
+        charIndex++;
+        beep.currentTime = 0;
+        beep.play();
+        setTimeout(typeNextChar, 40);
+      } else {
+        charIndex = 0;
+        lineIndex++;
+        setTimeout(() => {
+          const newLine = document.createElement("div");
+          newLine.classList.add("command");
+          terminal.appendChild(newLine);
+          typeNextChar();
+        }, 300);
+      }
+    }
+
+    window.onload = () => {
+      // Fade out splash, then start typing/music
+      setTimeout(() => {
+        splash.classList.add("fade-out");
+        setTimeout(() => {
+          splash.remove();
+          typeNextChar();
+          music.volume = 0.5;
+          music.play().catch(() => {});
+        }, 2000);
+      }, 2400);
+
+      // Music controls
+      document.body.addEventListener("click", () => {
+        music.play().catch(() => {});
+      }, { once: true });
+
+      musicBtn.addEventListener("click", () => {
+        if (music.paused) {
+          music.play();
+          musicBtn.textContent = "⏸";
+        } else {
+          music.pause();
+          musicBtn.textContent = "▶";
+        }
+      });
+    };
+  </script>
+  <!-- ⛔ Anti-DevTools + Right-Click Block -->
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Detect DevTools
+(function devToolsWatcher() {
+  let opened = false;
+  const threshold = 160;
+
+  setInterval(() => {
+    const start = performance.now();
+    debugger;
+    const end = performance.now();
+
+    if (end - start > threshold) {
+      if (!opened) {
+        opened = true;
+        alert("Dev tools are not allowed. Redirecting...");
+        window.close(); // May fail if not opened via script
+        window.location.href = "https://google.com"; // fallback redirect
+      }
+    }
+  }, 500);
+})();
+</script>
+
 </body>
 </html>
