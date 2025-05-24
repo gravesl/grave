@@ -1,214 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>arcangels.lol</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      font-family: 'Share Tech Mono', monospace;
-      color: red;
-      text-align: center;
-      user-select: none;
-      overflow-x: hidden;
-    }
+<!-- 🔊 Hover Sound -->
+<audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-game-notification-212.wav" preload="auto"></audio>
 
-    .ascii-header {
-      font-family: monospace;
-      color: red;
-      font-size: 12px;
-      white-space: pre;
-      text-align: center;
-      margin-top: 40px;
-      line-height: 1.2;
-      animation: glitch 1s infinite;
-      text-shadow: 0 0 10px red;
-    }
+<!-- 💀 Skulls Background -->
+<style>
+  body {
+    background: black url('https://i.imgur.com/BzBWzsz.png') repeat;
+    background-size: contain;
+    animation: bgScroll 200s linear infinite;
+  }
 
-    .subtitle {
-      margin-top: -10px;
-      font-size: 1rem;
-      letter-spacing: 2px;
-      color: #ff4444;
-    }
+  @keyframes bgScroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 10000px 10000px; }
+  }
 
-    .profile {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 80px;
-      margin-top: 60px;
-      flex-wrap: wrap;
-      position: relative;
-    }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
 
-    .scanline {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(to bottom, rgba(255,0,0,0.05) 50%, transparent 50%);
-      background-size: 100% 4px;
-      pointer-events: none;
-      animation: flicker 1.2s infinite;
-      z-index: 1;
-    }
+  .user {
+    text-align: center;
+    color: red;
+    font-family: 'Share Tech Mono', monospace;
+    border: 1px solid red;
+    padding: 20px;
+    box-shadow: 0 0 15px red;
+    width: 220px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    position: relative;
+    background: rgba(0, 0, 0, 0.7);
+  }
 
-    .user {
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
+  .user:hover {
+    transform: scale(1.05);
+    animation: glitch 0.3s steps(2, start) infinite;
+  }
 
-    .user img.profile {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 3px solid red;
-      box-shadow: 0 0 20px red;
-      animation: glitchFlicker 2s infinite;
-      transition: all 0.2s ease-in-out;
-    }
+  .user img.profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid red;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: 0.3s ease;
+  }
 
-    .user img.profile:hover {
-      filter: contrast(2) invert(1) blur(1px);
-      transform: scale(1.05) rotate(1deg);
-    }
+  .user:hover img.profile {
+    filter: none;
+  }
 
-    .user h2 {
-      font-size: 1.5rem;
-      margin: 15px 0 10px;
-    }
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    60% { transform: translate(-2px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+  }
 
-    .user p {
-      margin: 5px 0;
-    }
+  a {
+    color: red;
+    text-decoration: none;
+  }
 
-    .user a {
-      color: red;
-      text-decoration: none;
-    }
+  a:hover {
+    text-shadow: 0 0 5px red;
+  }
+</style>
 
-    .user a:hover {
-      text-decoration: underline;
-    }
-
-    .pulse {
-      animation: pulseGlow 2s ease-in-out infinite;
-    }
-
-    @keyframes pulseGlow {
-      0% { transform: scale(1); box-shadow: 0 0 15px red, 0 0 30px red; }
-      50% { transform: scale(1.05); box-shadow: 0 0 30px red, 0 0 60px red; }
-      100% { transform: scale(1); box-shadow: 0 0 15px red, 0 0 30px red; }
-    }
-
-    @keyframes glitchFlicker {
-      0%, 100% { opacity: 1; }
-      45% { opacity: 0.8; transform: scale(1.01); }
-      46% { opacity: 0.4; transform: scale(1.05); }
-      47% { opacity: 0.9; transform: scale(1.01); }
-      48% { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes glitch {
-      0% { text-shadow: 2px 2px red; }
-      25% { text-shadow: -2px -2px red; }
-      50% { text-shadow: 2px -2px red; }
-      75% { text-shadow: -2px 2px red; }
-      100% { text-shadow: 0 0 5px red; }
-    }
-
-    .splash-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      color: red;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-      font-size: 18px;
-      letter-spacing: 1px;
-      font-family: 'Share Tech Mono', monospace;
-    }
-
-    .splash-screen.fade-out {
-      animation: fadeOut 2s forwards;
-    }
-
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Splash Intro -->
-  <div class="splash-screen" id="splash">
-    <div>ARCANGELS ONLINE.</div>
-    <div>ENTERING REALM...</div>
-  </div>
-
-  <!-- Music + Beep -->
-  <audio id="beep" src="beep.mp3"></audio>
-  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
-
-  <!-- ASCII Header -->
-  <pre class="ascii-header">
-                     ..                                                                                            .
-  :**888H: `: .xH""                                                                          x .d88"
- X   `8888k XX888       .u    .                            u.    u.                           5888R 
-'8hx  48888 ?8888     .d88B :@8c        .         u      x@88k u@88c.      uL          .u     '888R 
-'8888 '8888 `8888    ="8888f8888r  .udR88N     us888u.  ^"8888""8888"  .ue888Nc..   ud8888.    888R 
- %888>'8888  8888      4888>'88"  <888'888k .@88 "8888"   8888  888R  d88E`"888E` :888'8888.   888R 
-   "8 '888"  8888      4888> '    9888 'Y"  9888  9888    8888  888R  888E  888E  d888 '88%"   888R 
-  .-` X*"    8888      4888>      9888      9888  9888    8888  888R  888E  888E  8888.+"      888R 
-    .xhx.    8888     .d888L .+   9888      9888  9888    8888  888R  888E  888E  8888L        888R 
-  .H88888h.~`8888.>   ^"8888*"    ?8888u../ 9888  9888   "*88*" 8888" 888& .888E  '8888c. .+  .888B 
- .~  `%88!` '888*~       "Y"       "8888P'  "888*""888"    ""   'Y"   *888" 888&   "88888%    ^*888%
-       `"     ""                     "P'     ^Y"   ^Y'                 `"   "888E    "YP'       "%  
-                                                                      .dWi   `88E                   
-                                                                      4888~  J8%                    
-                                                                       ^"===*"`                     
-  </pre>
-  <p class="subtitle">Fallen but watching. Welcome to the arc.</p>
-
-  <div class="profile">
-<div class="scanline"></div>
-
+<!-- 👥 Profile Grid -->
 <div class="row">
   <!-- ɠrave -->
-  <div class="user">
-    <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" class="profile pulse" alt="grave" />
+  <div class="user" onmouseenter="playHover()">
+    <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" class="profile" alt="grave" />
     <h2>ɠrave</h2>
     <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
     <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
     <p>Telegram: <a href="https://t.me/expule" target="_blank">@expule</a></p>
   </div>
 
-  <!-- desultoryy_ -->
-  <div class="user">
-    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile pulse" alt="klowner" />
+  <!-- Desultory -->
+  <div class="user" onmouseenter="playHover()">
+    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile" alt="Desultory" />
     <h2>Desultory</h2>
     <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
-     <p>Telegram: <a href="https://t.me/@desultoryarc" target="_blank">@desultory</a></p>
-     <p>Doxbin: <a href="https://doxbin.com/@Desultory" target="_blank">@Desultory</a></p>
+    <p>Telegram: <a href="https://t.me/@desultoryarc" target="_blank">@desultory</a></p>
+    <p>Doxbin: <a href="https://doxbin.com/@Desultory" target="_blank">@Desultory</a></p>
   </div>
 
-  <!-- cruel -->
-  <div class="user">
-    <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" class="profile pulse" alt="cruel" />
+  <!-- Cruel -->
+  <div class="user" onmouseenter="playHover()">
+    <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" class="profile" alt="Cruel" />
     <h2>Cruel</h2>
     <p>Diablo: @cruel</p>
     <p>Discord: @dislimbedwhore</p>
@@ -218,194 +105,38 @@
 
 <div class="row">
   <!-- Kry -->
-  <div class="user">
-    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" class="profile pulse" alt="Kry" />
+  <div class="user" onmouseenter="playHover()">
+    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" class="profile" alt="Kry" />
     <h2>Kry</h2>
     <p>Doxbin: <a href="https://doxbin.com/@oov" target="_blank">@Kry</a></p>
     <p>Discord: <a href="https://discord.com/users/cursing0713_53453" target="_blank">@Kry</a></p>
     <p>Telegram: <a href="https://t.me/niceusername920" target="_blank">@Kry</a></p>
   </div>
 
-   <!-- Crucify -->
-  <div class="user">
-    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" class="profile pulse" alt="grave" />
+  <!-- Crucify -->
+  <div class="user" onmouseenter="playHover()">
+    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" class="profile" alt="Crucify" />
     <h2>Crucify</h2>
     <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@</a></p>
     <p>Discord: <a href="https://discord.com/users/psychwardmenace" target="_blank">@psychwardmenace</a></p>
     <p>Telegram: <a href="https://t.me/psychwardmenace" target="_blank">@psychwardmenace</a></p>
   </div>
-  
+
   <!-- Tor -->
-  <div class="user">
-    <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" class="profile pulse" alt="Tor" />
+  <div class="user" onmouseenter="playHover()">
+    <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" class="profile" alt="Tor" />
     <h2>Tor</h2>
     <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@wiggle</a></p>
     <p>Discord: <a href="https://discord.com/users/" target="_blank">@8xko</a></p>
     <p>Telegram: <a href="https://t.me/exule" target="_blank">@hatedgods</a></p>
   </div>
-  
-  
-    
-  <!-- Music Player -->
-  <div id="music-player">
-    <button id="music-btn">⏸</button>
-    <span class="music-title">Ты и Я</span>
-  </div>
-
-  <style>
-    #music-player {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: black;
-      border: 1px solid red;
-      color: red;
-      font-family: 'Share Tech Mono', monospace;
-      padding: 10px 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px red;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-      animation: glitchFlicker 2s infinite;
-    }
-
-    #music-btn {
-      background: none;
-      border: 1px solid red;
-      color: red;
-      font-size: 18px;
-      cursor: pointer;
-      padding: 5px 10px;
-    }
-
-    #music-btn:hover {
-      background: red;
-      color: black;
-    }
-
-    .music-title {
-      font-size: 14px;
-      text-shadow: 0 0 5px red;
-    }
-  </style>
-
-  <script>
-    const splash = document.getElementById("splash");
-    const terminal = document.getElementById("terminal-output");
-    const beep = document.getElementById("beep");
-    const music = document.getElementById("loginMusic");
-    const musicBtn = document.getElementById("music-btn");
-
-    const lines = [  
-    ];
-
-    let lineIndex = 0;
-    let charIndex = 0;
-
-    function typeNextChar() {
-      if (lineIndex >= lines.length) {
-        terminal.innerHTML += `<div class="command">guest@arcangels:~$ <span class="cursor"></span></div>`;
-        return;
-      }
-
-      const currentLine = lines[lineIndex];
-      const lineDivs = document.querySelectorAll(".command");
-      let current = lineDivs[lineDivs.length - 1];
-
-      if (!current || !current.innerText.includes("guest@arcangels:~$")) {
-        const newLine = document.createElement("div");
-        newLine.classList.add("command");
-        newLine.innerHTML = `guest@arcangels:~$ `;
-        terminal.appendChild(newLine);
-        current = newLine;
-      }
-
-      current.innerHTML = `guest@arcangels:~$ ${currentLine.substring(0, charIndex)}<span class="cursor"></span>`;
-
-      if (charIndex < currentLine.length) {
-        charIndex++;
-        beep.currentTime = 0;
-        beep.play();
-        setTimeout(typeNextChar, 40);
-      } else {
-        charIndex = 0;
-        lineIndex++;
-        setTimeout(() => {
-          const newLine = document.createElement("div");
-          newLine.classList.add("command");
-          terminal.appendChild(newLine);
-          typeNextChar();
-        }, 300);
-      }
-    }
-
-    window.onload = () => {
-      // Fade out splash, then start typing/music
-      setTimeout(() => {
-        splash.classList.add("fade-out");
-        setTimeout(() => {
-          splash.remove();
-          typeNextChar();
-          music.volume = 0.5;
-          music.play().catch(() => {});
-        }, 2000);
-      }, 2400);
-
-      // Music controls
-      document.body.addEventListener("click", () => {
-        music.play().catch(() => {});
-      }, { once: true });
-
-      musicBtn.addEventListener("click", () => {
-        if (music.paused) {
-          music.play();
-          musicBtn.textContent = "⏸";
-        } else {
-          music.pause();
-          musicBtn.textContent = "▶";
-        }
-      });
-    };
-  </script>
-  <!-- ⛔ Anti-DevTools + Right-Click Block -->
-<script>
-// Disable right-click
-document.addEventListener('contextmenu', event => event.preventDefault());
-
-// Detect DevTools
-(function devToolsWatcher() {
-  let opened = false;
-  const threshold = 160;
-
-  setInterval(() => {
-    const start = performance.now();
-    debugger;
-    const end = performance.now();
-
-    if (end - start > threshold) {
-      if (!opened) {
-        opened = true;
-        alert("Dev tools are not allowed. Redirecting...");
-        window.close(); // May fail if not opened via script
-        window.location.href = "https://google.com"; // fallback redirect
-      }
-    }
-  }, 500);
-})();
-</script>
-<div style="text-align: center; margin-top: 60px;">
-  <a href="archives.html">
-  <img src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" alt="archives" class="archives-img">
-</a>
-
 </div>
-<iframe
-  style="display:none"
-  allow="autoplay"
-  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xcho-glasscage/ty-i-ya&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
-</iframe>
 
-</body>
-</html>
+<!-- 🔊 Hover Script -->
+<script>
+  function playHover() {
+    const sound = document.getElementById('hoverSound');
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
+  }
+</script>
