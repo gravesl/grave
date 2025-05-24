@@ -2,181 +2,171 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>arcangels.lol</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
       background: black;
       font-family: 'Share Tech Mono', monospace;
       color: red;
       text-align: center;
-      overflow-x: hidden;
       user-select: none;
+      overflow-x: hidden;
     }
 
-    .stars {
-      position: fixed;
+    .ascii-header {
+      font-family: monospace;
+      color: red;
+      font-size: 12px;
+      white-space: pre;
+      text-align: center;
+      margin-top: 40px;
+      line-height: 1.2;
+      animation: glitch 1s infinite;
+      text-shadow: 0 0 10px red;
+    }
+
+    .subtitle {
+      margin-top: -10px;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      color: #ff4444;
+    }
+
+    .profile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 80px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://raw.githubusercontent.com/Kilian/css-stars-animation/master/stars.png') repeat;
-      z-index: -1;
-      animation: starMove 200s linear infinite;
-      opacity: 0.05;
+      background-image: linear-gradient(to bottom, rgba(255,0,0,0.05) 50%, transparent 50%);
+      background-size: 100% 4px;
+      pointer-events: none;
+      animation: flicker 1.2s infinite;
+      z-index: 1;
     }
 
-    @keyframes starMove {
-      from { background-position: 0 0; }
-      to { background-position: -10000px 10000px; }
+    .user {
+      text-align: center;
+      position: relative;
+      z-index: 2;
     }
 
-    #splash {
+    .user img.profile {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 3px solid red;
+      box-shadow: 0 0 20px red;
+      animation: glitchFlicker 2s infinite;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .user img.profile:hover {
+      filter: contrast(2) invert(1) blur(1px);
+      transform: scale(1.05) rotate(1deg);
+    }
+
+    .user h2 {
+      font-size: 1.5rem;
+      margin: 15px 0 10px;
+    }
+
+    .user p {
+      margin: 5px 0;
+    }
+
+    .user a {
+      color: red;
+      text-decoration: none;
+    }
+
+    .user a:hover {
+      text-decoration: underline;
+    }
+
+    .pulse {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); box-shadow: 0 0 15px red, 0 0 30px red; }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px red, 0 0 60px red; }
+      100% { transform: scale(1); box-shadow: 0 0 15px red, 0 0 30px red; }
+    }
+
+    @keyframes glitchFlicker {
+      0%, 100% { opacity: 1; }
+      45% { opacity: 0.8; transform: scale(1.01); }
+      46% { opacity: 0.4; transform: scale(1.05); }
+      47% { opacity: 0.9; transform: scale(1.01); }
+      48% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px red; }
+      25% { text-shadow: -2px -2px red; }
+      50% { text-shadow: 2px -2px red; }
+      75% { text-shadow: -2px 2px red; }
+      100% { text-shadow: 0 0 5px red; }
+    }
+
+    .splash-screen {
       position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background: black;
       color: red;
-      font-size: 16px;
-      font-family: monospace;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       z-index: 9999;
-      animation: glitch 1s infinite;
+      font-size: 18px;
+      letter-spacing: 1px;
+      font-family: 'Share Tech Mono', monospace;
     }
 
-    #splash.hide {
-      display: none;
+    .splash-screen.fade-out {
+      animation: fadeOut 2s forwards;
     }
 
-    @keyframes glitch {
-      0% { text-shadow: 0 0 5px red; }
-      20% { text-shadow: -1px 0 4px red; }
-      40% { text-shadow: 2px 2px 6px red; }
-      60% { text-shadow: -2px -1px 5px red; }
-      80% { text-shadow: 1px 2px 4px red; }
-      100% { text-shadow: 0 0 5px red; }
-    }
-
-    #splash-text {
-      white-space: pre-wrap;
-      text-align: center;
-    }
-
-    .ascii-header {
-      color: red;
-      font-size: 12px;
-      white-space: pre;
-      margin-top: 30px;
-      text-shadow: 0 0 10px red;
-      animation: glitch 1s infinite;
-    }
-
-    .subtitle {
-      font-size: 0.9rem;
-      margin-top: -10px;
-    }
-
-    .profile-grid {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding: 40px 20px;
-      scroll-behavior: smooth;
-    }
-
-    .profile-grid::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    .profile-grid::-webkit-scrollbar-thumb {
-      background: red;
-      border-radius: 3px;
-    }
-
-    .profile {
-      min-width: 160px;
-      text-align: center;
-      color: red;
-      transition: transform 0.3s ease, filter 0.3s ease;
-    }
-
-    .profile img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px solid red;
-      object-fit: cover;
-      filter: grayscale(100%);
-      transition: all 0.3s ease;
-    }
-
-    .profile:hover {
-      transform: scale(1.05);
-    }
-
-    .profile:hover img {
-      filter: grayscale(0%) contrast(120%) brightness(110%);
-    }
-
-    .name {
-      font-weight: bold;
-      margin-top: 10px;
-      font-size: 0.95rem;
-    }
-
-    .info {
-      font-size: 0.75rem;
-      line-height: 1.3;
-      margin-top: 4px;
-    }
-
-    .skull {
-      margin-top: 80px;
-      opacity: 0.15;
-      transition: opacity 0.3s;
-    }
-
-    .skull:hover {
-      opacity: 0.5;
-      cursor: pointer;
-    }
-
-    .hidden-player {
-      position: absolute;
-      width: 0;
-      height: 0;
-      visibility: hidden;
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
   </style>
 </head>
-<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123){return false;}">
-
-  <div class="stars"></div>
-
-  <!-- Splash Screen -->
-  <div id="splash">
-    <div id="splash-text"></div>
+<body>
+  <!-- Splash Intro -->
+  <div class="splash-screen" id="splash">
+    <div>ARCANGELS ONLINE.</div>
+    <div>ENTERING REALM...</div>
   </div>
 
-  <!-- Hidden SoundCloud Player -->
-  <iframe class="hidden-player" allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/an-unknown-member/bass-santana-curse-w-xxxtentacion-cooliecut-kinoul-prod-by-basssantana&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
-  </iframe>
+  <!-- Music + Beep -->
+  <audio id="beep" src="beep.mp3"></audio>
+  <audio id="loginMusic" src="music/ty-i-ia.mp3" preload="auto" loop></audio>
 
-  <!-- ASCII Art -->
-  <div class="ascii-header">
-<pre>
+  <!-- ASCII Header -->
+  <pre class="ascii-header">
+                     ..                                                                                            .
   :**888H: `: .xH""                                                                          x .d88"
  X   `8888k XX888       .u    .                            u.    u.                           5888R 
 '8hx  48888 ?8888     .d88B :@8c        .         u      x@88k u@88c.      uL          .u     '888R 
@@ -190,88 +180,227 @@
        `"     ""                     "P'     ^Y"   ^Y'                 `"   "888E    "YP'       "%  
                                                                       .dWi   `88E                   
                                                                       4888~  J8%                    
-                                                                       ^"===*"`
-</pre>
-    <div class="subtitle">fallen but watching. welcome to the arc.</div>
+                                                                       ^"===*"`                     
+  </pre>
+  <p class="subtitle">Fallen but watching. Welcome to the arc.</p>
+
+  <div class="profile">
+<div class="scanline"></div>
+
+<div class="row">
+  <!-- ɠrave -->
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" class="profile pulse" alt="grave" />
+    <h2>ɠrave</h2>
+    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
+    <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
+    <p>Telegram: <a href="https://t.me/expule" target="_blank">@expule</a></p>
   </div>
 
-  <!-- Profiles -->
-  <div class="profile-grid">
-    <div class="profile">
-      <img src="https://i.pinimg.com/736x/99/06/2c/99062cc7055d5be96ecd3b464f841e5f.jpg" alt="ɠrave" />
-      <div class="name">ɠrave</div>
-      <div class="info">Discord: @expule<br>Telegram: @expule</div>
-    </div>
-
-    <div class="profile">
-      <img src="https://i.pinimg.com/736x/de/ac/3e/deac3eac978d13fcacf78395fd5e3fca.jpg" alt="Desultory" />
-      <div class="name">Desultory</div>
-      <div class="info">Discord: @desultoryy_<br>Telegram: @desultoryarc</div>
-    </div>
-
-    <div class="profile">
-      <img src="https://i.pinimg.com/736x/bd/ff/ce/bdffce282b4ecf70891d5ff41a94b05e.jpg" alt="wp" />
-      <div class="name">wp</div>
-      <div class="info">Discord: wpisnotthere<br>Telegram: wpisnotthere</div>
-    </div>
-
-    <div class="profile">
-      <img src="https://i.pinimg.com/736x/cb/4c/aa/cb4caaa46ac23bde631ab13fe7a21214.jpg" alt="Crucify" />
-      <div class="name">ᴄʀᴜᴄɪꜰʏ</div>
-      <div class="info">Discord: psychwardmenace<br>Telegram: @psychwardmenace</div>
-    </div>
-
-    <div class="profile">
-      <img src="https://i.pinimg.com/736x/ba/4b/f6/ba4bf65148982aa0bd76673d35174609.jpg" alt="Ŧor" />
-      <div class="name">Ŧor</div>
-      <div class="info">Discord: 8xko<br>Telegram: @hatedgods</div>
-    </div>
+  <!-- desultoryy_ -->
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile pulse" alt="klowner" />
+    <h2>Desultory</h2>
+    <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
+     <p>Telegram: <a href="https://t.me/@desultoryarc" target="_blank">@desultory</a></p>
+     <p>Doxbin: <a href="https://doxbin.com/@Desultory" target="_blank">@Desultory</a></p>
   </div>
 
-  <!-- Skull link -->
-  <div class="skull" onclick="window.location.href='archives.html'">
-    <img src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" alt="skull" width="100" />
+  <!-- cruel -->
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" class="profile pulse" alt="cruel" />
+    <h2>Cruel</h2>
+    <p>Diablo: @cruel</p>
+    <p>Discord: @dislimbedwhore</p>
+    <p>Telegram: @fentfag</p>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Kry -->
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" class="profile pulse" alt="Kry" />
+    <h2>Kry</h2>
+    <p>Doxbin: <a href="https://doxbin.com/@oov" target="_blank">@Kry</a></p>
+    <p>Discord: <a href="https://discord.com/users/cursing0713_53453" target="_blank">@Kry</a></p>
+    <p>Telegram: <a href="https://t.me/niceusername920" target="_blank">@Kry</a></p>
   </div>
 
-  <!-- Typing splash script -->
-  <script>
-    const splashLines = [
-      "initializing... arcangels.lol",
-      "verifying souls...",
-      "establishing connection...",
-      "boot complete."
-    ];
+   <!-- Crucify -->
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" class="profile pulse" alt="grave" />
+    <h2>Crucify</h2>
+    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@</a></p>
+    <p>Discord: <a href="https://discord.com/users/psychwardmenace" target="_blank">@psychwardmenace</a></p>
+    <p>Telegram: <a href="https://t.me/psychwardmenace" target="_blank">@psychwardmenace</a></p>
+  </div>
+  
+  <!-- Tor -->
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" class="profile pulse" alt="Tor" />
+    <h2>Tor</h2>
+    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@wiggle</a></p>
+    <p>Discord: <a href="https://discord.com/users/" target="_blank">@8xko</a></p>
+    <p>Telegram: <a href="https://t.me/exule" target="_blank">@hatedgods</a></p>
+  </div>
+  
+  
     
-    let i = 0;
-    let line = 0;
-    let output = "";
-    const splashText = document.getElementById("splash-text");
+  <!-- Music Player -->
+  <div id="music-player">
+    <button id="music-btn">⏸</button>
+    <span class="music-title">Ты и Я</span>
+  </div>
 
-    function typeLine() {
-      if (line >= splashLines.length) {
-        setTimeout(() => {
-          document.getElementById("splash").classList.add("hide");
-        }, 500);
+  <style>
+    #music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: black;
+      border: 1px solid red;
+      color: red;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 10px 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px red;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      animation: glitchFlicker 2s infinite;
+    }
+
+    #music-btn {
+      background: none;
+      border: 1px solid red;
+      color: red;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+
+    #music-btn:hover {
+      background: red;
+      color: black;
+    }
+
+    .music-title {
+      font-size: 14px;
+      text-shadow: 0 0 5px red;
+    }
+  </style>
+
+  <script>
+    const splash = document.getElementById("splash");
+    const terminal = document.getElementById("terminal-output");
+    const beep = document.getElementById("beep");
+    const music = document.getElementById("loginMusic");
+    const musicBtn = document.getElementById("music-btn");
+
+    const lines = [  
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeNextChar() {
+      if (lineIndex >= lines.length) {
+        terminal.innerHTML += `<div class="command">guest@arcangels:~$ <span class="cursor"></span></div>`;
         return;
       }
 
-      output += splashLines[line].charAt(i);
-      splashText.innerHTML = output + "|";
+      const currentLine = lines[lineIndex];
+      const lineDivs = document.querySelectorAll(".command");
+      let current = lineDivs[lineDivs.length - 1];
 
-      i++;
-      if (i < splashLines[line].length) {
-        setTimeout(typeLine, 50);
+      if (!current || !current.innerText.includes("guest@arcangels:~$")) {
+        const newLine = document.createElement("div");
+        newLine.classList.add("command");
+        newLine.innerHTML = `guest@arcangels:~$ `;
+        terminal.appendChild(newLine);
+        current = newLine;
+      }
+
+      current.innerHTML = `guest@arcangels:~$ ${currentLine.substring(0, charIndex)}<span class="cursor"></span>`;
+
+      if (charIndex < currentLine.length) {
+        charIndex++;
+        beep.currentTime = 0;
+        beep.play();
+        setTimeout(typeNextChar, 40);
       } else {
-        output += "\n";
-        i = 0;
-        line++;
-        setTimeout(typeLine, 300);
+        charIndex = 0;
+        lineIndex++;
+        setTimeout(() => {
+          const newLine = document.createElement("div");
+          newLine.classList.add("command");
+          terminal.appendChild(newLine);
+          typeNextChar();
+        }, 300);
       }
     }
 
     window.onload = () => {
-      typeLine();
+      // Fade out splash, then start typing/music
+      setTimeout(() => {
+        splash.classList.add("fade-out");
+        setTimeout(() => {
+          splash.remove();
+          typeNextChar();
+          music.volume = 0.5;
+          music.play().catch(() => {});
+        }, 2000);
+      }, 2400);
+
+      // Music controls
+      document.body.addEventListener("click", () => {
+        music.play().catch(() => {});
+      }, { once: true });
+
+      musicBtn.addEventListener("click", () => {
+        if (music.paused) {
+          music.play();
+          musicBtn.textContent = "⏸";
+        } else {
+          music.pause();
+          musicBtn.textContent = "▶";
+        }
+      });
     };
   </script>
+  <!-- ⛔ Anti-DevTools + Right-Click Block -->
+<script>
+// Disable right-click
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Detect DevTools
+(function devToolsWatcher() {
+  let opened = false;
+  const threshold = 160;
+
+  setInterval(() => {
+    const start = performance.now();
+    debugger;
+    const end = performance.now();
+
+    if (end - start > threshold) {
+      if (!opened) {
+        opened = true;
+        alert("Dev tools are not allowed. Redirecting...");
+        window.close(); // May fail if not opened via script
+        window.location.href = "https://google.com"; // fallback redirect
+      }
+    }
+  }, 500);
+})();
+</script>
+<div style="text-align: center; margin-top: 60px;">
+  <a href="archives.html">
+  <img src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" alt="archives" class="archives-img">
+</a>
+
+</div>
+
 </body>
 </html>
