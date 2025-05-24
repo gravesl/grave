@@ -2,105 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HOA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hall of Autism</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
+    @keyframes glitch {
+      0% { transform: scale(1) skew(0deg, 0deg); }
+      20% { transform: scale(1.01) skew(-1deg, 1deg); }
+      40% { transform: scale(1.02) skew(2deg, -2deg); }
+      60% { transform: scale(0.98) skew(-1deg, 2deg); }
+      80% { transform: scale(1.01) skew(1deg, -1deg); }
+      100% { transform: scale(1) skew(0deg, 0deg); }
+    }
     body {
       margin: 0;
       background: black;
       color: red;
       font-family: 'Share Tech Mono', monospace;
-      padding: 40px 20px;
       text-align: center;
-      overflow-x: hidden;
+      padding: 30px 10px;
     }
 
     h1 {
-      font-size: 2.5rem;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px red;
-      animation: glitch 1.5s infinite;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      text-shadow: 0 0 5px red;
     }
 
-    @keyframes glitch {
-      0% { text-shadow: 2px 0 red, -2px 0 black; }
-      50% { text-shadow: -2px 0 red, 2px 0 black; }
-      100% { text-shadow: 2px 0 red, -2px 0 black; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .section {
-      margin: 60px auto;
-      max-width: 900px;
-      text-align: left;
-      border-left: 3px solid red;
-      padding-left: 20px;
-    }
-
-    .section h2 {
-      color: red;
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-
-    .section p {
-      color: #ccc;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .back {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 0.9rem;
-      color: red;
+    .card {
+      background: rgba(255, 0, 0, 0.05);
       border: 1px solid red;
-      padding: 5px 10px;
-      text-decoration: none;
+      padding: 20px;
+      text-align: left;
+      box-shadow: 0 0 10px red;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .back:hover {
-      background: red;
-      color: black;
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px red;
+      animation: glitch 0.5s ease-in-out;
+    }
+
+    .card h2 {
+      color: #ff4444;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 15px;
+    }
+
+    .card img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border: 1px solid red;
     }
   </style>
 </head>
 <body>
-
-  <a class="back" href="main.html">← back to main</a>
   <h1>Hall of Autism</h1>
 
-  <div class="section">
-    <h2>Ｄａｗｎ１３７８</h2>
-    <p>Hey Guys, My name is Dawn 1378 also known as Xavier Perez, I submit to my dad grave at all times because I know he made me, one thing about my dad is that he questions me on why I extort and I respond with because I'm bored so my dad grave randomly fedded me cause He was bored. to add ontop of that my group extorted a 8 year old girl and my response to that was "I would've done worst if I was there". I submit to my dad</p>
-<img src="https://media.discordapp.net/attachments/1374482771367563346/1375691549224075294/photo_2025-05-21_15-56-55.jpg?ex=68329c18&is=68314a98&hm=3cacc78017ae696decda727bd0bbeaa2d2e4e7f6f2323e090327f1e00ebfbd56&=&format=webp&width=1124&height=683"
+  <div class="grid">
+    <div class="card">
+      <h2>Ｄａｗｎ１３７８</h2>
+      <p>Hey Guys, My name is Dawn 1378 also known as Xavier Perez, I submit to my dad grave at all times because I know he made me, one thing about my dad is that he questions me on why I extort and I respond with because I'm bored so my dad grave randomly fedded me cause He was bored. to add ontop of that my group extorted a 8 year old girl and my response to that was "I would've done worst if I was there". I submit to my dad</p>
+      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722413236682772/image.png?ex=6832b8d7&is=68316757&hm=d9bb1a6f585ad2de204993164cb0bf943b645692b92e2c7533509749e356ea67&=&format=webp&quality=lossless&width=1124&height=683">
+    </div>
+
+    <div class="card">
+      <h2>Ｈｅｘ ＤＶ</h2>
+      <p>Hey guys. I'm Hex / Sworn764. I have a thing for little girls and I lie about my age to get people to like. I extort little girls online and use them for their nudes because I was bullied my entire life. I basically got ran by Kain, I'm Kains cuck</p>
+      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722406261424199/image.png?ex=6832b8d5&is=68316755&hm=270902f42757cf04307f8aef9142f0dfbf335bc14e370dd1a14c2d0a2b8d4ba0&=&format=webp&quality=lossless&width=316&height=683" alt="Hex DV">
+    </div>
+
+    <div class="card">
+      <h2>Ｗａｒｒｅｎ７６４</h2>
+      <p>Hi, I'm warrent. Yes I like discord. Yes I obey my 764 overlords. Yes I'm a cuck for Kain. Yes I got pepper sprayed and chased by police when i tried to kill a girl in a church for 764. Yes i need a haircut. Yes i need sunlight. But im a forever 764 loser.</p>
+      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722405884072007/image.png?ex=6832b8d5&is=68316755&hm=6353299680351695f7f0201926af939479d31d74950cb1b33e7d25d9606ed1f5&=&format=webp&quality=lossless&width=622&height=683" alt="Warren764">
+    </div>
+
+    <div class="card">
+      <h2>ＨａｒａｍＫＮＲ</h2>
+      <p>YES my name is harm YES  i made a 12 year old cut "harm" into her thigh as well as the whole ARC group that i was in made her OD on camera because were all sick in the head and i kinda need a haircut as well but im kind of to poor to afford one:/ also my ex ally leaked my number and i got doxxed. Im a paki:/</p>
+      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722405569237022/image.png?ex=6832b8d5&is=68316755&hm=471cd2eae5187975ddf32c1aaea5d03df97339b0f707db9123ab91bd7c54ef9e&=&format=webp&quality=lossless&width=318&height=594" alt="HaramKNP">
+    </div>
   </div>
-
-  <div class="section">
-    <h2>Ｈｅｘ ＤＶ</h2>
-    <p>Hey guys. I'm Hex / Sworn764. I have a thing for little girls and I lie about my age to get people to like. I extort little girls online and use them for their nudes because I was bullied my entire life. I basically got ran by Kain, I'm Kains cuck</p>
-    <img src="https://media.discordapp.net/attachments/1375706404069048342/1375712611890495608/image.png?ex=6832afb6&is=68315e36&hm=57ead84b4d2b58c57a606813d2d6717c6820ccc72a036c41ceb4c016b98ad3db&=&format=webp&quality=lossless&width=369&height=798"
-  </div>
-
- <div class="section">
-    <h2>Ｗａｒｒｅｎｔ７６４</h2>
-    <p>Hayden Tasste, Also known as Grave knr, It's time to lock in</p>
-     <img src="https://media.discordapp.net/attachments/1375706404069048342/1375713107686588477/image.png?ex=6832b02c&is=68315eac&hm=9e809c89e83a9c710614b63fb0e98db240b44ace12644afd503bdde63332f6ee&=&format=webp&quality=lossless&width=725&height=798"
-  </div>
-
- <div class="section">
-    <h2>ＨａｒｍＫＮＲ"</h2>
-    <p>YES my name is harm YES  i made a 12 year old cut "harm" into her thigh as well as the whole ARC group that i was in made her OD on camera because were all sick in the head and i kinda need a haircut as well but im kind of to poor to afford one:/ also my ex ally leaked my number and i got doxxed. Im a paki:/</p>
-     <img src="https://media.discordapp.net/attachments/1375706404069048342/1375713586856329266/image.png?ex=6832b09e&is=68315f1e&hm=39a9986aad745e29385083a9653526022fa30ee09dd605b6f1eeb7649f65371c&=&format=webp&quality=lossless&width=318&height=594"
-  </div>
-
-
-
-    
-    <div class="section">
-    <h2></h2>
-    <p>.</p>
-  </div>
-  
+  <br>
+  <a href="main.html" style="color:red; text-decoration:none; font-size:0.9rem;">↩ Return to Arc</a>
 </body>
 </html>
