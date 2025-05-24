@@ -7,9 +7,12 @@
   <title>arcangels.lol</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    body {
       background: black;
       font-family: 'Share Tech Mono', monospace;
       color: red;
@@ -17,8 +20,6 @@
       user-select: none;
       overflow-x: hidden;
     }
-
-    /* Red Snow Canvas */
     #snow-canvas {
       position: fixed;
       top: 0;
@@ -28,207 +29,168 @@
       height: 100%;
       z-index: 1;
     }
-
     .ascii-header {
       font-family: monospace;
       color: red;
-      font-size: 12px;
+      font-size: 32px;
       white-space: pre;
       text-align: center;
       margin-top: 40px;
-      line-height: 1.2;
-      animation: glitch 1s infinite;
       text-shadow: 0 0 10px red;
     }
-
     .subtitle {
       margin-top: -10px;
-      font-size: 1rem;
-      letter-spacing: 2px;
-      color: #ff4444;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
     }
-
     .row {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 40px;
-      z-index: 10;
-      position: relative;
+      margin: 50px auto;
+      gap: 40px;
     }
-
     .user {
-      margin: 20px;
+      background: #0a0a0a;
+      border: 2px solid red;
       padding: 20px;
-      border: 1px solid red;
       width: 200px;
+      text-align: center;
+      box-shadow: 0 0 15px red;
     }
-
-    .user h2 {
-      margin: 10px 0 5px 0;
-      color: red;
+    .profile {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid red;
+      object-fit: cover;
+      margin-bottom: 10px;
     }
-
-    .user a {
+    a {
       color: red;
       text-decoration: none;
     }
-
-    .profile {
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      border: 2px solid red;
-      object-fit: cover;
-      transition: 0.3s;
+    a:hover {
+      text-decoration: underline;
     }
-
-    .profile:hover {
-      transform: scale(1.1);
-      filter: brightness(1.2);
+    .skull-link {
+      margin-top: 60px;
+      opacity: 0.2;
+      transition: opacity 0.3s ease;
     }
-
-    @keyframes glitch {
-      0% { text-shadow: 0 0 5px red; }
-      20% { text-shadow: -1px 0 4px red; }
-      40% { text-shadow: 2px 2px 6px red; }
-      60% { text-shadow: -2px -1px 5px red; }
-      80% { text-shadow: 1px 2px 4px red; }
-      100% { text-shadow: 0 0 5px red; }
+    .skull-link:hover {
+      opacity: 0.5;
     }
   </style>
 </head>
-<body>
-  <canvas id="snow-canvas"></canvas>
+<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123){return false;}">
 
-  <div class="ascii-header">
-<pre>
-  :**888H: `: .xH""                                                                          x .d88"
- X   `8888k XX888       .u    .                            u.    u.                           5888R 
-'8hx  48888 ?8888     .d88B :@8c        .         u      x@88k u@88c.      uL          .u     '888R 
-'8888 '8888 `8888    ="8888f8888r  .udR88N     us888u.  ^"8888""8888"  .ue888Nc..   ud8888.    888R 
- %888>'8888  8888      4888>'88"  <888'888k .@88 "8888"   8888  888R  d88E`"888E` :888'8888.   888R 
-   "8 '888"  8888      4888> '    9888 'Y"  9888  9888    8888  888R  888E  888E  d888 '88%"   888R 
-  .-` X*"    8888      4888>      9888      9888  9888    8888  888R  888E  888E  8888.+"      888R 
-    .xhx.    8888     .d888L .+   9888      9888  9888    8888  888R  888E  888E  8888L        888R 
-  .H88888h.~`8888.>   ^"8888*"    ?8888u../ 9888  9888   "*88*" 8888" 888& .888E  '8888c. .+  .888B 
- .~  `%88!` '888*~       "Y"       "8888P'  "888*""888"    ""   'Y"   *888" 888&   "88888%    ^*888%
-       `"     ""                     "P'     ^Y"   ^Y'                 `"   "888E    "YP'       "%  
-                                                                      .dWi   `88E                   
-                                                                      4888~  J8%                    
-                                                                       ^"===*"`
-</pre>
-    <div class="subtitle">fallen but watching. welcome to the arc.</div>
+<canvas id="snow-canvas"></canvas>
+
+<div class="ascii-header">
+  𝖆𝖗𝖈𝖆𝖓𝖌𝖊𝖑𝖘.𝖑𝖔𝖑
+</div>
+<div class="subtitle">Fallen but watching. Welcome to the arc.</div>
+
+<div class="row">
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" class="profile" alt="grave" />
+    <h2>ɠrave</h2>
+    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
+    <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
+    <p>Telegram: <a href="https://t.me/expule" target="_blank">@expule</a></p>
   </div>
-
-  <div class="row">
-    <div class="user">
-      <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" class="profile" alt="grave" />
-      <h2>ɠrave</h2>
-      <p>Doxbin: <a href="https://doxbin.com/@lucent">@lucent</a></p>
-      <p>Discord: <a href="https://discord.com/users/expule">@expule</a></p>
-      <p>Telegram: <a href="https://t.me/expule">@expule</a></p>
-    </div>
-
-    <div class="user">
-      <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile" alt="desultory" />
-      <h2>Desultory</h2>
-      <p>Discord: <a href="https://discord.com/users/kl0wner">@kl0wner</a></p>
-      <p>Telegram: <a href="https://t.me/@desultoryarc">@desultory</a></p>
-      <p>Doxbin: <a href="https://doxbin.com/@Desultory">@Desultory</a></p>
-    </div>
-
-    <div class="user">
-      <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" class="profile" alt="cruel" />
-      <h2>Cruel</h2>
-      <p>Diablo: @cruel</p>
-      <p>Discord: @dislimbedwhore</p>
-      <p>Telegram: @fentfag</p>
-    </div>
-
-    <div class="user">
-      <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" class="profile" alt="Kry" />
-      <h2>Kry</h2>
-      <p>Doxbin: <a href="https://doxbin.com/@oov">@Kry</a></p>
-      <p>Discord: <a href="https://discord.com/users/cursing0713_53453">@Kry</a></p>
-      <p>Telegram: <a href="https://t.me/niceusername920">@Kry</a></p>
-    </div>
-
-    <div class="user">
-      <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" class="profile" alt="Crucify" />
-      <h2>Crucify</h2>
-      <p>Doxbin: <a href="https://doxbin.com">@</a></p>
-      <p>Discord: <a href="https://discord.com/users/psychwardmenace">@psychwardmenace</a></p>
-      <p>Telegram: <a href="https://t.me/psychwardmenace">@psychwardmenace</a></p>
-    </div>
-
-    <div class="user">
-      <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" class="profile" alt="Tor" />
-      <h2>Tor</h2>
-      <p>Doxbin: <a href="https://doxbin.com/@wiggle">@wiggle</a></p>
-      <p>Discord: <a href="https://discord.com/users/">@8xko</a></p>
-      <p>Telegram: <a href="https://t.me/exule">@hatedgods</a></p>
-    </div>
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile" alt="klowner" />
+    <h2>Desultory</h2>
+    <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
+    <p>Telegram: <a href="https://t.me/@desultoryarc" target="_blank">@desultory</a></p>
+    <p>Doxbin: <a href="https://doxbin.com/@Desultory" target="_blank">@Desultory</a></p>
   </div>
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" class="profile" alt="cruel" />
+    <h2>Cruel</h2>
+    <p>Diablo: @cruel</p>
+    <p>Discord: @dislimbedwhore</p>
+    <p>Telegram: @fentfag</p>
+  </div>
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" class="profile" alt="Kry" />
+    <h2>Kry</h2>
+    <p>Doxbin: <a href="https://doxbin.com/@oov" target="_blank">@Kry</a></p>
+    <p>Discord: <a href="https://discord.com/users/cursing0713_53453" target="_blank">@Kry</a></p>
+    <p>Telegram: <a href="https://t.me/niceusername920" target="_blank">@Kry</a></p>
+  </div>
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" class="profile" alt="Crucify" />
+    <h2>Crucify</h2>
+    <p>Discord: <a href="https://discord.com/users/psychwardmenace" target="_blank">@psychwardmenace</a></p>
+    <p>Telegram: <a href="https://t.me/psychwardmenace" target="_blank">@psychwardmenace</a></p>
+  </div>
+  <div class="user">
+    <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" class="profile" alt="Tor" />
+    <h2>Tor</h2>
+    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@wiggle</a></p>
+    <p>Discord: <a href="https://discord.com/users/" target="_blank">@8xko</a></p>
+    <p>Telegram: <a href="https://t.me/exule" target="_blank">@hatedgods</a></p>
+  </div>
+</div>
 
-  <script>
-    const canvas = document.getElementById('snow-canvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+<!-- Skull Archive Link -->
+<a href="archives.html">
+  <img class="skull-link" src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" alt="skull" width="120" />
+</a>
 
-    let particles = [];
-    const particleCount = 150;
+<script>
+const canvas = document.getElementById('snow-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: Math.random() * 2 + 1,
-        d: Math.random() * particleCount,
-      });
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function createParticles() {
+  for (let i = 0; i < 100; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2 + 1,
+      d: Math.random() * 0.5 + 0.5
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "red";
+  ctx.beginPath();
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    ctx.moveTo(p.x, p.y);
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+  }
+  ctx.fill();
+  update();
+}
+
+function update() {
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    p.y += p.d;
+    if (p.y > canvas.height) {
+      p.y = 0;
+      p.x = Math.random() * canvas.width;
     }
+  }
+}
 
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = 'rgba(255,0,0,0.8)';
-      ctx.beginPath();
-      for (let i = 0; i < particleCount; i++) {
-        let p = particles[i];
-        ctx.moveTo(p.x, p.y);
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
-      }
-      ctx.fill();
-      update();
-    }
+createParticles();
+setInterval(draw, 30);
+</script>
 
-    let angle = 0;
-    function update() {
-      angle += 0.01;
-      for (let i = 0; i < particleCount; i++) {
-        let p = particles[i];
-        p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
-        p.x += Math.sin(angle) * 2;
-
-        if (p.x > width + 5 || p.x < -5 || p.y > height) {
-          if (i % 3 > 0) {
-            particles[i] = {x: Math.random() * width, y: -10, r: p.r, d: p.d};
-          } else {
-            if (Math.sin(angle) > 0) {
-              particles[i] = {x: -5, y: Math.random() * height, r: p.r, d: p.d};
-            } else {
-              particles[i] = {x: width + 5, y: Math.random() * height, r: p.r, d: p.d};
-            }
-          }
-        }
-      }
-    }
-
-    setInterval(draw, 33);
-    window.onresize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-  </script>
 </body>
 </html>
