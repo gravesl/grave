@@ -90,7 +90,7 @@
 
 </style>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&amp;display=swap" rel="stylesheet"/></head>
-<body>
+<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123){return false;}">
 <canvas id="snow-canvas"></canvas>
 
 <div class="ascii-header">
@@ -182,11 +182,6 @@ function draw() {
   requestAnimationFrame(draw);
 }
 draw();
-  <iframe
-  style="display:none"
-  allow="autoplay"
-  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xcho-glasscage/ty-i-ya&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
-</iframe>
 </script>
 </body>
 </html>
