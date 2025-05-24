@@ -189,7 +189,7 @@
     }
   </style>
 </head>
-<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123){return false;}">
+<body oncontextmenu="return false;">
 
   <div class="stars"></div>
 
@@ -264,10 +264,10 @@
 
   <!-- Jump Scare -->
   <div id="jumpscare">
-    <img src="https://i.imgur.com/1ZQZ1ZC.png" alt="jumpscare" />
+    <img src="/mnt/data/ad05ea54-c463-45bb-b16c-d0b5e0f8934b.png" alt="jumpscare" />
   </div>
 
-  <!-- Typing splash script + Jump trigger -->
+  <!-- Typing splash script + DevTools detection -->
   <script>
     const splashLines = [
       "initializing... arcangels.lol",
@@ -303,10 +303,18 @@
 
     window.onload = () => {
       typeLine();
-      setTimeout(() => {
-        document.getElementById("jumpscare").style.display = "flex";
-      }, 10000);
     };
+
+    // Detect DevTools
+    let devtools = false;
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+      get: function () {
+        devtools = true;
+        document.getElementById("jumpscare").style.display = "flex";
+      }
+    });
+    console.log('%c', element);
   </script>
 </body>
 </html>
