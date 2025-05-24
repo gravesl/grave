@@ -1,142 +1,150 @@
-<!-- 🔊 Hover Sound -->
-<audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-game-notification-212.wav" preload="auto"></audio>
 
-<!-- 💀 Skulls Background -->
-<style>
-  body {
-    background: black url('https://i.imgur.com/BzBWzsz.png') repeat;
-    background-size: contain;
-    animation: bgScroll 200s linear infinite;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>arcangels.lol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <audio id="hoverSound" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-game-notification-212.wav" preload="auto"></audio>
+  <style>
+    body {
+      margin: 0;
+      background: black url('https://i.imgur.com/BzBWzsz.png') repeat;
+      background-size: contain;
+      animation: bgScroll 200s linear infinite;
+      font-family: 'Share Tech Mono', monospace;
+      color: red;
+      text-align: center;
+    }
 
-  @keyframes bgScroll {
-    0% { background-position: 0 0; }
-    100% { background-position: 10000px 10000px; }
-  }
+    @keyframes bgScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 10000px 10000px; }
+    }
 
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 60px;
-  }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px 0;
+    }
 
-  .user {
-    text-align: center;
-    color: red;
-    font-family: 'Share Tech Mono', monospace;
-    border: 1px solid red;
-    padding: 20px;
-    box-shadow: 0 0 15px red;
-    width: 220px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    position: relative;
-    background: rgba(0, 0, 0, 0.7);
-  }
+    .user {
+      border: 1px solid red;
+      padding: 20px;
+      box-shadow: 0 0 15px red;
+      width: 220px;
+      background: rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
 
-  .user:hover {
-    transform: scale(1.05);
-    animation: glitch 0.3s steps(2, start) infinite;
-  }
+    .user:hover {
+      transform: scale(1.05);
+      animation: glitch 0.3s steps(2, start) infinite;
+    }
 
-  .user img.profile {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid red;
-    object-fit: cover;
-    filter: grayscale(100%);
-    transition: 0.3s ease;
-  }
+    .user img.profile {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid red;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: 0.3s ease;
+    }
 
-  .user:hover img.profile {
-    filter: none;
-  }
+    .user:hover img.profile {
+      filter: none;
+    }
 
-  @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(2px, -2px); }
-    60% { transform: translate(-2px, 1px); }
-    80% { transform: translate(1px, -1px); }
-    100% { transform: translate(0); }
-  }
+    h2 {
+      margin-top: 10px;
+    }
 
-  a {
-    color: red;
-    text-decoration: none;
-  }
+    p, a {
+      font-size: 0.9rem;
+      color: red;
+      text-decoration: none;
+    }
 
-  a:hover {
-    text-shadow: 0 0 5px red;
-  }
-</style>
+    a:hover {
+      text-shadow: 0 0 5px red;
+    }
 
-<!-- 👥 Profile Grid -->
-<div class="row">
-  <!-- ɠrave -->
-  <div class="user" onmouseenter="playHover()">
-    <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" class="profile" alt="grave" />
-    <h2>ɠrave</h2>
-    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
-    <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
-    <p>Telegram: <a href="https://t.me/expule" target="_blank">@expule</a></p>
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-2px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="row">
+    <div class="user" onmouseenter="playHover()">
+      <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" class="profile" alt="grave" />
+      <h2>ɠrave</h2>
+      <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@lucent</a></p>
+      <p>Discord: <a href="https://discord.com/users/expule" target="_blank">@expule</a></p>
+      <p>Telegram: <a href="https://t.me/expule" target="_blank">@expule</a></p>
+    </div>
+
+    <div class="user" onmouseenter="playHover()">
+      <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile" alt="Desultory" />
+      <h2>Desultory</h2>
+      <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
+      <p>Telegram: <a href="https://t.me/@desultoryarc" target="_blank">@desultory</a></p>
+      <p>Doxbin: <a href="https://doxbin.com/@Desultory" target="_blank">@Desultory</a></p>
+    </div>
+
+    <div class="user" onmouseenter="playHover()">
+      <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" class="profile" alt="Cruel" />
+      <h2>Cruel</h2>
+      <p>Diablo: @cruel</p>
+      <p>Discord: @dislimbedwhore</p>
+      <p>Telegram: @fentfag</p>
+    </div>
   </div>
 
-  <!-- Desultory -->
-  <div class="user" onmouseenter="playHover()">
-    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" class="profile" alt="Desultory" />
-    <h2>Desultory</h2>
-    <p>Discord: <a href="https://discord.com/users/kl0wner" target="_blank">@kl0wner</a></p>
-    <p>Telegram: <a href="https://t.me/@desultoryarc" target="_blank">@desultory</a></p>
-    <p>Doxbin: <a href="https://doxbin.com/@Desultory" target="_blank">@Desultory</a></p>
+  <div class="row">
+    <div class="user" onmouseenter="playHover()">
+      <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" class="profile" alt="Kry" />
+      <h2>Kry</h2>
+      <p>Doxbin: <a href="https://doxbin.com/@oov" target="_blank">@Kry</a></p>
+      <p>Discord: <a href="https://discord.com/users/cursing0713_53453" target="_blank">@Kry</a></p>
+      <p>Telegram: <a href="https://t.me/niceusername920" target="_blank">@Kry</a></p>
+    </div>
+
+    <div class="user" onmouseenter="playHover()">
+      <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" class="profile" alt="Crucify" />
+      <h2>Crucify</h2>
+      <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@</a></p>
+      <p>Discord: <a href="https://discord.com/users/psychwardmenace" target="_blank">@psychwardmenace</a></p>
+      <p>Telegram: <a href="https://t.me/psychwardmenace" target="_blank">@psychwardmenace</a></p>
+    </div>
+
+    <div class="user" onmouseenter="playHover()">
+      <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" class="profile" alt="Tor" />
+      <h2>Tor</h2>
+      <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@wiggle</a></p>
+      <p>Discord: <a href="https://discord.com/users/" target="_blank">@8xko</a></p>
+      <p>Telegram: <a href="https://t.me/exule" target="_blank">@hatedgods</a></p>
+    </div>
   </div>
 
-  <!-- Cruel -->
-  <div class="user" onmouseenter="playHover()">
-    <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" class="profile" alt="Cruel" />
-    <h2>Cruel</h2>
-    <p>Diablo: @cruel</p>
-    <p>Discord: @dislimbedwhore</p>
-    <p>Telegram: @fentfag</p>
-  </div>
-</div>
+  <script>
+    function playHover() {
+      const sound = document.getElementById('hoverSound');
+      sound.currentTime = 0;
+      sound.play().catch(() => {});
+    }
+  </script>
 
-<div class="row">
-  <!-- Kry -->
-  <div class="user" onmouseenter="playHover()">
-    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" class="profile" alt="Kry" />
-    <h2>Kry</h2>
-    <p>Doxbin: <a href="https://doxbin.com/@oov" target="_blank">@Kry</a></p>
-    <p>Discord: <a href="https://discord.com/users/cursing0713_53453" target="_blank">@Kry</a></p>
-    <p>Telegram: <a href="https://t.me/niceusername920" target="_blank">@Kry</a></p>
-  </div>
+</body>
+</html>
 
-  <!-- Crucify -->
-  <div class="user" onmouseenter="playHover()">
-    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" class="profile" alt="Crucify" />
-    <h2>Crucify</h2>
-    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@</a></p>
-    <p>Discord: <a href="https://discord.com/users/psychwardmenace" target="_blank">@psychwardmenace</a></p>
-    <p>Telegram: <a href="https://t.me/psychwardmenace" target="_blank">@psychwardmenace</a></p>
-  </div>
-
-  <!-- Tor -->
-  <div class="user" onmouseenter="playHover()">
-    <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" class="profile" alt="Tor" />
-    <h2>Tor</h2>
-    <p>Doxbin: <a href="https://doxbin.com/@lucent" target="_blank">@wiggle</a></p>
-    <p>Discord: <a href="https://discord.com/users/" target="_blank">@8xko</a></p>
-    <p>Telegram: <a href="https://t.me/exule" target="_blank">@hatedgods</a></p>
-  </div>
-</div>
-
-<!-- 🔊 Hover Script -->
-<script>
-  function playHover() {
-    const sound = document.getElementById('hoverSound');
-    sound.currentTime = 0;
-    sound.play().catch(() => {});
-  }
-</script>
