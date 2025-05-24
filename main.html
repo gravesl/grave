@@ -56,53 +56,32 @@
       display: none;
     }
 
+    @keyframes glitch {
+      0% { text-shadow: 0 0 5px red; }
+      20% { text-shadow: -1px 0 4px red; }
+      40% { text-shadow: 2px 2px 6px red; }
+      60% { text-shadow: -2px -1px 5px red; }
+      80% { text-shadow: 1px 2px 4px red; }
+      100% { text-shadow: 0 0 5px red; }
+    }
+
     #splash-text {
       white-space: pre-wrap;
       text-align: center;
     }
 
-    .login-overlay {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 9998;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+    .ascii-header {
       color: red;
+      font-size: 12px;
+      white-space: pre;
+      margin-top: 30px;
+      text-shadow: 0 0 10px red;
+      animation: glitch 1s infinite;
     }
 
-    .login-box {
-      background: rgba(20, 20, 20, 0.8);
-      border: 1px solid red;
-      padding: 20px;
-      margin: 10px;
-      width: 240px;
-    }
-
-    .login-box input[type="password"] {
-      width: 100%;
-      padding: 6px;
-      margin-top: 10px;
-      font-family: monospace;
-      background: black;
-      color: red;
-      border: 1px solid red;
-    }
-
-    .login-box button {
-      margin-top: 10px;
-      padding: 5px 10px;
-      background: black;
-      color: red;
-      border: 1px solid red;
-      cursor: pointer;
-    }
-
-    .main-site.hide {
-      display: none;
+    .subtitle {
+      font-size: 0.9rem;
+      margin-top: -10px;
     }
 
     .profile-grid {
@@ -172,6 +151,13 @@
       opacity: 0.5;
       cursor: pointer;
     }
+
+    .hidden-player {
+      position: absolute;
+      width: 0;
+      height: 0;
+      visibility: hidden;
+    }
   </style>
 </head>
 <body oncontextmenu="return false;" onkeydown="if(event.keyCode==123){return false;}">
@@ -183,27 +169,13 @@
     <div id="splash-text"></div>
   </div>
 
-  <!-- Login Overlay -->
-  <div class="login-overlay" id="login">
-    <div class="login-box">
-      <div><b>Admin Login</b></div>
-      <input type="password" id="adminPass" placeholder="Password" />
-      <button onclick="enterSite()">Enter</button>
-    </div>
-    <div class="login-box">
-      <div><b>Guest Login</b></div>
-      <button onclick="enterSite()">Enter as Guest</button>
-    </div>
-  </div>
-
   <!-- Hidden SoundCloud Player -->
-  <iframe class="hidden-player" allow="autoplay" style="display:none" id="musicPlayer"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xcho-glasscage/ty-i-ya&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
+  <iframe class="hidden-player" allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/an-unknown-member/bass-santana-curse-w-xxxtentacion-cooliecut-kinoul-prod-by-basssantana&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
   </iframe>
 
-  <!-- Main Site Content -->
-  <div class="main-site hide" id="main">
-    <div class="ascii-header">
+  <!-- ASCII Art -->
+  <div class="ascii-header">
 <pre>
   :**888H: `: .xH""                                                                          x .d88"
  X   `8888k XX888       .u    .                            u.    u.                           5888R 
@@ -220,42 +192,48 @@
                                                                       4888~  J8%                    
                                                                        ^"===*"`
 </pre>
-      <div class="subtitle">fallen but watching. welcome to the arc.</div>
+    <div class="subtitle">fallen but watching. welcome to the arc.</div>
+  </div>
+
+  <!-- Profiles -->
+  <div class="profile-grid">
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/99/06/2c/99062cc7055d5be96ecd3b464f841e5f.jpg" alt="ɠrave" />
+      <div class="name">ɠrave</div>
+      <div class="info">Discord: @expule<br>Telegram: @expule</div>
     </div>
 
-    <div class="profile-grid">
-      <div class="profile">
-        <img src="https://i.pinimg.com/736x/99/06/2c/99062cc7055d5be96ecd3b464f841e5f.jpg" alt="ɠrave" />
-        <div class="name">ɠrave</div>
-        <div class="info">Discord: @expule<br>Telegram: @expule</div>
-      </div>
-      <div class="profile">
-        <img src="https://i.pinimg.com/736x/de/ac/3e/deac3eac978d13fcacf78395fd5e3fca.jpg" alt="Desultory" />
-        <div class="name">Desultory</div>
-        <div class="info">Discord: @desultoryy_<br>Telegram: @desultoryarc</div>
-      </div>
-      <div class="profile">
-        <img src="https://i.pinimg.com/736x/bd/ff/ce/bdffce282b4ecf70891d5ff41a94b05e.jpg" alt="wp" />
-        <div class="name">wp</div>
-        <div class="info">Discord: wpisnotthere<br>Telegram: wpisnotthere</div>
-      </div>
-      <div class="profile">
-        <img src="https://i.pinimg.com/736x/cb/4c/aa/cb4caaa46ac23bde631ab13fe7a21214.jpg" alt="Crucify" />
-        <div class="name">ᴄʀᴜᴄɪꜰʏ</div>
-        <div class="info">Discord: psychwardmenace<br>Telegram: @psychwardmenace</div>
-      </div>
-      <div class="profile">
-        <img src="https://i.pinimg.com/736x/ba/4b/f6/ba4bf65148982aa0bd76673d35174609.jpg" alt="Ŧor" />
-        <div class="name">Ŧor</div>
-        <div class="info">Discord: 8xko<br>Telegram: @hatedgods</div>
-      </div>
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/de/ac/3e/deac3eac978d13fcacf78395fd5e3fca.jpg" alt="Desultory" />
+      <div class="name">Desultory</div>
+      <div class="info">Discord: @desultoryy_<br>Telegram: @desultoryarc</div>
     </div>
 
-    <div class="skull" onclick="window.location.href='archives.html'">
-      <img src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" alt="skull" width="100" />
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/bd/ff/ce/bdffce282b4ecf70891d5ff41a94b05e.jpg" alt="wp" />
+      <div class="name">wp</div>
+      <div class="info">Discord: wpisnotthere<br>Telegram: wpisnotthere</div>
+    </div>
+
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/cb/4c/aa/cb4caaa46ac23bde631ab13fe7a21214.jpg" alt="Crucify" />
+      <div class="name">ᴄʀᴜᴄɪꜰʏ</div>
+      <div class="info">Discord: psychwardmenace<br>Telegram: @psychwardmenace</div>
+    </div>
+
+    <div class="profile">
+      <img src="https://i.pinimg.com/736x/ba/4b/f6/ba4bf65148982aa0bd76673d35174609.jpg" alt="Ŧor" />
+      <div class="name">Ŧor</div>
+      <div class="info">Discord: 8xko<br>Telegram: @hatedgods</div>
     </div>
   </div>
 
+  <!-- Skull link -->
+  <div class="skull" onclick="window.location.href='archives.html'">
+    <img src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" alt="skull" width="100" />
+  </div>
+
+  <!-- Typing splash script -->
   <script>
     const splashLines = [
       "initializing... arcangels.lol",
@@ -263,6 +241,7 @@
       "establishing connection...",
       "boot complete."
     ];
+    
     let i = 0;
     let line = 0;
     let output = "";
@@ -275,8 +254,10 @@
         }, 500);
         return;
       }
+
       output += splashLines[line].charAt(i);
       splashText.innerHTML = output + "|";
+
       i++;
       if (i < splashLines[line].length) {
         setTimeout(typeLine, 50);
@@ -286,13 +267,6 @@
         line++;
         setTimeout(typeLine, 300);
       }
-    }
-
-    function enterSite() {
-      document.getElementById("login").style.display = "none";
-      document.getElementById("main").classList.remove("hide");
-      const player = document.getElementById("musicPlayer");
-      player.style.display = "block";
     }
 
     window.onload = () => {
