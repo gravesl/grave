@@ -158,6 +158,35 @@
       height: 0;
       visibility: hidden;
     }
+
+    #jumpscare {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    #jumpscare img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-10px, 0); }
+      40% { transform: translate(10px, 0); }
+      60% { transform: translate(-10px, 0); }
+      80% { transform: translate(10px, 0); }
+      100% { transform: translate(0, 0); }
+    }
   </style>
 </head>
 <body oncontextmenu="return false;" onkeydown="if(event.keyCode==123){return false;}">
@@ -233,7 +262,12 @@
     <img src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" alt="skull" width="100" />
   </div>
 
-  <!-- Typing splash script -->
+  <!-- Jump Scare -->
+  <div id="jumpscare">
+    <img src="https://i.imgur.com/1ZQZ1ZC.png" alt="jumpscare" />
+  </div>
+
+  <!-- Typing splash script + Jump trigger -->
   <script>
     const splashLines = [
       "initializing... arcangels.lol",
@@ -241,7 +275,7 @@
       "establishing connection...",
       "boot complete."
     ];
-    
+
     let i = 0;
     let line = 0;
     let output = "";
@@ -254,10 +288,8 @@
         }, 500);
         return;
       }
-
       output += splashLines[line].charAt(i);
       splashText.innerHTML = output + "|";
-
       i++;
       if (i < splashLines[line].length) {
         setTimeout(typeLine, 50);
@@ -271,6 +303,9 @@
 
     window.onload = () => {
       typeLine();
+      setTimeout(() => {
+        document.getElementById("jumpscare").style.display = "flex";
+      }, 10000);
     };
   </script>
 </body>
