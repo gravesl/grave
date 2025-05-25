@@ -1,192 +1,177 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>arcangels.lol</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;display=swap" rel="stylesheet"/>
-<style>
+  <meta charset="UTF-8">
+  <title>arcangels.lol</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <style>
     body {
+      margin: 0;
       background: black;
-      font-family: 'Share Tech Mono', monospace;
-      color: red;
+      color: white;
+      font-family: 'UnifrakturCook', cursive;
       text-align: center;
-      user-select: none;
       overflow-x: hidden;
     }
 
-    .ascii-header {
-      font-size: 2rem;
-      margin-top: 30px;
-      color: red;
-      animation: glitch 1s infinite;
+    .logo {
+      margin-top: 60px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .arc-title {
+      font-size: 22px;
+      margin-top: 20px;
+      color: white;
+      animation: glitch 1.5s infinite;
     }
 
     .subtitle {
-      margin-top: -10px;
-      font-size: 0.85rem;
-      color: red;
+      font-size: 14px;
+      color: white;
+      margin: 8px 0 40px;
+      font-family: monospace;
     }
 
-    .grid {
+    .names {
+      margin-top: 0px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 40px;
-      padding: 40px 20px;
+      gap: 20px;
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
     }
 
-    .user {
-      background-color: black;
-      border: 2px solid red;
-      box-shadow: 0 0 10px red;
-      padding: 20px;
-      border-radius: 6px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      max-width: 160px;
+    .names span {
+      transition: opacity 0.3s ease;
     }
 
-    .user:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px red;
+    .names span:hover {
+      opacity: 0.6;
     }
 
     .profile {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 2px solid red;
-      object-fit: cover;
-      margin-bottom: 10px;
+      display: none;
+      margin-top: 30px;
+      animation: fadeIn 1s forwards;
+    }
+
+    .profile img {
+      width: 150px;
+      border-radius: 8px;
+      border: 2px solid white;
+    }
+
+    .profile h2 {
+      margin: 10px 0 5px;
+      color: white;
+    }
+
+    .profile p {
+      font-size: 14px;
+      color: white;
+      line-height: 1.5;
+      font-family: monospace;
     }
 
     .skull {
       margin-top: 60px;
-      opacity: 0.15;
-      transition: opacity 0.3s;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
     .skull:hover {
-      opacity: 0.5;
-      cursor: pointer;
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes glitch {
-      0% { text-shadow: 0 0 5px red; }
-      50% { text-shadow: -1px 1px 8px red; }
-      100% { text-shadow: 0 0 5px red; }
+      0% { text-shadow: 2px 0 red, -2px 0 cyan; }
+      20% { text-shadow: -2px 0 red, 2px 0 cyan; }
+      40% { text-shadow: 2px 0 cyan, -2px 0 red; }
+      60% { text-shadow: -2px 0 cyan, 2px 0 red; }
+      80% { text-shadow: 2px 0 red, -2px 0 cyan; }
+      100% { text-shadow: none; }
     }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="music/ambient.mp3" type="audio/mp3">
+  </audio>
+
+    <div class="arc-title" style="font-size: 26px; font-family: UnifrakturCook, cursive; color: white; text-shadow: 0 0 2px white;">arcangels.lol</div>
   
-#snow-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
+  <div class="names">
+    <span onclick="showProfile('grave')">ɠrave</span>
+    <span onclick="showProfile('desultory')">desultory</span>
+    <span onclick="showProfile('cruel')">cruel</span>
+    <span onclick="showProfile('kry')">kry</span>
+    <span onclick="showProfile('crucify')">crucify</span>
+    <span onclick="showProfile('tor')">tor</span>
+  </div>
 
-</style>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&amp;display=swap" rel="stylesheet"/></head>
-<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123){return false;}">
-<canvas id="snow-canvas"></canvas>
+  <div id="grave" class="profile">
+    <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" alt="grave">
+    <h2>ɠrave</h2>
+    <p>Doxbin: @lucent<br>Discord: @expule<br>Telegram: @expule</p>
+  </div>
 
-<div class="ascii-header">
-<pre>
-                    ..                                                                                            .
-  :**888H: `: .xH""                                                                          x .d88"
- X   `8888k XX888       .u    .                            u.    u.                           5888R 
-'8hx  48888 ?8888     .d88B :@8c        .         u      x@88k u@88c.      uL          .u     '888R 
-'8888 '8888 `8888    ="8888f8888r  .udR88N     us888u.  ^"8888""8888"  .ue888Nc..   ud8888.    888R 
- %888&gt;'8888  8888      4888&gt;'88"  &lt;888'888k .@88 "8888"   8888  888R  d88E`"888E` :888'8888.   888R 
-   "8 '888"  8888      4888&gt; '    9888 'Y"  9888  9888    8888  888R  888E  888E  d888 '88%"   888R 
-  .-` X*"    8888      4888&gt;      9888      9888  9888    8888  888R  888E  888E  8888.+"      888R 
-    .xhx.    8888     .d888L .+   9888      9888  9888    8888  888R  888E  888E  8888L        888R 
-  .H88888h.~`8888.&gt;   ^"8888*"    ?8888u../ 9888  9888   "*88*" 8888" 888&amp; .888E  '8888c. .+  .888B 
- .~  `%88!` '888*~       "Y"       "8888P'  "888*""888"    ""   'Y"   *888" 888&amp;   "88888%    ^*888%
-       `"     ""                     "P'     ^Y"   ^Y'                 `"   "888E    "YP'       "%  
-                                                                      .dWi   `88E                   
-                                                                      4888~  J8%                    
-                                                                       ^"===*"`    
-</pre>
-</div>
+  <div id="desultory" class="profile">
+    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" alt="Desultory">
+    <h2>Desultory</h2>
+    <p>Discord: @kl0wner<br>Telegram: @desultory<br>Doxbin: @Desultory</p>
+  </div>
 
-<div class="subtitle">Fallen but watching. Welcome to the arc.</div>
-<div class="grid">
-<div class="user">
-<img alt="grave" class="profile" src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg"/>
-<h2>ɠrave</h2>
-<p>Doxbin: @lucent<br/>Discord: @expule<br/>Telegram: @expule</p>
-</div>
-<div class="user">
-<img alt="Desultory" class="profile" src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg"/>
-<h2>Desultory</h2>
-<p>Discord: @kl0wner<br/>Telegram: @desultory<br/>Doxbin: @Desultory</p>
-</div>
-<div class="user">
-<img alt="Cruel" class="profile" src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg"/>
-<h2>Cruel</h2>
-<p>Diablo: @cruel<br/>Discord: @dislimbedwhore<br/>Telegram: @fentfag</p>
-</div>
-<div class="user">
-<img alt="Kry" class="profile" src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg"/>
-<h2>Kry</h2>
-<p>Doxbin: @Kry<br/>Discord: @Kry<br/>Telegram: @Kry</p>
-</div>
-<div class="user">
-<img alt="Crucify" class="profile" src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg"/>
-<h2>Crucify</h2>
-<p>Discord: @psychwardmenace<br/>Telegram: @psychwardmenace</p>
-</div>
-<div class="user">
-<img alt="Tor" class="profile" src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg"/>
-<h2>Tor</h2>
-<p>Doxbin: @wiggle<br/>Discord: @8xko<br/>Telegram: @hatedgods</p>
-</div>
-</div>
-<div class="skull" onclick="window.location.href='archives.html'">
-<img alt="skull" src="https://i.pinimg.com/736x/9c/f4/14/9cf41473db021bb6a482fa5a5ee46469.jpg" width="100"/>
-</div>
-<script>
-const canvas = document.getElementById('snow-canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let particles = [];
+  <div id="cruel" class="profile">
+    <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" alt="Cruel">
+    <h2>Cruel</h2>
+    <p>Diablo: @cruel<br>Discord: @dislimbedwhore<br>Telegram: @fentfag</p>
+  </div>
 
-for (let i = 0; i < 100; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    radius: Math.random() * 2 + 1,
-    speed: Math.random() * 1 + 0.5
-  });
-}
+  <div id="kry" class="profile">
+    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" alt="Kry">
+    <h2>Kry</h2>
+    <p>Doxbin: @Kry<br>Discord: @Kry<br>Telegram: @Kry</p>
+  </div>
 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = 'red';
-  for (let i = 0; i < particles.length; i++) {
-    let p = particles[i];
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fill();
-    p.y += p.speed;
-    if (p.y > canvas.height) {
-      p.y = 0;
-      p.x = Math.random() * canvas.width;
+  <div id="crucify" class="profile">
+    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" alt="Crucify">
+    <h2>Crucify</h2>
+    <p>Discord: @psychwardmenace<br>Telegram: @psychwardmenace</p>
+  </div>
+
+  <div id="tor" class="profile">
+    <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" alt="Tor">
+    <h2>Tor</h2>
+    <p>Doxbin: @wiggle<br>Discord: @8xko<br>Telegram: @hatedgods</p>
+  </div>
+
+  <div class="skull" onclick="window.location.href='archives.html'">
+    <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
+  </div>
+
+  <script>
+    function showProfile(id) {
+      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
     }
-  }
-  requestAnimationFrame(draw);
-}
-draw();
-</script>
-    <iframe
+  </script>
+</body>
+</html>
+<iframe
   style="display:none"
   allow="autoplay"
   src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xcho-glasscage/ty-i-ya&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
-</iframe>
-</body>
-</html>
