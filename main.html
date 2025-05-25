@@ -15,32 +15,15 @@
       overflow-x: hidden;
     }
 
-    .logo {
-      margin-top: 60px;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-    }
-
     .arc-title {
-      font-size: 22px;
-      margin-top: 20px;
+      font-size: 26px;
+      font-family: UnifrakturCook, cursive;
       color: white;
-      animation: glitch 1.5s infinite;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: white;
-      margin: 8px 0 40px;
-      font-family: monospace;
+      text-shadow: 0 0 2px white;
     }
 
     .names {
-      margin-top: 0px;
+      margin-top: 20px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -96,35 +79,22 @@
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    @keyframes glitch {
-      0% { text-shadow: 2px 0 red, -2px 0 cyan; }
-      20% { text-shadow: -2px 0 red, 2px 0 cyan; }
-      40% { text-shadow: 2px 0 cyan, -2px 0 red; }
-      60% { text-shadow: -2px 0 cyan, 2px 0 red; }
-      80% { text-shadow: 2px 0 red, -2px 0 cyan; }
-      100% { text-shadow: none; }
-    }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="music/ambient.mp3" type="audio/mp3">
-  </audio>
+  <div class="arc-title">arcangels.lol</div>
 
-    <div class="arc-title" style="font-size: 26px; font-family: UnifrakturCook, cursive; color: white; text-shadow: 0 0 2px white;">arcangels.lol</div>
-  
   <div class="names">
     <span onclick="showProfile('grave')">ɠrave</span>
     <span onclick="showProfile('desultory')">desultory</span>
-    <span onclick="showProfile('cruel')">cruel</span>
+    <span onclick="showProfile('larv')">larv</span>
     <span onclick="showProfile('kry')">kry</span>
     <span onclick="showProfile('crucify')">crucify</span>
-    <span onclick="showProfile('tor')">tor</span>
+    <span onclick="showProfile('zay')">zay</span>
   </div>
 
   <div id="grave" class="profile">
-    <img src="https://i.pinimg.com/736x/4b/e7/8c/4be78cf966e73b8b88f2aeb6bfcfef70.jpg" alt="grave">
+    <img src="https://i.pinimg.com/736x/3f/20/b7/3f20b74ef057ceabc6dbfab8aa855974.jpg" alt="grave">
     <h2>ɠrave</h2>
     <p>Doxbin: @lucent<br>Discord: @expule<br>Telegram: @expule</p>
   </div>
@@ -135,10 +105,10 @@
     <p>Discord: @kl0wner<br>Telegram: @desultory<br>Doxbin: @Desultory</p>
   </div>
 
-  <div id="cruel" class="profile">
-    <img src="https://i.pinimg.com/736x/12/2b/4b/122b4b87c44a9b32f58c310e3afc40d5.jpg" alt="Cruel">
-    <h2>Cruel</h2>
-    <p>Diablo: @cruel<br>Discord: @dislimbedwhore<br>Telegram: @fentfag</p>
+  <div id="larv" class="profile">
+    <img src="https://i.pinimg.com/736x/28/44/9c/28449c027142a1ff358408a5febe1e81.jpg" alt="larv">
+    <h2>larv</h2>
+    <p>Doxbin: @larvv</p>
   </div>
 
   <div id="kry" class="profile">
@@ -153,10 +123,10 @@
     <p>Discord: @psychwardmenace<br>Telegram: @psychwardmenace</p>
   </div>
 
-  <div id="tor" class="profile">
-    <img src="https://i.pinimg.com/736x/c6/b3/54/c6b354f0733595263f0338df3bd1cfd7.jpg" alt="Tor">
-    <h2>Tor</h2>
-    <p>Doxbin: @wiggle<br>Discord: @8xko<br>Telegram: @hatedgods</p>
+  <div id="zay" class="profile">
+    <img src="https://i.pinimg.com/736x/b1/24/91/b124911d4fdf791dcfb9098684431357.jpg" alt="zay">
+    <h2>zay</h2>
+    <p>Doxbin: @hafi<br>Discord: @eu7d</p>
   </div>
 
   <div class="skull" onclick="window.location.href='archives.html'">
@@ -168,10 +138,32 @@
       document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
       document.getElementById(id).style.display = 'block';
     }
+
+    // Disable Right-Click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Disable DevTools Key Combos
+    document.onkeydown = function(e) {
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I/J
+        (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+      ) {
+        return false;
+      }
+    };
+
+    // Auto-close if DevTools is open
+    (function() {
+      const threshold = 160;
+      setInterval(() => {
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        if (widthThreshold || heightThreshold) {
+          window.open('', '_self').close();
+        }
+      }, 1000);
+    })();
   </script>
 </body>
 </html>
-<iframe
-  style="display:none"
-  allow="autoplay"
-  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xcho-glasscage/ty-i-ya&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
