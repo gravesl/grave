@@ -1,126 +1,214 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hall of Autism</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <title>arcangels.lol</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
-    @keyframes glitch {
-      0% { transform: scale(1) skew(0deg, 0deg); }
-      20% { transform: scale(1.01) skew(-1deg, 1deg); }
-      40% { transform: scale(1.02) skew(2deg, -2deg); }
-      60% { transform: scale(0.98) skew(-1deg, 2deg); }
-      80% { transform: scale(1.01) skew(1deg, -1deg); }
-      100% { transform: scale(1) skew(0deg, 0deg); }
-    }
     body {
       margin: 0;
+      padding-top: 100px;
       background: black;
-      color: red;
-      font-family: 'Share Tech Mono', monospace;
+      color: red; text-shadow: 1px 1px 1px black;
+      font-family: 'UnifrakturMaguntia', cursive;
       text-align: center;
-      padding: 30px 10px;
+      overflow-x: hidden;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 40px;
-      text-shadow: 0 0 5px red;
+    .arc-title {
+      font-size: 30px;
+      font-family: UnifrakturMaguntia, cursive;
+      color: red; text-shadow: 1px 1px 1px black;
+      text-shadow: 0 0 2px white;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
+    .names {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 22px;
+      cursor: pointer;
+      color: red; text-shadow: 1px 1px 1px black;
     }
 
-    .card {
-      background: rgba(255, 0, 0, 0.05);
-      border: 1px solid red;
-      padding: 20px;
-      text-align: left;
-      box-shadow: 0 0 10px red;
-      transition: transform 0.3s, box-shadow 0.3s;
+    .names span {
+      transition: opacity 0.3s ease;
     }
 
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px red;
-      animation: glitch 0.5s ease-in-out;
+    .names span:hover {
+      opacity: 0.6;
     }
 
-    .card h2 {
-      color: #ff4444;
-      margin-bottom: 10px;
-      font-size: 1.2rem;
+    .profile {
+      display: none;
+      margin-top: 60px;
+      animation: fadeIn 1s forwards;
     }
 
-    .card p {
-      font-size: 0.85rem;
-      line-height: 1.4;
-      margin-bottom: 15px;
+    .profile img {
+      width: 200px;
+      border-radius: 8px;
+      border: 2px solid white;
     }
 
-    .card img {
+    .profile h2 {
+      margin: 10px 0 5px;
+      color: red; text-shadow: 1px 1px 1px black;
+    }
+
+    .profile p {
+      font-size: 14px;
+      color: red; text-shadow: 1px 1px 1px black;
+      line-height: 1.5;
+      font-family: monospace;
+    }
+
+    .skull {
+      margin-top: 60px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .skull:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  
+    .snow {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border: 1px solid red;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
     }
-  </style>
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: red;
+      font-size: 1em;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+
+</style>
 </head>
 <body>
-  <h1>Hall of Autism</h1>
+  <div class="skull" onclick="window.location.href='archives.html'">
+  <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
+</div>
+<div class="arc-title" style="color: red; text-shadow: 1px 1px 2px black, -1px -1px 2px black;">arcangels.lol</div>
+
+  <div class="names">
+    <span onclick="showProfile('grave')">ɠrave</span>
+    <span onclick="showProfile('desultory')">desultory</span>
+    <span onclick="showProfile('larv')">larv</span>
+    <span onclick="showProfile('kry')">kry</span>
+    <span onclick="showProfile('crucify')">crucify</span>
+    <span onclick="showProfile('zay')">zay</span>
+  </div>
+
+  <div id="grave" class="profile">
+    <img src="https://i.pinimg.com/736x/3f/20/b7/3f20b74ef057ceabc6dbfab8aa855974.jpg" alt="grave">
+    <h2>ɠrave</h2>
+    <p>Doxbin: @lucent<br>Discord: @expule<br>Telegram: @expule</p>
+  </div>
+
+  <div id="desultory" class="profile">
+    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" alt="Desultory">
+    <h2>Desultory</h2>
+    <p>Discord: @kl0wner<br>Telegram: @desultory<br>Doxbin: @Desultory</p>
+  </div>
+
+  <div id="larv" class="profile">
+    <img src="https://i.pinimg.com/736x/28/44/9c/28449c027142a1ff358408a5febe1e81.jpg" alt="larv">
+    <h2>larv</h2>
+    <p>Doxbin: @larvv</p>
+  </div>
+
+  <div id="kry" class="profile">
+    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" alt="Kry">
+    <h2>Kry</h2>
+    <p>Doxbin: @Kry<br>Discord: @Kry<br>Telegram: @Kry</p>
+  </div>
+
+  <div id="crucify" class="profile">
+    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" alt="Crucify">
+    <h2>Crucify</h2>
+    <p>Discord: @psychwardmenace<br>Telegram: @psychwardmenace</p>
+  </div>
+
+  <div id="zay" class="profile">
+    <img src="https://i.pinimg.com/736x/b1/24/91/b124911d4fdf791dcfb9098684431357.jpg" alt="zay">
+    <h2>zay</h2>
+    <p>Doxbin: @hafi<br>Discord: @eu7d</p>
+  </div>
+
+  
+  
+<script>
+  // Disable Right-Click
+  document.addEventListener('contextmenu', event => event.preventDefault());
+
+  // Disable DevTools Key Combos
+  document.onkeydown = function(e) {
+    if (
+      e.keyCode === 123 || // F12
+      (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I/J
+      (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+    ) {
+      window.open('', '_self').close();
+      return false;
+    }
+  };
+
+  // Auto-close if DevTools is open
+  (function() {
+    const threshold = 160;
+    setInterval(() => {
+      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+      if (widthThreshold || heightThreshold) {
+        window.open('', '_self').close();
+      }
+    }, 1000);
+  })();
+</script>
 
 
-  <div class="grid">
-    <div class="card">
-      <h2>Ｄａｗｎ１３７８</h2>
-      <p>Hey Guys, My name is Dawn 1378 also known as Xavier Perez, I submit to my dad grave at all times because I know he made me, one thing about my dad is that he questions me on why I extort and I respond with because I'm bored so my dad grave randomly fedded me cause He was bored. to add ontop of that my group extorted a 8 year old girl and my response to that was "I would've done worst if I was there". I submit to my dad</p>
-      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722413236682772/image.png?ex=6832b8d7&is=68316757&hm=d9bb1a6f585ad2de204993164cb0bf943b645692b92e2c7533509749e356ea67&=&format=webp&quality=lossless&width=1124&height=683">
-    </div>
-
-    <div class="card">
-      <h2>Ｈｅｘ ＤＶ</h2>
-      <p>Hey guys. I'm Hex / Sworn764. I have a thing for little girls and I lie about my age to get people to like. I extort little girls online and use them for their nudes because I was bullied my entire life. I basically got ran by Kain, I'm Kains cuck</p>
-      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722406261424199/image.png?ex=6832b8d5&is=68316755&hm=270902f42757cf04307f8aef9142f0dfbf335bc14e370dd1a14c2d0a2b8d4ba0&=&format=webp&quality=lossless&width=316&height=683" alt="Hex DV">
-    </div>
-
-    <div class="card">
-      <h2>Ｗａｒｒｅｎ７６４</h2>
-      <p>Hi, I'm warrent. Yes I like discord. Yes I obey my 764 overlords. Yes I'm a cuck for Kain. Yes I got pepper sprayed and chased by police when i tried to kill a girl in a church for 764. Yes i need a haircut. Yes i need sunlight. But im a forever 764 loser.</p>
-      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722405884072007/image.png?ex=6832b8d5&is=68316755&hm=6353299680351695f7f0201926af939479d31d74950cb1b33e7d25d9606ed1f5&=&format=webp&quality=lossless&width=622&height=683" alt="Warren764">
-    </div>
-
-    <div class="card">
-      <h2>ＨａｒａｍＫＮＲ</h2>
-      <p>YES my name is harm YES  i made a 12 year old cut "harm" into her thigh as well as the whole ARC group that i was in made her OD on camera because were all sick in the head and i kinda need a haircut as well but im kind of to poor to afford one:/ also my ex ally leaked my number and i got doxxed. Im a paki:/</p>
-      <img src="https://media.discordapp.net/attachments/1375298892215877733/1375722405569237022/image.png?ex=6832b8d5&is=68316755&hm=471cd2eae5187975ddf32c1aaea5d03df97339b0f707db9123ab91bd7c54ef9e&=&format=webp&quality=lossless&width=318&height=594" alt="HaramKNP">
-    </div>
-    <div class="card">
-      <h2>ＢｌａｄｅＫＮＲ</h2>
-      <p>Hi guys, I'm BladeKNR. I have a huge ego and even believe I was the face of KNR even when everyone hated me and I was only let in due to me being friends with grace when even grave shit talked behind my back and I didnt really do anything. I like to play rust and stroke my dick that looks like a pig tail while looking at children, of course im blade KNR who else could I be?</p>
-      <img src="https://media.discordapp.net/attachments/1372633057735086284/1375847102353113098/image.png?ex=68332cf7&is=6831db77&hm=b91971f9429b65f6e0c3cd4d10fe4c4b5671c29039b7423d3300fb76de3d9ac3&=&format=webp&quality=lossless&width=308&height=554">
-    </div>
-
-    <div class="card">
-      <h2>ｗｏｒｓｈｉｐ７６４</h2>
-      <p>Hi i am worship764 yes im a loser yes i larped co own of court and all my other ‘’old gen groups’’ yes i threaten my ex for my own pleasure yes i sound like im 13 yes i look like a frog and my real name is cole</p>
-      <img src="https://media.discordapp.net/attachments/1370535688239448226/1375786875389870102/7A559F33-DC13-4257-8645-066BF0D15F25.png?ex=6832f4df&is=6831a35f&hm=8cc3e1179aea43df9f3ced702e3e81843529cb0c4de010452e677c0d9aac9df3&=&format=webp&quality=lossless&width=369&height=798">
-    </div>
+  <div class="snow"></div>
+  <script>
+    const snowContainer = document.querySelector('.snow');
+    for (let i = 0; i < 80; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
+      snowflake.textContent = '*';
+      snowContainer.appendChild(snowflake);
+    }
+  </script>
 
 
-<br>
-  <a href="main.html" style="color:red; text-decoration:none; font-size:0.9rem;">↩ Return to Arc</a>
-  <iframe
-  style="display:none"
-  allow="autoplay"
-  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-320100144/doxbin-anthem&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
-</iframe>
-
-
+  <script>
+    function showProfile(id) {
+      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+  </script>
 </body>
 </html>
