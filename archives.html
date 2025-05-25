@@ -1,86 +1,76 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>arcangels.lol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>archives.html</title>
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      padding-top: 100px;
       background: black;
-      color: red; text-shadow: 1px 1px 1px black;
+      color: red;
       font-family: 'UnifrakturMaguntia', cursive;
       text-align: center;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    .arc-title {
-      font-size: 30px;
-      font-family: UnifrakturMaguntia, cursive;
-      color: red; text-shadow: 1px 1px 1px black;
-      text-shadow: 0 0 2px white;
+    h1 {
+      font-size: 2.5rem;
+      margin: 40px 0 20px;
     }
 
-    .names {
-      margin-top: 80px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 22px;
-      cursor: pointer;
-      color: red; text-shadow: 1px 1px 1px black;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
 
-    .names span {
-      transition: opacity 0.3s ease;
+    .card {
+      background: rgba(255, 0, 0, 0.05);
+      border: 1px solid red;
+      padding: 20px;
+      text-align: left;
+      box-shadow: 0 0 10px red;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .names span:hover {
-      opacity: 0.6;
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px red;
     }
 
-    .profile {
-      display: none;
-      margin-top: 60px;
-      animation: fadeIn 1s forwards;
+    .card h2 {
+      color: red;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
     }
 
-    .profile img {
-      width: 200px;
-      border-radius: 8px;
-      border: 2px solid white;
+    .card p {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 15px;
+      color: red;
     }
 
-    .profile h2 {
-      margin: 10px 0 5px;
-      color: red; text-shadow: 1px 1px 1px black;
+    .card img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border: 1px solid red;
     }
 
-    .profile p {
-      font-size: 14px;
-      color: red; text-shadow: 1px 1px 1px black;
-      line-height: 1.5;
-      font-family: monospace;
+    a {
+      display: inline-block;
+      margin-top: 40px;
+      font-size: 1rem;
+      color: red;
+      text-decoration: none;
     }
 
-    .skull {
-      margin-top: 60px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .skull:hover {
-      transform: scale(1.1);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  
     .snow {
       position: fixed;
       top: 0;
@@ -104,93 +94,23 @@
       0% { transform: translateY(0); }
       100% { transform: translateY(100vh); }
     }
-
-</style>
+  </style>
 </head>
 <body>
-  <div class="skull" onclick="window.location.href='archives.html'">
-  <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
-</div>
-<div class="arc-title" style="color: red; text-shadow: 1px 1px 2px black, -1px -1px 2px black;">arcangels.lol</div>
+  <h1>archives.html</h1>
 
-  <div class="names">
-    <span onclick="showProfile('grave')">ɠrave</span>
-    <span onclick="showProfile('desultory')">desultory</span>
-    <span onclick="showProfile('larv')">larv</span>
-    <span onclick="showProfile('kry')">kry</span>
-    <span onclick="showProfile('crucify')">crucify</span>
-    <span onclick="showProfile('zay')">zay</span>
+  <div class="grid">
+    <div class="card">
+      <h2>Sample Name</h2>
+      <p>This is placeholder text for archive entries. Replace this with real data.</p>
+      <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" alt="example">
+    </div>
   </div>
 
-  <div id="grave" class="profile">
-    <img src="https://i.pinimg.com/736x/3f/20/b7/3f20b74ef057ceabc6dbfab8aa855974.jpg" alt="grave">
-    <h2>ɠrave</h2>
-    <p>Doxbin: @lucent<br>Discord: @expule<br>Telegram: @expule</p>
-  </div>
-
-  <div id="desultory" class="profile">
-    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" alt="Desultory">
-    <h2>Desultory</h2>
-    <p>Discord: @kl0wner<br>Telegram: @desultory<br>Doxbin: @Desultory</p>
-  </div>
-
-  <div id="larv" class="profile">
-    <img src="https://i.pinimg.com/736x/28/44/9c/28449c027142a1ff358408a5febe1e81.jpg" alt="larv">
-    <h2>larv</h2>
-    <p>Doxbin: @larvv</p>
-  </div>
-
-  <div id="kry" class="profile">
-    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" alt="Kry">
-    <h2>Kry</h2>
-    <p>Doxbin: @Kry<br>Discord: @Kry<br>Telegram: @Kry</p>
-  </div>
-
-  <div id="crucify" class="profile">
-    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" alt="Crucify">
-    <h2>Crucify</h2>
-    <p>Discord: @psychwardmenace<br>Telegram: @psychwardmenace</p>
-  </div>
-
-  <div id="zay" class="profile">
-    <img src="https://i.pinimg.com/736x/b1/24/91/b124911d4fdf791dcfb9098684431357.jpg" alt="zay">
-    <h2>zay</h2>
-    <p>Doxbin: @hafi<br>Discord: @eu7d</p>
-  </div>
-
-  
-  
-<script>
-  // Disable Right-Click
-  document.addEventListener('contextmenu', event => event.preventDefault());
-
-  // Disable DevTools Key Combos
-  document.onkeydown = function(e) {
-    if (
-      e.keyCode === 123 || // F12
-      (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I/J
-      (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-    ) {
-      window.open('', '_self').close();
-      return false;
-    }
-  };
-
-  // Auto-close if DevTools is open
-  (function() {
-    const threshold = 160;
-    setInterval(() => {
-      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-      if (widthThreshold || heightThreshold) {
-        window.open('', '_self').close();
-      }
-    }, 1000);
-  })();
-</script>
-
+  <a href="main.html">↩ Return to Arc</a>
 
   <div class="snow"></div>
+
   <script>
     const snowContainer = document.querySelector('.snow');
     for (let i = 0; i < 80; i++) {
@@ -200,14 +120,6 @@
       snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
       snowflake.textContent = '*';
       snowContainer.appendChild(snowflake);
-    }
-  </script>
-
-
-  <script>
-    function showProfile(id) {
-      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
     }
   </script>
 </body>
