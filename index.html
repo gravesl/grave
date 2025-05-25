@@ -1,181 +1,223 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>arcangels.lol login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>arcangels.lol</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      padding: 0;
+      padding-top: 100px;
       background: black;
-      font-family: 'Share Tech Mono', monospace;
-      color: red;
-      user-select: none;
-      overflow: hidden;
-    }
-
-    .stars {
-      width: 100%;
-      height: 100%;
-      background: url("5d6b63d7-767c-4f53-a22b-3eb3711a2ab4.png") repeat;
-      position: fixed;
-      z-index: -1;
-      animation: moveStars 60s linear infinite;
-    }
-
-    @keyframes moveStars {
-      from { background-position: 0 0; }
-      to { background-position: 10000px 5000px; }
-    }
-
-    h1 {
+      color: red; text-shadow: 1px 1px 1px black;
+      font-family: 'UnifrakturMaguntia', cursive;
       text-align: center;
-      font-size: 2rem;
-      margin: 40px 0 30px;
-      text-shadow: 0 0 10px red;
-      animation: glitch 1s infinite, typeIn 2s steps(20);
-      white-space: nowrap;
-      overflow: hidden;
-      width: 0;
-      display: inline-block;
+      overflow-x: hidden;
     }
 
-    @keyframes glitch {
-      0% { text-shadow: 2px 2px red; }
-      25% { text-shadow: -2px -2px red; }
-      50% { text-shadow: 2px -2px red; }
-      75% { text-shadow: -2px 2px red; }
-      100% { text-shadow: 0 0 5px red; }
+    .arc-title {
+      font-size: 30px;
+      font-family: UnifrakturMaguntia, cursive;
+      color: red; text-shadow: 1px 1px 1px black;
+      text-shadow: 0 0 2px white;
     }
 
-    @keyframes typeIn {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    .container {
+    .names {
+      margin-top: 80px;
       display: flex;
       justify-content: center;
-      gap: 60px;
-      z-index: 2;
-    }
-
-    .login-box {
-      border: 2px solid red;
-      padding: 30px;
-      box-shadow: 0 0 20px red;
-      width: 300px;
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    .login-box h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .login-box input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      background: black;
-      border: 1px solid red;
-      color: red;
-    }
-
-    .login-box button {
-      width: 100%;
-      padding: 10px;
-      background: black;
-      border: 1px solid red;
-      color: red;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 22px;
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
+      color: red; text-shadow: 1px 1px 1px black;
     }
 
-    .login-box button:hover {
-      background: red;
-      color: black;
+    .names span {
+      transition: opacity 0.3s ease;
     }
 
-    #music-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: black;
-      border: 1px solid red;
-      padding: 10px;
-      color: red;
-      cursor: pointer;
+    .names span:hover {
+      opacity: 0.6;
+    }
+
+    .profile {
+      display: none;
+      margin-top: 60px;
+      animation: fadeIn 1s forwards;
+    }
+
+    .profile img {
+      width: 200px;
+      border-radius: 8px;
+      border: 2px solid white;
+    }
+
+    .profile h2 {
+      margin: 10px 0 5px;
+      color: red; text-shadow: 1px 1px 1px black;
+    }
+
+    .profile p {
       font-size: 14px;
-      z-index: 10;
+      color: red; text-shadow: 1px 1px 1px black;
+      line-height: 1.5;
+      font-family: monospace;
     }
 
-    @media (max-width: 700px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-      }
+    .skull {
+      margin-top: 60px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
-  </style>
 
-  <script>
-    // Right-click, DevTools block
-    document.addEventListener('contextmenu', e => e.preventDefault());
+    .skull:hover {
+      transform: scale(1.1);
+    }
 
-    document.onkeydown = function (e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) ||
-        (e.ctrlKey && e.key.toUpperCase() === "U")
-      ) {
-        e.preventDefault();
-        return false;
-      }
-    };
-  </script>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  
+    .snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: red;
+      font-size: 1em;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+
+
+    @keyframes pulseRed {
+      0% { text-shadow: 0 0 5px red, 0 0 10px red; }
+      50% { text-shadow: 0 0 15px red, 0 0 25px red; }
+      100% { text-shadow: 0 0 5px red, 0 0 10px red; }
+    }
+    .arc-title {
+      animation: pulseRed 2s infinite;
+    }
+
+</style>
 </head>
 <body>
-  <div class="stars"></div>
+  <div class="skull" onclick="window.location.href='archives.html'">
+  <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
+</div>
+<div class="arc-title" style="color: red;">arcangels.lol</div>
 
-  <audio id="bg-music" src="everynight.mp3" autoplay loop></audio>
-  <button id="music-toggle">Pause Music</button>
-
-  <h1>𝖆𝖗𝖈𝖆𝖓𝖌𝖊𝖑𝖘</h1>
-
-  <div class="container">
-    <div class="login-box">
-      <h2>Admin Login</h2>
-      <input type="text" placeholder="Username">
-      <input type="text" placeholder="Password">
-      <button onclick="login()">Login</button>
-    </div>
-
-    <div class="login-box">
-      <h2>Guest Login</h2>
-      <input type="text" placeholder="Username">
-      <input type="text" placeholder="Password">
-      <button onclick="login()">Login</button>
-    </div>
+  <div class="names">
+    <span onclick="showProfile('grave')">ɠrave</span>
+    <span onclick="showProfile('desultory')">desultory</span>
+    <span onclick="showProfile('larv')">larv</span>
+    <span onclick="showProfile('kry')">kry</span>
+    <span onclick="showProfile('crucify')">crucify</span>
+    <span onclick="showProfile('zay')">zay</span>
   </div>
 
-  <script>
-    const music = document.getElementById('bg-music');
-    const toggleBtn = document.getElementById('music-toggle');
+  <div id="grave" class="profile">
+    <img src="https://i.pinimg.com/736x/3f/20/b7/3f20b74ef057ceabc6dbfab8aa855974.jpg" alt="grave">
+    <h2>ɠrave</h2>
+    <p>Doxbin: @lucent<br>Discord: @expule<br>Telegram: @expule</p>
+  </div>
 
-    toggleBtn.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        toggleBtn.textContent = 'Pause Music';
-      } else {
-        music.pause();
-        toggleBtn.textContent = 'Play Music';
+  <div id="desultory" class="profile">
+    <img src="https://i.pinimg.com/736x/b0/ef/94/b0ef94502c1f6178b62a4fb0d9aad0c3.jpg" alt="Desultory">
+    <h2>Desultory</h2>
+    <p>Discord: @kl0wner<br>Telegram: @desultory<br>Doxbin: @Desultory</p>
+  </div>
+
+  <div id="larv" class="profile">
+    <img src="https://i.pinimg.com/736x/28/44/9c/28449c027142a1ff358408a5febe1e81.jpg" alt="larv">
+    <h2>larv</h2>
+    <p>Doxbin: @larvv</p>
+  </div>
+
+  <div id="kry" class="profile">
+    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" alt="Kry">
+    <h2>Kry</h2>
+    <p>Doxbin: @Kry<br>Discord: @Kry<br>Telegram: @Kry</p>
+  </div>
+
+  <div id="crucify" class="profile">
+    <img src="https://i.pinimg.com/736x/15/7e/34/157e34f8a8b703e6e8662df99b5c81c8.jpg" alt="Crucify">
+    <h2>Crucify</h2>
+    <p>Discord: @psychwardmenace<br>Telegram: @psychwardmenace</p>
+  </div>
+
+  <div id="zay" class="profile">
+    <img src="https://i.pinimg.com/736x/b1/24/91/b124911d4fdf791dcfb9098684431357.jpg" alt="zay">
+    <h2>zay</h2>
+    <p>Doxbin: @hafi<br>Discord: @eu7d</p>
+  </div>
+
+  
+  
+<script>
+  // Disable Right-Click
+  document.addEventListener('contextmenu', event => event.preventDefault());
+
+  // Disable DevTools Key Combos
+  document.onkeydown = function(e) {
+    if (
+      e.keyCode === 123 || // F12
+      (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I/J
+      (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+    ) {
+      window.open('', '_self').close();
+      return false;
+    }
+  };
+
+  // Auto-close if DevTools is open
+  (function() {
+    const threshold = 160;
+    setInterval(() => {
+      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+      if (widthThreshold || heightThreshold) {
+        window.open('', '_self').close();
       }
-    });
+    }, 1000);
+  })();
+</script>
 
-    function login() {
-      window.location.href = "main.html";
+
+  <div class="snow"></div>
+  <script>
+    const snowContainer = document.querySelector('.snow');
+    for (let i = 0; i < 80; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
+      snowflake.textContent = '*';
+      snowContainer.appendChild(snowflake);
+    }
+  </script>
+
+
+  <script>
+    function showProfile(id) {
+      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
     }
   </script>
 </body>
