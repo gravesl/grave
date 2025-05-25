@@ -16,19 +16,19 @@
     }
 
     .arc-title {
-      font-size: 26px;
+      font-size: 38px;
       font-family: UnifrakturCook, cursive;
       color: white;
       text-shadow: 0 0 2px white;
     }
 
     .names {
-      margin-top: 20px;
+      margin-top: 50px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
-      font-size: 18px;
+      font-size: 28px;
       cursor: pointer;
       color: white;
     }
@@ -43,12 +43,12 @@
 
     .profile {
       display: none;
-      margin-top: 30px;
+      margin-top: 40px;
       animation: fadeIn 1s forwards;
     }
 
     .profile img {
-      width: 150px;
+      width: 200px;
       border-radius: 8px;
       border: 2px solid white;
     }
@@ -82,7 +82,10 @@
   </style>
 </head>
 <body>
-  <div class="arc-title">arcangels.lol</div>
+  <div class="skull" onclick="window.location.href='archives.html'">
+  <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
+</div>
+<div class="arc-title">arcangels.lol</div>
 
   <div class="names">
     <span onclick="showProfile('grave')">ɠrave</span>
@@ -129,10 +132,7 @@
     <p>Doxbin: @hafi<br>Discord: @eu7d</p>
   </div>
 
-  <div class="skull" onclick="window.location.href='archives.html'">
-    <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
-  </div>
-
+  
   <script>
     function showProfile(id) {
       document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
@@ -165,5 +165,9 @@
       }, 1000);
     })();
   </script>
+  <iframe
+  style="display:none"
+  allow="autoplay"
+  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xcho-glasscage/ty-i-ya&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
 </body>
 </html>
