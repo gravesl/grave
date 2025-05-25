@@ -4,33 +4,34 @@
 <head>
   <meta charset="UTF-8">
   <title>arcangels.lol</title>
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      padding-top: 100px;
       background: black;
-      color: white;
-      font-family: 'UnifrakturCook', cursive;
+      color: red; text-shadow: 1px 1px 1px black;
+      font-family: 'UnifrakturMaguntia', cursive;
       text-align: center;
       overflow-x: hidden;
     }
 
     .arc-title {
-      font-size: 38px;
-      font-family: UnifrakturCook, cursive;
-      color: white;
+      font-size: 30px;
+      font-family: UnifrakturMaguntia, cursive;
+      color: red; text-shadow: 1px 1px 1px black;
       text-shadow: 0 0 2px white;
     }
 
     .names {
-      margin-top: 50px;
+      margin-top: 80px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
-      font-size: 28px;
+      font-size: 22px;
       cursor: pointer;
-      color: white;
+      color: red; text-shadow: 1px 1px 1px black;
     }
 
     .names span {
@@ -43,7 +44,7 @@
 
     .profile {
       display: none;
-      margin-top: 40px;
+      margin-top: 60px;
       animation: fadeIn 1s forwards;
     }
 
@@ -55,12 +56,12 @@
 
     .profile h2 {
       margin: 10px 0 5px;
-      color: white;
+      color: red; text-shadow: 1px 1px 1px black;
     }
 
     .profile p {
       font-size: 14px;
-      color: white;
+      color: red; text-shadow: 1px 1px 1px black;
       line-height: 1.5;
       font-family: monospace;
     }
@@ -79,13 +80,48 @@
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-  </style>
+  
+    .snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: red;
+      font-size: 1em;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+
+
+    @keyframes pulseRed {
+      0% { text-shadow: 0 0 5px red, 0 0 10px red; }
+      50% { text-shadow: 0 0 15px red, 0 0 25px red; }
+      100% { text-shadow: 0 0 5px red, 0 0 10px red; }
+    }
+    .arc-title {
+      animation: pulseRed 2s infinite;
+    }
+
+</style>
 </head>
 <body>
   <div class="skull" onclick="window.location.href='archives.html'">
   <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
 </div>
-<div class="arc-title">arcangels.lol</div>
+<div class="arc-title" style="color: red;">arcangels.lol</div>
 
   <div class="names">
     <span onclick="showProfile('grave')">ɠrave</span>
@@ -133,41 +169,56 @@
   </div>
 
   
+  
+<script>
+  // Disable Right-Click
+  document.addEventListener('contextmenu', event => event.preventDefault());
+
+  // Disable DevTools Key Combos
+  document.onkeydown = function(e) {
+    if (
+      e.keyCode === 123 || // F12
+      (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I/J
+      (e.ctrlKey && e.keyCode === 85) // Ctrl+U
+    ) {
+      window.open('', '_self').close();
+      return false;
+    }
+  };
+
+  // Auto-close if DevTools is open
+  (function() {
+    const threshold = 160;
+    setInterval(() => {
+      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+      if (widthThreshold || heightThreshold) {
+        window.open('', '_self').close();
+      }
+    }, 1000);
+  })();
+</script>
+
+
+  <div class="snow"></div>
+  <script>
+    const snowContainer = document.querySelector('.snow');
+    for (let i = 0; i < 80; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
+      snowflake.textContent = '*';
+      snowContainer.appendChild(snowflake);
+    }
+  </script>
+
+
   <script>
     function showProfile(id) {
       document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
       document.getElementById(id).style.display = 'block';
     }
-
-    // Disable Right-Click
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // Disable DevTools Key Combos
-    document.onkeydown = function(e) {
-      if (
-        e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I/J
-        (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-      ) {
-        return false;
-      }
-    };
-
-    // Auto-close if DevTools is open
-    (function() {
-      const threshold = 160;
-      setInterval(() => {
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-        if (widthThreshold || heightThreshold) {
-          window.open('', '_self').close();
-        }
-      }, 1000);
-    })();
   </script>
-  <iframe
-  style="display:none"
-  allow="autoplay"
-  src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/xcho-glasscage/ty-i-ya&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
 </body>
 </html>
