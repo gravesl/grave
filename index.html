@@ -107,21 +107,13 @@
 </head>
 <body>
 
-  <!-- Redirect HTTPS -->
-  <script>
-    if (location.protocol !== 'https:') {
-      location.replace(`https:${location.href.substring(location.protocol.length)}`);
-    }
-  </script>
-
-  <!-- Skull (archives) -->
+  <!-- Archives Link via Skull -->
   <div class="skull" onclick="window.location.href='archives.html'">
     <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
   </div>
 
   <div class="arc-title">arcangels.lol</div>
 
-  <!-- Name Grid -->
   <div class="names">
     <span onclick="showProfile('grave')">ɠrave</span>
     <span onclick="showProfile('desultory')">desultory</span>
@@ -168,7 +160,7 @@
     <p>a breath behind the firewall.</p>
   </div>
 
-  <!-- Profile Script -->
+  <!-- Profile Display Logic -->
   <script>
     function showProfile(id) {
       document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
@@ -190,9 +182,19 @@
     }
   </script>
 
-  <!-- Dev Tools / Right-Click Protection -->
+  <!-- Security: Disable DevTools, Inspect, Selection -->
   <script>
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    // Force HTTPS
+    if (location.protocol !== 'https:') {
+      location.replace(`https:${location.href.substring(location.protocol.length)}`);
+    }
+
+    // Disable right-click and selection/drag
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Disable key combos
     document.addEventListener('keydown', function(e) {
       if (
         e.key === "F12" ||
@@ -202,17 +204,28 @@
         window.location.href = "https://google.com";
       }
     });
-    setInterval(() => {
-      if (
-        window.outerWidth - window.innerWidth > 160 ||
-        window.outerHeight - window.innerHeight > 160
-      ) {
+
+    // DevTools detection
+    let devtoolsOpened = false;
+    const detect = () => {
+      devtoolsOpened = false;
+      const el = new Image();
+      Object.defineProperty(el, 'id', {
+        get: function () {
+          devtoolsOpened = true;
+          throw new Error("DevTools detected");
+        }
+      });
+      console.debug(el);
+      if (devtoolsOpened) {
         window.location.href = "https://google.com";
       }
-    }, 1000);
+    };
+    detect();
+    setInterval(detect, 1000);
   </script>
 
-  <!-- Hidden Autoplay SoundCloud -->
+  <!-- Hidden Music Autoplay -->
   <iframe 
     style="display: none"
     allow="autoplay"
