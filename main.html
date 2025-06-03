@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>arcangels.lol</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding-top: 100px;
+      background: black;
+      color: red;
+      text-shadow: 1px 1px 1px black;
+      font-family: 'UnifrakturMaguntia', cursive;
+      text-align: center;
+      overflow-x: hidden;
+      user-select: none;
+    }
 
+    .arc-title {
+      font-size: 30px;
+      animation: pulseRed 2s infinite;
+      text-shadow: 0 0 2px white, 0 0 10px red;
+    }
+
+    .names {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .names span {
+      transition: opacity 0.3s ease;
+    }
+
+    .names span:hover {
+      opacity: 0.6;
+    }
+
+    .profile {
+      display: none;
+      margin-top: 60px;
+      animation: fadeIn 1s forwards;
+    }
+
+    .profile img {
+      width: 200px;
+      border-radius: 8px;
+      border: 2px solid black;
+    }
+
+    .profile h2, .profile p {
+      margin: 10px 0;
+      color: red;
+      font-family: monospace;
+    }
+
+    .skull {
+      margin-top: 60px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .skull:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: red;
+      font-size: 1em;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+
+    @keyframes pulseRed {
+      0% { text-shadow: 0 0 5px red, 0 0 10px red; }
+      50% { text-shadow: 0 0 15px red, 0 0 25px red; }
+      100% { text-shadow: 0 0 5px red, 0 0 10px red; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Archives Link via Skull -->
+  <div class="skull" onclick="window.location.href='archives.html'">
+    <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
+  </div>
+
+  <div class="arc-title">arcangels.lol</div>
+
+  <div class="names">
+    <span onclick="showProfile('grave')">ɠrave</span>
+    <span onclick="showProfile('desultory')">desultory</span>
+    <span onclick="showProfile('larv')">larv</span>
+    <span onclick="showProfile('kry')">kry</span>
+    <span onclick="showProfile('crucify')">crucify</span>
+    <span onclick="showProfile('zay')">zay</span>
+  </div>
+
+  <!-- Profiles -->
+  <div id="grave" class="profile">
+    <img src="https://i.pinimg.com/736x/3f/20/b7/3f20b74ef057ceabc6dbfab8aa855974.jpg" alt="grave">
+    <h2>ɠrave</h2>
+    <p>Never died, just archived.</p>
+  </div>
+
+  <div id="desultory" class="profile">
+    <img src="https://i.pinimg.com/736x/8c/83/c4/8c83c40323dc868802ad3a7d2e6b3da9.jpg" alt="Desultory">
+    <h2>Desultory</h2>
+    <p>you notice he's already watching.</p>
+  </div>
+
+  <div id="larv" class="profile">
+    <img src="https://media.discordapp.net/attachments/1376680787151159336/1376680847947862087/IMG_2620.jpg?ex=68363573&is=6834e3f3&hm=66128dc5e21bb6af90c86323efb0c344bbda17e9a511038d2d7779fd39e38605&=&format=webp&width=587&height=560" alt="larv">
+    <h2>larv</h2>
+    <p>Quiet, unreadable.</p>
+  </div>
+
+  <div id="kry" class="profile">
+    <img src="https://i.pinimg.com/736x/35/6d/04/356d040264f7ca28e9c13a1d22ecd93e.jpg" alt="Kry">
+    <h2>Kry</h2>
+    <p>There’s no empathy in his code.</p>
+  </div>
+
+  <div id="crucify" class="profile">
+    <img src="https://media.discordapp.net/attachments/1370535688239448226/1376697698253537310/IMG_2631.jpg?ex=68364525&is=6834f3a5&hm=871cc6d5fd9eac157ca80f7c89dccdf319051a71c857d8cc58e6b70e8b613fa1&=&format=webp&width=596&height=798">
+    <h2>Crucify</h2>
+    <p>A voice of hatred but a soul of compassion.</p>
+  </div>
+
+  <div id="zay" class="profile">
+    <img src="https://i.pinimg.com/736x/b1/24/91/b124911d4fdf791dcfb9098684431357.jpg" alt="zay">
+    <h2>zay</h2>
+    <p>a breath behind the firewall.</p>
+  </div>
+
+  <!-- Profile Display Logic -->
+  <script>
+    function showProfile(id) {
+      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+  </script>
+
+  <!-- Red Snow -->
+  <div class="snow"></div>
+  <script>
+    const snowContainer = document.querySelector('.snow');
+    for (let i = 0; i < 80; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
+      snowflake.textContent = '*';
+      snowContainer.appendChild(snowflake);
+    }
+  </script>
+
+  <!-- Security: Disable DevTools, Inspect, Selection -->
+  <script>
+    // Force HTTPS
+    if (location.protocol !== 'https:') {
+      location.replace(`https:${location.href.substring(location.protocol.length)}`);
+    }
+
+    // Disable right-click and selection/drag
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Disable key combos
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        window.location.href = "https://google.com";
+      }
+    });
+
+    // DevTools detection
+    let devtoolsOpened = false;
+    const detect = () => {
+      devtoolsOpened = false;
+      const el = new Image();
+      Object.defineProperty(el, 'id', {
+        get: function () {
+          devtoolsOpened = true;
+          throw new Error("DevTools detected");
+        }
+      });
+      console.debug(el);
+      if (devtoolsOpened) {
+        window.location.href = "https://google.com";
+      }
+    };
+    detect();
+    setInterval(detect, 1000);
+  </script>
+
+  <!-- Hidden Music Autoplay -->
+  <iframe 
+    style="display: none"
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/maksim-2-945987439/tanin-jazz-nkillaxxx-virtual-love-hardstyle-remix&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
+  </iframe>
+
+</body>
+</html>
