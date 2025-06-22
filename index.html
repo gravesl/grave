@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>arcangels</title>
+  <title>ARC</title>
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
     body {
@@ -103,42 +103,13 @@
       50% { text-shadow: 0 0 15px red, 0 0 25px red; }
       100% { text-shadow: 0 0 5px red, 0 0 10px red; }
     }
-
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999999;
-      flex-direction: column;
-    }
-
-    .enter-btn {
-      font-size: 30px;
-      padding: 20px 40px;
-      color: red;
-      background: transparent;
-      border: 2px solid red;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: 'UnifrakturMaguntia', cursive;
-      animation: pulseRed 2s infinite;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Splash Overlay -->
-  <div id="overlay" class="overlay">
-    <div class="arc-title">arcangels.lol</div>
-    <button class="enter-btn" onclick="enterSite()">ENTER</button>
-  </div>
-
   <!-- Archives Link via Skull -->
-  <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
+    <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
+  </div>
 
   <div class="arc-title">arcangels.lol</div>
 
@@ -157,12 +128,13 @@
     <p>Never died, just archived.</p>
   </div>
   
-  <div id="purge" class="profile">
+<div id="purge" class="profile">
     <img src="https://i.pinimg.com/736x/82/b9/23/82b923b342875f64c76f2da7b26f52c1.jpg" alt="purge">
     <h2>purge</h2>
     <p>you notice he's already watching.</p>
   </div>
 
+  
   <div id="sano" class="profile">
     <img src="https://i.pinimg.com/736x/7e/4c/97/7e4c975acce1779d9085ea1426fc4902.jpg" alt="sano">
     <h2>sano</h2>
@@ -181,24 +153,11 @@
     <p>a breath behind the firewall.</p>
   </div>
 
-  <!-- Profile Logic -->
+  <!-- Profile Display Logic -->
   <script>
     function showProfile(id) {
       document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
       document.getElementById(id).style.display = 'block';
-    }
-
-    function enterSite() {
-      document.getElementById('overlay').style.display = 'none';
-      playMusic();
-    }
-
-    function playMusic() {
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.allow = "autoplay";
-      iframe.src = "https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fchinsawmane%2Ftanin-jazz-nkillaxxx-virtual-love-hardstyle-remix&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false";
-      document.body.appendChild(iframe);
     }
   </script>
 
@@ -216,19 +175,30 @@
     }
   </script>
 
-  <!-- Security -->
+  <!-- Security: Disable DevTools, Inspect, Selection -->
   <script>
+    // Force HTTPS
     if (location.protocol !== 'https:') {
       location.replace(`https:${location.href.substring(location.protocol.length)}`);
     }
+
+    // Disable right-click and selection/drag
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('dragstart', e => e.preventDefault());
     document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Disable key combos
     document.addEventListener('keydown', function(e) {
-      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) || (e.ctrlKey && e.key === "U")) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
         window.location.href = "https://google.com";
       }
     });
+
+    // DevTools detection
     let devtoolsOpened = false;
     const detect = () => {
       devtoolsOpened = false;
@@ -248,5 +218,13 @@
     setInterval(detect, 1000);
   </script>
 
+  <!-- Hidden Music Autoplay -->
+  <iframe 
+  style="display: none" 
+  allow="autoplay" 
+  src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fchinsawmane%2Ftanin-jazz-nkillaxxx-virtual-love-hardstyle-remix&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
+</iframe>
+
+
 </body>
-</html>
+</html> 
