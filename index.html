@@ -103,27 +103,11 @@
       50% { text-shadow: 0 0 15px red, 0 0 25px red; }
       100% { text-shadow: 0 0 5px red, 0 0 10px red; }
     }
-
-    /* Music player in corner */
-    .player {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-family: monospace;
-      font-size: 12px;
-      color: red;
-      z-index: 9999;
-      text-align: right;
-    }
-
-    .player audio {
-      width: 220px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Skull (music toggle) -->
+  <!-- Skull (click to start/stop music) -->
   <img
     id="music-skull"
     class="skull"
@@ -237,12 +221,8 @@
     setInterval(detect, 1000);
   </script>
 
-  <!-- Music Player (self-hosted mp3) -->
-  <!-- Replace music/track.mp3 with your actual file path -->
-  <div class="player">
-    <span>~ arcangels radio ~</span><br>
-    <audio id="bg-music" src="music/track.mp3" controls loop></audio>
-  </div>
+  <!-- Hidden Music -->
+  <audio id="bg-music" src="chainsaw_murda (1).mp3" loop></audio>
 
   <!-- Skull toggles music -->
   <script>
