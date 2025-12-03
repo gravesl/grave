@@ -107,11 +107,15 @@
 </head>
 <body>
 
-  <!-- Archives Link via Skull -->
-    <img src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100" alt="skull">
-  </div>
+  <!-- Skull (click to start/stop music) -->
+  <img
+    id="music-skull"
+    class="skull"
+    src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg"
+    width="100"
+    alt="skull">
 
-  <div class="arc-title"KNR</div>
+  <div class="arc-title">KNR</div>
 
   <div class="names">
     <span onclick="showProfile('grave')">ɠrave</span>
@@ -128,27 +132,26 @@
     <p>Never died, just archived.</p>
   </div>
   
-<div id="swat" class="profile">
-    <img src="https://i.pinimg.com/736x/82/b9/23/82b923b342875f64c76f2da7b26f52c1.jpg" alt="purge">
+  <div id="swat" class="profile">
+    <img src="https://i.pinimg.com/736x/82/b9/23/82b923b342875f64c76f2da7b26f52c1.jpg" alt="swat">
     <h2>swat</h2>
     <p>you notice he's already watching.</p>
   </div>
 
-  
   <div id="kodachi" class="profile">
-    <img src="https://i.pinimg.com/736x/7e/4c/97/7e4c975acce1779d9085ea1426fc4902.jpg" alt="sano">
+    <img src="https://i.pinimg.com/736x/7e/4c/97/7e4c975acce1779d9085ea1426fc4902.jpg" alt="kodachi">
     <h2>kodachi</h2>
     <p>Quiet, unreadable.</p>
   </div>
 
   <div id="pumpkinsmasher" class="profile">
-    <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="Kry">
+    <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="pumpkinsmasher">
     <h2>pumpkinsmasher</h2>
     <p>There’s no empathy in his code.</p>
   </div>
 
   <div id="envy" class="profile">
-    <img src="https://i.pinimg.com/736x/af/53/9a/af539a53762b293227c3fc4c7c73b70f.jpg" alt="ural">
+    <img src="https://i.pinimg.com/736x/af/53/9a/af539a53762b293227c3fc4c7c73b70f.jpg" alt="envy">
     <h2>envy</h2>
     <p>a breath behind the firewall.</p>
   </div>
@@ -218,12 +221,27 @@
     setInterval(detect, 1000);
   </script>
 
-  <!-- Hidden Music Autoplay -->
-  <iframe 
-  style="display: none" 
-  allow="autoplay" 
-  src="https://w.soundcloud.com/player/?url=https://soundcloud.com/2443123/tanin-jazz-nkillaxxx-virtual-love-hardstyle-remix">
-</iframe>
-  
+  <!-- Hidden Music -->
+  <audio id="bg-music" src="chainsaw_murda (1).mp3" loop></audio>
+
+  <!-- Skull toggles music -->
+  <script>
+    const bgMusic = document.getElementById('bg-music');
+    const skull = document.getElementById('music-skull');
+    let playing = false;
+
+    skull.addEventListener('click', () => {
+      if (!playing) {
+        bgMusic.play().catch(() => {});
+        playing = true;
+        skull.style.opacity = '0.7';
+      } else {
+        bgMusic.pause();
+        playing = false;
+        skull.style.opacity = '1';
+      }
+    });
+  </script>
+
 </body>
-</html> 
+</html>
