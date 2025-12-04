@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>‎ ‎ ‎ </title>
@@ -123,14 +125,6 @@
       max-width: 140px;
     }
 
-    .music-title {
-      text-transform: uppercase;
-      font-size: 10px;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      opacity: 0.7;
-    }
-
     .track {
       cursor: pointer;
       margin: 4px 0;
@@ -156,175 +150,170 @@
 
 <!-- MUSIC SIDE BAR -->
 <div class="music-bar">
-  <div class="track active" data-src="chainsaw_murda (1).mp3">chainsaw</div>
-  <div class="track" data-src="grezy.mp3">grezy</div>
-  <div class="track" data-src="ty-i-ia.mp3">ty-i-ia</div>
-  <div class="track" data-src="saveme.mp3">save me</div>
-  <div class="track" data-src="bones_hdmi.mp3">bones_hdmi.mp3</div> 
-  <div class="track" data-src="darklight.mp3">dark light</div>
+  <div class="track active" data-src="music/chainsaw_murda.mp3">chainsaw</div>
+  <div class="track" data-src="music/grezy.mp3">grezy</div>
+  <div class="track" data-src="music/ty-i-ia.mp3">ty-i-ia</div>
+  <div class="track" data-src="music/saveme.mp3">save me</div>
+  <div class="track" data-src="music/bones_hdmi.mp3">bones hdmi</div>
+  <div class="track" data-src="music/darklight.mp3">dark light</div>
 </div>
 
+<!-- Skull (click to start/stop music) -->
+<img
+  id="music-skull"
+  class="skull"
+  src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg"
+  width="100"
+  alt="skull">
 
+<div class="arc-title">‎ ‎  </div>
 
+<div class="names">
+  <span onclick="showProfile('grave')">ɠrave</span>
+  <span onclick="showProfile('swat')">swat</span>
+  <span onclick="showProfile('kodachi')">kodachi</span>
+  <span onclick="showProfile('purge')">purge</span>
+  <span onclick="showProfile('envy')">envy</span>
+</div>
 
-  <!-- Skull (click to start/stop music) -->
-  <img
-    id="music-skull"
-    class="skull"
-    src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg"
-    width="100"
-    alt="skull">
+<!-- Profiles -->
+<div id="grave" class="profile">
+  <img src="https://i.pinimg.com/1200x/33/25/98/3325981bbdf309360ff76fb76566364d.jpg" alt="grave">
+  <h2>ɠrave</h2>
+  <p>Never died, just archived.</p>
+</div>
 
-  <div class="arc-title">‎ ‎  </div>
-  <div class="names">
-    <span onclick="showProfile('grave')">ɠrave</span>
-    <span onclick="showProfile('swat')">swat</span>
-    <span onclick="showProfile('kodachi')">kodachi</span>
-    <span onclick="showProfile('purge')">purge</span>
-    <span onclick="showProfile('envy')">envy</span>
-  </div>
+<div id="swat" class="profile">
+  <img src="https://i.pinimg.com/1200x/bb/b7/6a/bbb76a3bf4f181b4f4d611ba719ed124.jpg" alt="swat">
+  <h2>swat</h2>
+  <p>you notice he's already watching.</p>
+</div>
 
-  <!-- Profiles -->
-  <div id="grave" class="profile">
-    <img src="https://i.pinimg.com/1200x/33/25/98/3325981bbdf309360ff76fb76566364d.jpg" alt="grave">
-    <h2>ɠrave</h2>
-    <p>Never died, just archived.</p>
-  </div>
-  
-  <div id="swat" class="profile">
-    <img src="https://i.pinimg.com/1200x/bb/b7/6a/bbb76a3bf4f181b4f4d611ba719ed124.jpg" alt="swat">
-    <h2>swat</h2>
-    <p>you notice he's already watching.</p>
-  </div>
+<div id="kodachi" class="profile">
+  <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="kodachi">
+  <h2>kodachi</h2>
+  <p>Quiet, unreadable.</p>
+</div>
 
-  <div id="kodachi" class="profile">
-    <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="kodachi">
-    <h2>kodachi</h2>
-    <p>Quiet, unreadable.</p>
-  </div>
+<div id="purge" class="profile">
+  <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="pumpkinsmasher">
+  <h2>purge</h2>
+  <p>There’s no empathy in his code.</p>
+</div>
 
-  <div id="purge" class="profile">
-    <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="pumpkinsmasher">
-    <h2>purge</h2>
-    <p>There’s no empathy in his code.</p>
-  </div>
+<div id="envy" class="profile">
+  <img src="https://i.pinimg.com/1200x/59/ea/f5/59eaf5a2d4771cf5f3a064936f3f7410.jpg" alt="envy">
+  <h2>envy</h2>
+  <p>a breath behind the firewall.</p>
+</div>
 
-  <div id="envy" class="profile">
-    <img src="https://i.pinimg.com/1200x/59/ea/f5/59eaf5a2d4771cf5f3a064936f3f7410.jpg" alt="envy">
-    <h2>envy</h2>
-    <p>a breath behind the firewall.</p>
-  </div>
+<!-- Profile Display Logic -->
+<script>
+  function showProfile(id) {
+    document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+</script>
 
-  <!-- Profile Display Logic -->
-  <script>
-    function showProfile(id) {
-      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+<!-- Red Snow -->
+<div class="snow"></div>
+<script>
+  const snowContainer = document.querySelector('.snow');
+  for (let i = 0; i < 80; i++) {
+    const flake = document.createElement('div');
+    flake.classList.add('snowflake');
+    flake.style.left = Math.random() * 100 + 'vw';
+    flake.style.animationDuration = 5 + Math.random() * 5 + 's';
+    flake.textContent = '*';
+    snowContainer.appendChild(flake);
+  }
+</script>
+
+<!-- Security Scripts -->
+<script>
+  // Force HTTPS
+  if (location.protocol !== 'https:') {
+    location.replace(`https:${location.href.substring(location.protocol.length)}`);
+  }
+
+  // Disable right-click and selection
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+
+  // Disable key combos
+  document.addEventListener('keydown', function(e) {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      window.location.href = "https://google.com";
     }
-  </script>
+  });
 
-  <!-- Red Snow -->
-  <div class="snow"></div>
-  <script>
-    const snowContainer = document.querySelector('.snow');
-    for (let i = 0; i < 80; i++) {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.style.left = Math.random() * 100 + 'vw';
-      snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
-      snowflake.textContent = '*';
-      snowContainer.appendChild(snowflake);
-    }
-  </script>
-
-  <!-- Security: Disable DevTools, Inspect, Selection -->
-  <script>
-    // Force HTTPS
-    if (location.protocol !== 'https:') {
-      location.replace(`https:${location.href.substring(location.protocol.length)}`);
-    }
-
-    // Disable right-click and selection/drag
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('dragstart', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-
-    // Disable key combos
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-        (e.ctrlKey && e.key === "U")
-      ) {
-        window.location.href = "https://google.com";
+  // DevTools detection
+  let devtoolsOpened = false;
+  const detect = () => {
+    devtoolsOpened = false;
+    const el = new Image();
+    Object.defineProperty(el, 'id', {
+      get: function () {
+        devtoolsOpened = true;
+        throw new Error("DevTools detected");
       }
     });
+    console.debug(el);
+    if (devtoolsOpened) {
+      window.location.href = "https://google.com";
+    }
+  };
+  detect();
+  setInterval(detect, 1000);
+</script>
 
-    // DevTools detection
-    let devtoolsOpened = false;
-    const detect = () => {
-      devtoolsOpened = false;
-      const el = new Image();
-      Object.defineProperty(el, 'id', {
-        get: function () {
-          devtoolsOpened = true;
-          throw new Error("DevTools detected");
-        }
-      });
-      console.debug(el);
-      if (devtoolsOpened) {
-        window.location.href = "https://google.com";
+<!-- Audio -->
+<audio id="bg-music" src="music/chainsaw_murda.mp3" loop></audio>
+
+<!-- Skull + Track Switching Logic -->
+<script>
+  const bgMusic = document.getElementById('bg-music');
+  const skull = document.getElementById('music-skull');
+  const tracks = document.querySelectorAll('.track');
+  let playing = false;
+
+  // Skull toggles play/pause
+  skull.addEventListener('click', () => {
+    if (!playing) {
+      bgMusic.play().catch(() => {});
+      playing = true;
+      skull.style.opacity = '0.7';
+    } else {
+      bgMusic.pause();
+      playing = false;
+      skull.style.opacity = '1';
+    }
+  });
+
+  // Change tracks
+  tracks.forEach(track => {
+    track.addEventListener('click', () => {
+      const src = track.getAttribute('data-src');
+
+      if (bgMusic.getAttribute('src') !== src) {
+        bgMusic.setAttribute('src', src);
+        bgMusic.load();
       }
-    };
-    detect();
-    setInterval(detect, 1000);
-  </script>
 
-  <!-- Hidden Music -->
-  <audio id="bg-music" src="chainsaw_murda (1).mp3" loop></audio>
+      tracks.forEach(t => t.classList.remove('active'));
+      track.classList.add('active');
 
-  <!-- Skull + track list logic -->
-  <script>
-    const bgMusic = document.getElementById('bg-music');
-    const skull = document.getElementById('music-skull');
-    const tracks = document.querySelectorAll('.track');
-    let playing = false;
-
-    // Skull play/pause
-    skull.addEventListener('click', () => {
-      if (!playing) {
-        bgMusic.play().catch(() => {});
-        playing = true;
-        skull.style.opacity = '0.7';
-      } else {
-        bgMusic.pause();
-        playing = false;
-        skull.style.opacity = '1';
-      }
+      bgMusic.play().catch(() => {});
+      playing = true;
+      skull.style.opacity = '0.7';
     });
-
-    // Track switching
-    tracks.forEach(track => {
-      track.addEventListener('click', () => {
-        const src = track.getAttribute('data-src');
-
-        // Change source if different
-        if (bgMusic.getAttribute('src') !== src) {
-          bgMusic.setAttribute('src', src);
-          bgMusic.load();
-        }
-
-        // Highlight active track
-        tracks.forEach(t => t.classList.remove('active'));
-        track.classList.add('active');
-
-        // Start playing when you click a track
-        bgMusic.play().catch(() => {});
-        playing = true;
-        skull.style.opacity = '0.7';
-      });
-    });
-  </script>
+  });
+</script>
 
 </body>
 </html>
