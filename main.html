@@ -1,336 +1,326 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>arcangels</title>
+  <meta charset="UTF-8">
+  <title>‎ ‎ ‎ </title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="97dec4d0-9d42-440f-b6e6-7a01ee430d83.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="97dec4d0-9d42-440f-b6e6-7a01ee430d83.png">
 
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <style>
 
-<style>
-body {
-    margin: 0;
-    padding-top: 100px;
-    background: black;
-    color: red;
-    text-shadow: 1px 1px 1px black;
-    font-family: 'UnifrakturMaguntia', cursive;
-    text-align: center;
-    overflow-x: hidden;
-    user-select: none;
-}
+    body {
+      margin: 0;
+      padding-top: 100px;
+      background: black;
+      color: red;
+      text-shadow: 1px 1px 1px black;
+      font-family: 'UnifrakturMaguntia', cursive;
+      text-align: center;
+      overflow-x: hidden;
+      user-select: none;
+    }
 
-/* MUSIC BAR */
-.music-bar {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 10px;
-    text-align: left;
-}
+    .arc-title {
+      font-size: 30px;
+      animation: pulseRed 2s infinite;
+      text-shadow: 0 0 2px white, 0 0 10px red;
+    }
 
-.music-title {
-    font-size: 26px;
-    text-shadow: 0 0 8px red;
-    margin-bottom: 10px;
-}
+    .names {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 22px;
+      cursor: pointer;
+    }
 
-.track {
-    cursor: pointer;
-    opacity: 0.4;
-    transition: 0.2s ease;
-}
+    .names span {
+      transition: opacity 0.3s ease;
+    }
 
-.track:hover {
-    opacity: 1;
-    transform: translateX(2px);
-}
+    .names span:hover {
+      opacity: 0.6;
+    }
 
-.track.active {
-    opacity: 1;
-    text-shadow: 0 0 8px red;
-}
+    .profile {
+      display: none;
+      margin-top: 60px;
+      animation: fadeIn 1s forwards;
+    }
 
-/* PLAYER CONTROLS */
-.player-controls {
-    position: fixed;
-    left: 20px;
-    bottom: 60px;
-    display: flex;
-    gap: 10px;
-    z-index: 999;
-}
+    .profile img {
+      width: 200px;
+      border-radius: 8px;
+      border: 2px solid black;
+    }
 
-.player-controls button {
-    background: black;
-    border: 1px solid red;
-    padding: 8px 12px;
-    color: red;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.2s;
-}
+    .profile h2, .profile p {
+      margin: 10px 0;
+      color: red;
+      font-family: monospace;
+    }
 
-.player-controls button:hover {
-    background: red;
-    color: black;
-}
+    .skull {
+      margin-top: 60px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-/* VISUALIZER */
-#visualizer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 110px;
-    z-index: 998;
-}
+    .skull:hover {
+      transform: scale(1.1);
+    }
 
-/* SKULL */
-#music-skull {
-    margin-top: 40px;
-    width: 120px;
-    cursor: pointer;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* PROFILE NAMES */
-.names {
-    margin-top: 80px;
-    display: flex;
-    justify-content: center;
-    gap: 22px;
-    flex-wrap: wrap;
-    font-size: 23px;
-    cursor: pointer;
-}
+    .snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
 
-.names span {
-    transition: opacity 0.3s ease;
-}
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: red;
+      font-size: 1em;
+      user-select: none;
+      animation: fall linear infinite;
+    }
 
-.names span:hover {
-    opacity: 1;
-    text-shadow: 0 0 10px red;
-}
+    @keyframes fall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
 
-/* PROFILES */
-.profile {
-    display: none;
-    margin-top: 90px;
-}
+    @keyframes pulseRed {
+      0% { text-shadow: 0 0 5px red, 0 0 10px red; }
+      50% { text-shadow: 0 0 15px red, 0 0 25px red; }
+      100% { text-shadow: 0 0 5px red, 0 0 10px red; }
+    }
 
-.profile img {
-    width: 200px;
-    border: 1px solid red;
-}
+    /* MUSIC SIDE BAR */
+    .music-bar {
+      position: fixed;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid red;
+      padding: 10px 12px;
+      font-family: monospace;
+      font-size: 11px;
+      text-align: left;
+      z-index: 9000;
+      max-width: 140px;
+    }
 
-.profile h2 {
-    margin-top: 10px;
-}
-</style>
+    .music-title {
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .track {
+      cursor: pointer;
+      margin: 4px 0;
+      opacity: 0.6;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track:hover {
+      opacity: 1;
+      transform: translateX(2px);
+    }
+
+    .track.active {
+      opacity: 1;
+      text-shadow: 0 0 8px red;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- MUSIC SIDE BAR -->
-<div class="music-bar">
-    <div class="music-title">✟</div>
+  <!-- MUSIC SIDE BAR -->
+  <div class="music-bar">
+    <div class="track active" data-src="music/chainsaw_murda (1).mp3">chainsaw</div>
+<div class="track" data-src="music/grezy.mp3">grezy</div>
+<div class="track" data-src="music/ty-i-ia.mp3">ty-i-ia</div>
+<div class="track" data-src="music/saveme.mp3">save me</div>
+<div class="track" data-src="music/bones_hdmi.mp3">bones_hdmi</div> 
+  </div>
 
-    <div class="track active" data-src="chainsaw_murda (1).mp3">chainsaw</div>
-    <div class="track" data-src="grezy.mp3">grezy</div>
-    <div class="track" data-src="ty-i-ia.mp3">ty-i-ia</div>
-    <div class="track" data-src="saveme.mp3">save me</div>
-    <div class="track" data-src="bones_hdmi.mp3">bones hdmi</div>
-</div>
+  <!-- Skull (click to start/stop music) -->
+  <img
+    id="music-skull"
+    class="skull"
+    src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg"
+    width="100"
+    alt="skull">
 
-<!-- PLAYER -->
-<audio id="audio-player"></audio>
-
-<!-- PLAYER CONTROLS -->
-<div class="player-controls">
-    <button id="prev-btn">⟨</button>
-    <button id="play-btn">⏸</button>
-    <button id="next-btn">⟩</button>
-    <button id="shuffle-btn">🔀</button>
-</div>
-
-<!-- VISUALIZER -->
-<canvas id="visualizer"></canvas>
-
-<!-- SKULL -->
-<img id="music-skull" src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" alt="skull">
-
-<!-- PROFILE NAMES -->
-<div class="names">
-    <span onclick="showProfile('grave')">grave</span>
+  <div class="arc-title">‎ ‎  </div>
+  <div class="names">
+    <span onclick="showProfile('grave')">ɠrave</span>
     <span onclick="showProfile('swat')">swat</span>
     <span onclick="showProfile('kodachi')">kodachi</span>
     <span onclick="showProfile('purge')">purge</span>
     <span onclick="showProfile('envy')">envy</span>
-</div>
+  </div>
 
-<!-- PROFILES -->
-<div id="grave" class="profile">
-    <img src="https://i.pinimg.com/1200x/33/25/98/3325981bbdf30960fff76fb75656364d.jpg">
-    <h2>grave</h2>
+  <!-- Profiles -->
+  <div id="grave" class="profile">
+    <img src="https://i.pinimg.com/1200x/33/25/98/3325981bbdf309360ff76fb76566364d.jpg" alt="grave">
+    <h2>ɠrave</h2>
     <p>Never died, just archived.</p>
-</div>
-
-<div id="swat" class="profile">
-    <img src="https://i.pinimg.com/1200x/bb/b7/6a/bbb76a3bf4f818b4fd611ba719ed2124.jpg">
+  </div>
+  
+  <div id="swat" class="profile">
+    <img src="https://i.pinimg.com/1200x/bb/b7/6a/bbb76a3bf4f181b4f4d611ba719ed124.jpg" alt="swat">
     <h2>swat</h2>
     <p>you notice he's already watching.</p>
-</div>
+  </div>
 
-<div id="kodachi" class="profile">
-    <img src="https://i.pinimg.com/736x/69/57/56/69575608cb752e3cba004b7d103cff09.jpg">
+  <div id="kodachi" class="profile">
+    <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="kodachi">
     <h2>kodachi</h2>
-    <p>silent but sharp.</p>
-</div>
+    <p>Quiet, unreadable.</p>
+  </div>
 
-<div id="purge" class="profile">
-    <img src="https://i.pinimg.com/736x/50/94/aa/5094aa17b84bb1dee6245bf0de2ac4ac.jpg">
+  <div id="purge" class="profile">
+    <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="pumpkinsmasher">
     <h2>purge</h2>
-    <p>the cleansing flame.</p>
-</div>
+    <p>There’s no empathy in his code.</p>
+  </div>
 
-<div id="envy" class="profile">
-    <img src="https://i.pinimg.com/736x/33/70/64/337064f7b6f6b5f638df23a94b1c1cf9.jpg">
+  <div id="envy" class="profile">
+    <img src="https://i.pinimg.com/1200x/59/ea/f5/59eaf5a2d4771cf5f3a064936f3f7410.jpg" alt="envy">
     <h2>envy</h2>
-    <p>wants everything.</p>
-</div>
+    <p>a breath behind the firewall.</p>
+  </div>
 
-<script>
-/* PROFILE SWITCH */
-function showProfile(id) {
-    document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-}
-
-/* MUSIC LOGIC */
-const player = document.getElementById("audio-player");
-const tracks = Array.from(document.querySelectorAll(".track"));
-let currentIndex = 0;
-let isPlaying = true;
-let shuffle = false;
-
-/* Fade In */
-function fadeIn() {
-    let v = 0;
-    player.volume = 0;
-    let fade = setInterval(() => {
-        if (v < 1) { v += 0.02; player.volume = v; }
-        else clearInterval(fade);
-    }, 60);
-}
-
-/* Fade Out */
-function fadeOut(callback) {
-    let v = player.volume;
-    let fade = setInterval(() => {
-        if (v > 0) { v -= 0.02; player.volume = v; }
-        else { clearInterval(fade); callback(); }
-    }, 60);
-}
-
-/* Play Track */
-function playTrack(i) {
-    currentIndex = i;
-    tracks.forEach(t => t.classList.remove("active"));
-    tracks[i].classList.add("active");
-
-    player.src = tracks[i].dataset.src;
-    player.play();
-    fadeIn();
-    isPlaying = true;
-    playBtn.textContent = "⏸";
-}
-
-/* Next / Prev */
-function nextTrack() {
-    fadeOut(() => {
-        currentIndex = shuffle ? Math.floor(Math.random() * tracks.length)
-                               : (currentIndex + 1) % tracks.length;
-        playTrack(currentIndex);
-    });
-}
-
-function prevTrack() {
-    fadeOut(() => {
-        currentIndex = shuffle ? Math.floor(Math.random() * tracks.length)
-                               : (currentIndex - 1 + tracks.length) % tracks.length;
-        playTrack(currentIndex);
-    });
-}
-
-/* Click Track */
-tracks.forEach((t,i) => {
-    t.addEventListener("click", () => fadeOut(() => playTrack(i)));
-});
-
-/* Controls */
-const playBtn = document.getElementById("play-btn");
-const nextBtn = document.getElementById("next-btn");
-const prevBtn = document.getElementById("prev-btn");
-const shuffleBtn = document.getElementById("shuffle-btn");
-
-playBtn.onclick = () => {
-    if (isPlaying) { player.pause(); playBtn.textContent="▶"; }
-    else { player.play(); playBtn.textContent="⏸"; }
-    isPlaying = !isPlaying;
-};
-
-nextBtn.onclick = nextTrack;
-prevBtn.onclick = prevTrack;
-
-shuffleBtn.onclick = () => {
-    shuffle = !shuffle;
-    shuffleBtn.style.color = shuffle ? "white" : "red";
-};
-
-player.addEventListener("ended", nextTrack);
-
-/* VISUALIZER */
-const canvas = document.getElementById("visualizer");
-const ctx = canvas.getContext("2d");
-canvas.width = innerWidth;
-canvas.height = 110;
-
-const audioCtx = new AudioContext();
-const srcNode = audioCtx.createMediaElementSource(player);
-const analyser = audioCtx.createAnalyser();
-
-srcNode.connect(analyser);
-analyser.connect(audioCtx.destination);
-analyser.fftSize = 256;
-
-let bufferLength = analyser.frequencyBinCount;
-let dataArray = new Uint8Array(bufferLength);
-
-function drawViz() {
-    requestAnimationFrame(drawViz);
-    analyser.getByteFrequencyData(dataArray);
-
-    ctx.fillStyle = "black";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    let barWidth = (canvas.width / bufferLength) * 2;
-    let x = 0;
-
-    for (let i=0;i<bufferLength;i++){
-        let h = dataArray[i] * 0.6;
-        ctx.fillStyle = `rgb(${h+40},0,0)`;
-        ctx.fillRect(x, canvas.height-h, barWidth, h);
-        x += barWidth + 1;
+  <!-- Profile Display Logic -->
+  <script>
+    function showProfile(id) {
+      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
     }
-}
+  </script>
 
-drawViz();
-playTrack(0);
-</script>
+  <!-- Red Snow -->
+  <div class="snow"></div>
+  <script>
+    const snowContainer = document.querySelector('.snow');
+    for (let i = 0; i < 80; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
+      snowflake.textContent = '*';
+      snowContainer.appendChild(snowflake);
+    }
+  </script>
+
+  <!-- Security: Disable DevTools, Inspect, Selection -->
+  <script>
+    // Force HTTPS
+    if (location.protocol !== 'https:') {
+      location.replace(`https:${location.href.substring(location.protocol.length)}`);
+    }
+
+    // Disable right-click and selection/drag
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Disable key combos
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        window.location.href = "https://google.com";
+      }
+    });
+
+    // DevTools detection
+    let devtoolsOpened = false;
+    const detect = () => {
+      devtoolsOpened = false;
+      const el = new Image();
+      Object.defineProperty(el, 'id', {
+        get: function () {
+          devtoolsOpened = true;
+          throw new Error("DevTools detected");
+        }
+      });
+      console.debug(el);
+      if (devtoolsOpened) {
+        window.location.href = "https://google.com";
+      }
+    };
+    detect();
+    setInterval(detect, 1000);
+  </script>
+
+  <!-- Hidden Music -->
+  <audio id="bg-music" src="chainsaw_murda (1).mp3" loop></audio>
+
+  <!-- Skull + track list logic -->
+  <script>
+    const bgMusic = document.getElementById('bg-music');
+    const skull = document.getElementById('music-skull');
+    const tracks = document.querySelectorAll('.track');
+    let playing = false;
+
+    // Skull play/pause
+    skull.addEventListener('click', () => {
+      if (!playing) {
+        bgMusic.play().catch(() => {});
+        playing = true;
+        skull.style.opacity = '0.7';
+      } else {
+        bgMusic.pause();
+        playing = false;
+        skull.style.opacity = '1';
+      }
+    });
+
+    // Track switching
+    tracks.forEach(track => {
+      track.addEventListener('click', () => {
+        const src = track.getAttribute('data-src');
+
+        // Change source if different
+        if (bgMusic.getAttribute('src') !== src) {
+          bgMusic.setAttribute('src', src);
+          bgMusic.load();
+        }
+
+        // Highlight active track
+        tracks.forEach(t => t.classList.remove('active'));
+        track.classList.add('active');
+
+        // Start playing when you click a track
+        bgMusic.play().catch(() => {});
+        playing = true;
+        skull.style.opacity = '0.7';
+      });
+    });
+  </script>
 
 </body>
 </html>
