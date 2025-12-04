@@ -17,66 +17,6 @@
       user-select: none;
     }
 
-    /* LOADING SCREEN */
-    .loader-overlay {
-      position: fixed;
-      inset: 0;
-      background: black;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      transition: opacity 0.6s ease;
-    }
-
-    .loader-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .loader-skull {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background-image: url("https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg");
-      background-size: cover;
-      background-position: center;
-      animation: spin 4s linear infinite;
-      filter: drop-shadow(0 0 12px red);
-      margin-bottom: 20px;
-    }
-
-    .loader-text-main {
-      font-family: 'UnifrakturMaguntia', cursive;
-      font-size: 32px;
-      letter-spacing: 2px;
-      text-shadow: 0 0 8px red;
-      animation: pulseRed 2s infinite;
-    }
-
-    .loader-text-sub {
-      margin-top: 10px;
-      font-family: monospace;
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      opacity: 0.7;
-      animation: flicker 1.8s infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes flicker {
-      0%, 100% { opacity: 0.7; }
-      30% { opacity: 0.2; }
-      60% { opacity: 1; }
-    }
-    /* END LOADING SCREEN */
-
     .arc-title {
       font-size: 30px;
       animation: pulseRed 2s infinite;
@@ -163,15 +103,61 @@
       50% { text-shadow: 0 0 15px red, 0 0 25px red; }
       100% { text-shadow: 0 0 5px red, 0 0 10px red; }
     }
+
+    /* MUSIC SIDE BAR */
+    .music-bar {
+      position: fixed;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid red;
+      padding: 10px 12px;
+      font-family: monospace;
+      font-size: 11px;
+      text-align: left;
+      z-index: 9000;
+      max-width: 140px;
+    }
+
+    .music-title {
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .track {
+      cursor: pointer;
+      margin: 4px 0;
+      opacity: 0.6;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track:hover {
+      opacity: 1;
+      transform: translateX(2px);
+    }
+
+    .track.active {
+      opacity: 1;
+      text-shadow: 0 0 8px red;
+    }
   </style>
 </head>
 <body>
 
-  <!-- LOADING OVERLAY -->
-  <div id="loader" class="loader-overlay">
-    <div class="loader-skull"></div>
-    <div class="loader-text-main">arcangels</div>
-    <div class="loader-text-sub">loading archives...</div>
+  <!-- MUSIC SIDE BAR -->
+  <div class="music-bar">
+    <div class="music-title">arcangels radio</div>
+    <div class="track active" data-src="chainsaw_murda (1).mp3">chainsaw murda</div>
+    <div class="track" data-src="grezy.mp3">grezy</div>
+    <div class="track" data-src="ty-i-ia.mp3">ty-i-ia</div>
+    <div class="track" data-src="xcho-login.mp3">xcho login</div>
   </div>
 
   <!-- Skull (click to start/stop music) -->
@@ -182,7 +168,7 @@
     width="100"
     alt="skull">
 
-  <div class="arc-title">ͯ</div>
+  <div class="arc-title">ͯKͯͯNͯͯRͯ/ͯAͯͯRͯͯCͯ</div>
   <div class="names">
     <span onclick="showProfile('grave')">ɠrave</span>
     <span onclick="showProfile('swat')">swat</span>
@@ -290,12 +276,14 @@
   <!-- Hidden Music -->
   <audio id="bg-music" src="chainsaw_murda (1).mp3" loop></audio>
 
-  <!-- Skull toggles music + loader hide -->
+  <!-- Skull + track list logic -->
   <script>
     const bgMusic = document.getElementById('bg-music');
     const skull = document.getElementById('music-skull');
+    const tracks = document.querySelectorAll('.track');
     let playing = false;
 
+    // Skull play/pause
     skull.addEventListener('click', () => {
       if (!playing) {
         bgMusic.play().catch(() => {});
@@ -308,14 +296,26 @@
       }
     });
 
-    // Hide loading screen when page fully loaded
-    window.addEventListener('load', () => {
-      const loader = document.getElementById('loader');
-      if (!loader) return;
-      loader.classList.add('hidden');
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 700);
+    // Track switching
+    tracks.forEach(track => {
+      track.addEventListener('click', () => {
+        const src = track.getAttribute('data-src');
+
+        // Change source if different
+        if (bgMusic.getAttribute('src') !== src) {
+          bgMusic.setAttribute('src', src);
+          bgMusic.load();
+        }
+
+        // Highlight active track
+        tracks.forEach(t => t.classList.remove('active'));
+        track.classList.add('active');
+
+        // Start playing when you click a track
+        bgMusic.play().catch(() => {});
+        playing = true;
+        skull.style.opacity = '0.7';
+      });
     });
   </script>
 
