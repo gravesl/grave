@@ -121,7 +121,7 @@
       font-size: 11px;
       text-align: left;
       z-index: 9000;
-      max-width: 140px;
+      max-width: 160px;
     }
 
     .track {
@@ -143,179 +143,414 @@
       opacity: 1;
       text-shadow: 0 0 8px red;
     }
+
+    /* PLAYER */
+    .player {
+      margin: 40px auto 0;
+      max-width: 420px;
+      text-align: center;
+      font-family: monospace;
+    }
+
+    .player-wave {
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      margin-bottom: 14px;
+      height: 30px;
+      align-items: flex-end;
+    }
+
+    .player-wave .bar {
+      width: 3px;
+      height: 8px;
+      background: red;
+      opacity: 0.5;
+      border-radius: 2px;
+    }
+
+    /* animate bars only while playing */
+    .player.playing .bar {
+      animation: equalize 0.8s infinite ease-in-out;
+    }
+
+    .player.playing .bar:nth-child(2n)  { animation-delay: 0.1s; }
+    .player.playing .bar:nth-child(3n)  { animation-delay: 0.2s; }
+    .player.playing .bar:nth-child(4n)  { animation-delay: 0.3s; }
+    .player.playing .bar:nth-child(5n)  { animation-delay: 0.4s; }
+
+    @keyframes equalize {
+      0%, 100% { height: 6px;  opacity: 0.4; }
+      50%      { height: 28px; opacity: 1;   }
+    }
+
+    .player-progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 11px;
+    }
+
+    #progress-bar {
+      flex: 1;
+      height: 4px;
+      background: #330000;
+      border-radius: 999px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    #progress-fill {
+      height: 100%;
+      width: 0%;
+      background: red;
+    }
+
+    .player-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid red;
+      color: red;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s;
+    }
+
+    .icon-btn:hover {
+      background: red;
+      color: black;
+      transform: translateY(-1px);
+    }
+
+    .icon-btn.play {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+    }
+
+    .icon-btn.active {
+      background: red;
+      color: black;
+    }
   </style>
 </head>
 <body>
 
   <!-- MUSIC SIDE BAR -->
-<div class="music-bar">
-  <div class="track active" data-src="music/chainsaw_murda.mp3">chainsaw</div>
-  <div class="track" data-src="music/grezy.mp3">grezy</div>
-  <div class="track" data-src="music/saveme.mp3">save me</div>
-  <div class="track" data-src="music/Deira City Centre.mp3">deira city centre</div>
-  <div class="track" data-src="music/darklight.mp3">dark light</div>
-  <div class="track" data-src="music/ArniTheSavage x Schillah x JSTN - Es eskaliert.mp3">es eskaliert</div> 
-</div>
+  <div class="music-bar">
+    <div class="track active" data-src="music/chainsaw_murda.mp3">chainsaw</div>
+    <div class="track" data-src="music/grezy.mp3">grezy</div>
+    <div class="track" data-src="music/saveme.mp3">save me</div>
+    <div class="track" data-src="music/Deira City Centre.mp3">deira city centre</div>
+    <div class="track" data-src="music/darklight.mp3">dark light</div>
+    <div class="track" data-src="music/ArniTheSavage x Schillah x JSTN - Es eskaliert.mp3">es eskaliert</div>
+  </div>
 
+  <!-- Skull (click to start/stop music) -->
+  <img
+    id="music-skull"
+    class="skull"
+    src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg"
+    width="100"
+    alt="skull">
 
+  <!-- MUSIC PLAYER -->
+  <div class="player">
+    <div class="player-wave">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
 
-<!-- Skull (click to start/stop music) -->
-<img
-  id="music-skull"
-  class="skull"
-  src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg"
-  width="100"
-  alt="skull">
+    <div class="player-progress">
+      <span id="current-time">0:00</span>
+      <div id="progress-bar">
+        <div id="progress-fill"></div>
+      </div>
+      <span id="duration">0:00</span>
+    </div>
 
-<div class="arc-title">‎ ‎  </div>
+    <div class="player-controls">
+      <button id="shuffle-btn" class="icon-btn">⤨</button>
+      <button id="prev-btn" class="icon-btn">⏮</button>
+      <button id="play-pause-btn" class="icon-btn play">▶</button>
+      <button id="next-btn" class="icon-btn">⏭</button>
+      <button id="repeat-btn" class="icon-btn">⟲</button>
+    </div>
+  </div>
 
-<div class="names">
-  <span onclick="showProfile('grave')">ɠrave</span>
-  <span onclick="showProfile('swat')">swat</span>
-  <span onclick="showProfile('kodachi')">kodachi</span>
-  <span onclick="showProfile('purge')">purge</span>
-  <span onclick="showProfile('envy')">envy</span>
-</div>
+  <div class="arc-title">‎ ‎  </div>
 
-<!-- Profiles -->
-<div id="grave" class="profile">
-  <img src="https://i.pinimg.com/1200x/33/25/98/3325981bbdf309360ff76fb76566364d.jpg" alt="grave">
-  <h2>ɠrave</h2>
-  <p>Never died, just archived.</p>
-</div>
+  <div class="names">
+    <span onclick="showProfile('grave')">ɠrave</span>
+    <span onclick="showProfile('swat')">swat</span>
+    <span onclick="showProfile('kodachi')">kodachi</span>
+    <span onclick="showProfile('purge')">purge</span>
+    <span onclick="showProfile('envy')">envy</span>
+  </div>
 
-<div id="swat" class="profile">
-  <img src="https://i.pinimg.com/1200x/bb/b7/6a/bbb76a3bf4f181b4f4d611ba719ed124.jpg" alt="swat">
-  <h2>swat</h2>
-  <p>you notice he's already watching.</p>
-</div>
+  <!-- Profiles -->
+  <div id="grave" class="profile">
+    <img src="https://i.pinimg.com/1200x/33/25/98/3325981bbdf309360ff76fb76566364d.jpg" alt="grave">
+    <h2>ɠrave</h2>
+    <p>Never died, just archived.</p>
+  </div>
 
-<div id="kodachi" class="profile">
-  <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="kodachi">
-  <h2>kodachi</h2>
-  <p>Quiet, unreadable.</p>
-</div>
+  <div id="swat" class="profile">
+    <img src="https://i.pinimg.com/1200x/bb/b7/6a/bbb76a3bf4f181b4f4d611ba719ed124.jpg" alt="swat">
+    <h2>swat</h2>
+    <p>you notice he's already watching.</p>
+  </div>
 
-<div id="purge" class="profile">
-  <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="pumpkinsmasher">
-  <h2>purge</h2>
-  <p>There’s no empathy in his code.</p>
-</div>
+  <div id="kodachi" class="profile">
+    <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="kodachi">
+    <h2>kodachi</h2>
+    <p>Quiet, unreadable.</p>
+  </div>
 
-<div id="envy" class="profile">
-  <img src="https://i.pinimg.com/1200x/59/ea/f5/59eaf5a2d4771cf5f3a064936f3f7410.jpg" alt="envy">
-  <h2>envy</h2>
-  <p>a breath behind the firewall.</p>
-</div>
+  <div id="purge" class="profile">
+    <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="pumpkinsmasher">
+    <h2>purge</h2>
+    <p>There’s no empathy in his code.</p>
+  </div>
 
-<!-- Profile Display Logic -->
-<script>
-  function showProfile(id) {
-    document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-  }
-</script>
+  <div id="envy" class="profile">
+    <img src="https://i.pinimg.com/1200x/59/ea/f5/59eaf5a2d4771cf5f3a064936f3f7410.jpg" alt="envy">
+    <h2>envy</h2>
+    <p>a breath behind the firewall.</p>
+  </div>
 
-<!-- Red Snow -->
-<div class="snow"></div>
-<script>
-  const snowContainer = document.querySelector('.snow');
-  for (let i = 0; i < 80; i++) {
-    const flake = document.createElement('div');
-    flake.classList.add('snowflake');
-    flake.style.left = Math.random() * 100 + 'vw';
-    flake.style.animationDuration = 5 + Math.random() * 5 + 's';
-    flake.textContent = '*';
-    snowContainer.appendChild(flake);
-  }
-</script>
-
-<!-- Security Scripts -->
-<script>
-  // Force HTTPS
-  if (location.protocol !== 'https:') {
-    location.replace(`https:${location.href.substring(location.protocol.length)}`);
-  }
-
-  // Disable right-click and selection
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.addEventListener('dragstart', e => e.preventDefault());
-  document.addEventListener('selectstart', e => e.preventDefault());
-
-  // Disable key combos
-  document.addEventListener('keydown', function(e) {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-      (e.ctrlKey && e.key === "U")
-    ) {
-      window.location.href = "https://google.com";
+  <!-- Profile Display Logic -->
+  <script>
+    function showProfile(id) {
+      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
     }
-  });
+  </script>
 
-  // DevTools detection
-  let devtoolsOpened = false;
-  const detect = () => {
-    devtoolsOpened = false;
-    const el = new Image();
-    Object.defineProperty(el, 'id', {
-      get: function () {
-        devtoolsOpened = true;
-        throw new Error("DevTools detected");
+  <!-- Red Snow -->
+  <div class="snow"></div>
+  <script>
+    const snowContainer = document.querySelector('.snow');
+    for (let i = 0; i < 80; i++) {
+      const flake = document.createElement('div');
+      flake.classList.add('snowflake');
+      flake.style.left = Math.random() * 100 + 'vw';
+      flake.style.animationDuration = 5 + Math.random() * 5 + 's';
+      flake.textContent = '*';
+      snowContainer.appendChild(flake);
+    }
+  </script>
+
+  <!-- Security Scripts -->
+  <script>
+    // Force HTTPS
+    if (location.protocol !== 'https:') {
+      location.replace(`https:${location.href.substring(location.protocol.length)}`);
+    }
+
+    // Disable right-click and selection
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Disable key combos
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        window.location.href = "https://google.com";
       }
     });
-    console.debug(el);
-    if (devtoolsOpened) {
-      window.location.href = "https://google.com";
+
+    // DevTools detection
+    let devtoolsOpened = false;
+    const detect = () => {
+      devtoolsOpened = false;
+      const el = new Image();
+      Object.defineProperty(el, 'id', {
+        get: function () {
+          devtoolsOpened = true;
+          throw new Error("DevTools detected");
+        }
+      });
+      console.debug(el);
+      if (devtoolsOpened) {
+        window.location.href = "https://google.com";
+      }
+    };
+    detect();
+    setInterval(detect, 1000);
+  </script>
+
+  <!-- Audio -->
+  <audio id="bg-music" src="music/chainsaw_murda.mp3"></audio>
+
+  <!-- Skull + Track + Player Logic -->
+  <script>
+    const bgMusic        = document.getElementById('bg-music');
+    const skull          = document.getElementById('music-skull');
+    const tracks         = Array.from(document.querySelectorAll('.track'));
+
+    const player         = document.querySelector('.player');
+    const playPauseBtn   = document.getElementById('play-pause-btn');
+    const prevBtn        = document.getElementById('prev-btn');
+    const nextBtn        = document.getElementById('next-btn');
+    const shuffleBtn     = document.getElementById('shuffle-btn');
+    const repeatBtn      = document.getElementById('repeat-btn');
+    const progressBar    = document.getElementById('progress-bar');
+    const progressFill   = document.getElementById('progress-fill');
+    const currentTimeEl  = document.getElementById('current-time');
+    const durationEl     = document.getElementById('duration');
+
+    let playing   = false;
+    let isShuffle = false;
+    let isRepeat  = false;
+
+    let currentTrackIndex = tracks.findIndex(t => t.classList.contains('active'));
+    if (currentTrackIndex === -1) currentTrackIndex = 0;
+
+    function formatTime(sec) {
+      if (isNaN(sec)) return '0:00';
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
     }
-  };
-  detect();
-  setInterval(detect, 1000);
-</script>
 
-<!-- Audio -->
-<audio id="bg-music" src="music/chainsaw_murda.mp3" loop></audio>
-
-<!-- Skull + Track Switching Logic -->
-<script>
-  const bgMusic = document.getElementById('bg-music');
-  const skull = document.getElementById('music-skull');
-  const tracks = document.querySelectorAll('.track');
-  let playing = false;
-
-  // Skull toggles play/pause
-  skull.addEventListener('click', () => {
-    if (!playing) {
-      bgMusic.play().catch(() => {});
-      playing = true;
-      skull.style.opacity = '0.7';
-    } else {
-      bgMusic.pause();
-      playing = false;
-      skull.style.opacity = '1';
-    }
-  });
-
-  // Change tracks when clicking names
-  tracks.forEach(track => {
-    track.addEventListener('click', () => {
+    function setTrack(index) {
+      currentTrackIndex = index;
+      const track = tracks[currentTrackIndex];
       const src = track.getAttribute('data-src');
+
+      tracks.forEach(t => t.classList.remove('active'));
+      track.classList.add('active');
 
       if (bgMusic.getAttribute('src') !== src) {
         bgMusic.setAttribute('src', src);
         bgMusic.load();
       }
+    }
 
-      tracks.forEach(t => t.classList.remove('active'));
-      track.classList.add('active');
+    function play() {
+      bgMusic.play().then(() => {
+        playing = true;
+        skull.style.opacity = '0.7';
+        playPauseBtn.textContent = '⏸';
+        player.classList.add('playing');
+      }).catch(() => {});
+    }
 
-      bgMusic.play().catch(() => {});
-      playing = true;
-      skull.style.opacity = '0.7';
+    function pause() {
+      bgMusic.pause();
+      playing = false;
+      skull.style.opacity = '1';
+      playPauseBtn.textContent = '▶';
+      player.classList.remove('playing');
+    }
+
+    function togglePlay() {
+      playing ? pause() : play();
+    }
+
+    function nextTrack() {
+      if (isShuffle) {
+        let next;
+        do {
+          next = Math.floor(Math.random() * tracks.length);
+        } while (next === currentTrackIndex && tracks.length > 1);
+        setTrack(next);
+      } else {
+        setTrack((currentTrackIndex + 1) % tracks.length);
+      }
+      play();
+    }
+
+    function prevTrack() {
+      setTrack((currentTrackIndex - 1 + tracks.length) % tracks.length);
+      play();
+    }
+
+    // Skull toggles play/pause
+    skull.addEventListener('click', togglePlay);
+
+    // Clicking on track names
+    tracks.forEach((track, index) => {
+      track.addEventListener('click', () => {
+        setTrack(index);
+        play();
+      });
     });
-  });
-</script>
+
+    // Player buttons
+    playPauseBtn.addEventListener('click', togglePlay);
+    nextBtn.addEventListener('click', nextTrack);
+    prevBtn.addEventListener('click', prevTrack);
+
+    shuffleBtn.addEventListener('click', () => {
+      isShuffle = !isShuffle;
+      shuffleBtn.classList.toggle('active', isShuffle);
+    });
+
+    repeatBtn.addEventListener('click', () => {
+      isRepeat = !isRepeat;
+      repeatBtn.classList.toggle('active', isRepeat);
+    });
+
+    // Progress bar + time
+    bgMusic.addEventListener('timeupdate', () => {
+      const { currentTime, duration } = bgMusic;
+      currentTimeEl.textContent = formatTime(currentTime);
+      durationEl.textContent = formatTime(duration || 0);
+
+      if (duration) {
+        const pct = (currentTime / duration) * 100;
+        progressFill.style.width = `${pct}%`;
+      } else {
+        progressFill.style.width = '0%';
+      }
+    });
+
+    bgMusic.addEventListener('ended', () => {
+      if (isRepeat) {
+        bgMusic.currentTime = 0;
+        play();
+      } else {
+        nextTrack();
+      }
+    });
+
+    progressBar.addEventListener('click', (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      if (!isNaN(bgMusic.duration)) {
+        bgMusic.currentTime = pct * bgMusic.duration;
+      }
+    });
+
+    // Initialize first track
+    setTrack(currentTrackIndex);
+  </script>
 
 </body>
 </html>
-
