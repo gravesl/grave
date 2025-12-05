@@ -108,8 +108,9 @@
       100% { text-shadow: 0 0 5px red, 0 0 10px red; }
     }
 
-    /* MUSIC SIDE BAR */
+    /* MUSIC SIDE BAR (hidden but still used for playlist) */
     .music-bar {
+      display: none; /* hides the box on the left */
       position: fixed;
       top: 50%;
       left: 10px;
@@ -244,11 +245,68 @@
       background: red;
       color: black;
     }
+
+    /* WELCOME SCREEN */
+    #welcome-overlay {
+      position: fixed;
+      inset: 0;
+      background: black;
+      color: red;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      font-family: 'UnifrakturMaguntia', cursive;
+    }
+
+    #welcome-overlay h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px red;
+    }
+
+    #welcome-overlay p {
+      font-family: monospace;
+      font-size: 12px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    #welcome-enter {
+      padding: 8px 26px;
+      border: 1px solid red;
+      background: transparent;
+      color: red;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      cursor: pointer;
+      border-radius: 999px;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s;
+    }
+
+    #welcome-enter:hover {
+      background: red;
+      color: black;
+      transform: translateY(-1px);
+    }
+
+    #welcome-overlay.hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- MUSIC SIDE BAR -->
+  <!-- WELCOME OVERLAY -->
+  <div id="welcome-overlay">
+    <h1>ɠrave</h1>
+    <p>enter if you’re not afraid of the noise.</p>
+    <button id="welcome-enter">enter</button>
+  </div>
+
+  <!-- MUSIC SIDE BAR (hidden) -->
   <div class="music-bar">
     <div class="track active" data-src="music/chainsaw_murda.mp3">chainsaw</div>
     <div class="track" data-src="music/grezy.mp3">grezy</div>
@@ -407,7 +465,7 @@
   <!-- Audio -->
   <audio id="bg-music" src="music/chainsaw_murda.mp3"></audio>
 
-  <!-- Skull + Track + Player Logic -->
+  <!-- Skull + Track + Player + Welcome Logic -->
   <script>
     const bgMusic        = document.getElementById('bg-music');
     const skull          = document.getElementById('music-skull');
@@ -423,6 +481,9 @@
     const progressFill   = document.getElementById('progress-fill');
     const currentTimeEl  = document.getElementById('current-time');
     const durationEl     = document.getElementById('duration');
+
+    const welcomeOverlay = document.getElementById('welcome-overlay');
+    const welcomeEnter   = document.getElementById('welcome-enter');
 
     let playing   = false;
     let isShuffle = false;
@@ -494,7 +555,7 @@
     // Skull toggles play/pause
     skull.addEventListener('click', togglePlay);
 
-    // Clicking on track names
+    // Clicking on track names (even though the box is hidden, JS still uses them)
     tracks.forEach((track, index) => {
       track.addEventListener('click', () => {
         setTrack(index);
@@ -546,6 +607,12 @@
       if (!isNaN(bgMusic.duration)) {
         bgMusic.currentTime = pct * bgMusic.duration;
       }
+    });
+
+    // WELCOME SCREEN: hide on enter + start music
+    welcomeEnter.addEventListener('click', () => {
+      welcomeOverlay.classList.add('hidden');
+      play(); // comment this out if you DON'T want auto music on enter
     });
 
     // Initialize first track
