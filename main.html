@@ -244,26 +244,6 @@
       color: black;
     }
 
-    /* 🔊 VOLUME ROW */
-    .volume-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 10px;
-      font-size: 11px;
-    }
-
-    .vol-label {
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    #volume-slider {
-      width: 160px;
-      cursor: pointer;
-    }
-
     /* WELCOME SCREEN */
     #welcome-overlay {
       position: fixed;
@@ -362,19 +342,6 @@
         <div id="progress-fill"></div>
       </div>
       <span id="duration">0:00</span>
-    </div>
-
-    <!-- 🔊 VOLUME BAR -->
-    <div class="volume-row">
-      <span class="vol-label">vol</span>
-      <input
-        id="volume-slider"
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        value="0.8"
-      />
     </div>
 
     <div class="player-controls">
@@ -518,7 +485,6 @@
     const progressFill   = document.getElementById('progress-fill');
     const currentTimeEl  = document.getElementById('current-time');
     const durationEl     = document.getElementById('duration');
-    const volumeSlider   = document.getElementById('volume-slider');
 
     const welcomeOverlay = document.getElementById('welcome-overlay');
     const welcomeEnter   = document.getElementById('welcome-enter');
@@ -615,16 +581,6 @@
       isRepeat = !isRepeat;
       repeatBtn.classList.toggle('active', isRepeat);
     });
-
-    // 🔊 Volume slider logic
-    if (volumeSlider) {
-      // initial volume from slider
-      bgMusic.volume = parseFloat(volumeSlider.value);
-
-      volumeSlider.addEventListener('input', () => {
-        bgMusic.volume = parseFloat(volumeSlider.value);
-      });
-    }
 
     // Progress bar + time
     bgMusic.addEventListener('timeupdate', () => {
