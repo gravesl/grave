@@ -108,7 +108,6 @@
       100% { text-shadow: 0 0 5px red, 0 0 10px red; }
     }
 
-    /* MUSIC SIDE BAR (hidden but playlist kept) */
     .music-bar {
       display: none;
       position: fixed;
@@ -145,106 +144,23 @@
       text-shadow: 0 0 8px red;
     }
 
-    /* PLAYER UI */
-    .player {
-      margin: 40px auto 0;
-      max-width: 420px;
-      text-align: center;
-      font-family: monospace;
-    }
+    .player { margin: 40px auto 0; max-width: 420px; text-align: center; font-family: monospace; }
 
-    .player-wave {
-      display: flex;
-      justify-content: center;
-      gap: 3px;
-      margin-bottom: 14px;
-      height: 30px;
-      align-items: flex-end;
-    }
+    .player-wave { display: flex; justify-content: center; gap: 3px; margin-bottom: 14px; height: 30px; align-items: flex-end; }
 
-    .player-wave .bar {
-      width: 3px;
-      height: 8px;
-      background: red;
-      opacity: 0.5;
-      border-radius: 2px;
-    }
+    .player-wave .bar { width: 3px; height: 8px; background: red; opacity: 0.5; border-radius: 2px; }
 
-    .player.playing .bar {
-      animation: equalize 0.8s infinite ease-in-out;
-    }
-    .player.playing .bar:nth-child(2n) { animation-delay: 0.1s; }
-    .player.playing .bar:nth-child(3n) { animation-delay: 0.2s; }
-    .player.playing .bar:nth-child(4n) { animation-delay: 0.3s; }
-    .player.playing .bar:nth-child(5n) { animation-delay: 0.4s; }
+    .player.playing .bar { animation: equalize 0.8s infinite ease-in-out; }
 
     @keyframes equalize {
       0%, 100% { height: 6px; opacity: 0.4; }
       50%      { height: 28px; opacity: 1; }
     }
 
-    .player-progress {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-      font-size: 11px;
-    }
+    #progress-bar { flex: 1; height: 4px; background: #330000; border-radius: 999px; overflow: hidden; cursor: pointer; }
 
-    #progress-bar {
-      flex: 1;
-      height: 4px;
-      background: #330000;
-      border-radius: 999px;
-      overflow: hidden;
-      cursor: pointer;
-    }
+    #progress-fill { height: 100%; width: 0%; background: red; }
 
-    #progress-fill {
-      height: 100%;
-      width: 0%;
-      background: red;
-    }
-
-    .player-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .icon-btn {
-      background: transparent;
-      border: 1px solid red;
-      color: red;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.15s;
-    }
-
-    .icon-btn:hover {
-      background: red;
-      color: black;
-      transform: translateY(-1px);
-    }
-
-    .icon-btn.play {
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
-    }
-
-    .icon-btn.active {
-      background: red;
-      color: black;
-    }
-
-    /* WELCOME SCREEN */
     #welcome-overlay {
       position: fixed;
       inset: 0;
@@ -255,377 +171,67 @@
       align-items: center;
       justify-content: center;
       z-index: 10000;
-      font-family: 'UnifrakturMaguntia', cursive;
     }
-    #welcome-logo {
-      width: 180px;
-      height: auto;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 10px red);
-    }
-    #welcome-overlay p {
-      font-family: monospace;
-      font-size: 12px;
-      margin-bottom: 20px;
-      opacity: 0.8;
-    }
-    #welcome-enter {
-      padding: 8px 26px;
-      border: 1px solid red;
-      background: transparent;
-      color: red;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 11px;
-      cursor: pointer;
-      border-radius: 999px;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.1s;
-    }
-    #welcome-enter:hover {
-      background: red;
-      color: black;
-      transform: translateY(-1px);
-    }
-    #welcome-overlay.hidden {
-      display: none;
-    }
+
+    #welcome-overlay.hidden { display: none; }
   </style>
 </head>
 <body>
 
-  <!-- WELCOME OVERLAY -->
-  <div id="welcome-overlay">‎
-    <img
-      id="welcome-logo"
-      src="https://media.istockphoto.com/id/1321281110/vector/red-skull-digital-logic-zero-and-one-number-for-virus-security-abstract-vector-design.jpg?s=612x612&w=0&k=20&c=0UMsHNOq8FB4AtDSeKuT6ojdSaiW-OMKorg16BHapGc="
-      alt="red skull logo">
-    <p>‎ ‎</p>
-    <button id="welcome-enter">enter</button>
-  </div>
+<div id="welcome-overlay">
+  <img id="welcome-logo" src="https://media.istockphoto.com/id/1321281110/vector/red-skull-digital-logic-zero-and-one-number-for-virus-security-abstract-vector-design.jpg">
+  <button id="welcome-enter">enter</button>
+</div>
 
-  <!-- MUSIC SIDE BAR (hidden but playlist loaded) -->
-  <div class="music-bar">
-    <div class="track active" data-src="music/chainsaw_murda.mp3">chainsaw</div>
-    <div class="track" data-src="music/grezy.mp3">grezy</div>
-    <div class="track" data-src="music/saveme.mp3">save me</div>
-    <div class="track" data-src="music/Deira City Centre.mp3">deira city centre</div>
-    <div class="track" data-src="music/darklight.mp3">dark light</div>
-    <div class="track" data-src="music/ArniTheSavage x Schillah x JSTN - Es eskaliert.mp3">es eskaliert</div>
-   <div class="track" data-src="Alone_KLICKAUD.mp3">Alone_KLICKAUD.mp3</div>
+<div class="music-bar">
+  <div class="track active" data-src="music/chainsaw_murda.mp3">chainsaw</div>
+  <div class="track" data-src="music/grezy.mp3">grezy</div>
+</div> <!-- FIXED -->
 
-  <!-- Skull (click to start/stop music) -->
-  <img
-    id="music-skull"
-    class="skull"
-    src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg"
-    width="100"
-    alt="skull">
+<img id="music-skull" class="skull" src="https://i.pinimg.com/736x/45/74/22/4574220bdb8ec123f1443478b98b733c.jpg" width="100">
 
-  <!-- MUSIC PLAYER -->
-  <div class="player">
-    <div class="player-wave">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </div>
+<div class="names">
+  <span onclick="showProfile('ɠrave')">ɠrave</span>
+  <span onclick="showProfile('rain')">rain</span>
+</div>
 
-    <div class="player-progress">
-      <span id="current-time">0:00</span>
-      <div id="progress-bar">
-        <div id="progress-fill"></div>
-      </div>
-      <span id="duration">0:00</span>
-    </div>
+<div id="ɠrave" class="profile"><h2>ɠrave</h2></div>
+<div id="rain" class="profile"><h2>rain</h2></div>
 
-    <div class="player-controls">
-      <button id="shuffle-btn" class="icon-btn">⤨</button>
-      <button id="prev-btn" class="icon-btn">⏮</button>
-      <button id="play-pause-btn" class="icon-btn play">▶</button>
-      <button id="next-btn" class="icon-btn">⏭</button>
-      <button id="repeat-btn" class="icon-btn">⟲</button>
-    </div>
-  </div>
+<div class="snow"></div>
 
-  <div class="arc-title">‎ ‎  </div>
+<script>
+function showProfile(id) {
+  document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
 
-  <div class="names">
-    <span onclick="showProfile('ɠrave')">ɠrave</span>
-    <span onclick="showProfile('rain')">rain</span>
-    <span onclick="showProfile('iraqi')">iraqi</span> 
-    <span onclick="showProfile('envy')">envy</span>
-    <span onclick="showProfile('rune')">rune</span>
-  </div>
+const snowContainer = document.querySelector('.snow');
+for (let i = 0; i < 80; i++) {
+  const flake = document.createElement('div');
+  flake.classList.add('snowflake');
+  flake.style.left = Math.random() * 100 + 'vw';
+  flake.style.animationDuration = 5 + Math.random() * 5 + 's';
+  flake.textContent = '*';
+  snowContainer.appendChild(flake);
+}
+</script>
 
-  <!-- Profiles -->
-  <div id="ɠrave" class="profile">
-    <img src="https://i.pinimg.com/736x/f5/69/13/f56913fc0a2fc5bc97589059604b9143.jpg" alt="ɠrave">
-    <h2>ɠrave</h2>
-    <p>Founder</p>
-  </div>
+<audio id="bg-music" src="music/chainsaw_murda.mp3"></audio>
 
-  <div id="rune" class="profile">
-    <img src="https://i.pinimg.com/736x/5d/d9/dc/5dd9dcbc6fa04c6df8828fe39365165e.jpg" alt="rune">
-    <h2>rune</h2>
-    <p>Owner</p>
-  </div>
+<script>
+const bgMusic = document.getElementById('bg-music');
+const skull = document.getElementById('music-skull');
+const welcomeOverlay = document.getElementById('welcome-overlay');
+const welcomeEnter = document.getElementById('welcome-enter');
 
-  <div id="iraqi" class="profile">
-    <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="iraqi">
-    <h2>iraqi</h2>
-    <p>Admin</p>
-  </div>
- 
-  <div id="envy" class="profile">
-    <img src="https://i.pinimg.com/736x/20/d5/46/20d5464c30fbc03f1ba77f9788655de6.jpg" alt="envy">
-    <h2>envy</h2>
-    <p>envious</p>
-  </div>
- 
-    <div id="rain" class="profile">
-    <img src="https://i.pinimg.com/736x/b6/fc/0f/b6fc0fb4f9cdc48002313cdf1b00dae8.jpg" alt="rain">
-    <h2>rain</h2>
-    <p>A.R.C</p>
-  </div>
-     
-    <div id="woe" class="profile">
-    <img src="https://i.pinimg.com/736x/d4/18/ad/d418ad932541eac7095ee9fc7905d087.jpg" alt="woe">
-    <h2>woe</h2>
-    <p>A.R.C M1</p>
-  </div>
+skull.onclick = () => bgMusic.paused ? bgMusic.play() : bgMusic.pause();
 
-    <div id="karma" class="profile">
-    <img src="https://i.pinimg.com/736x/65/a8/a4/65a8a4543213cf6b63873c10e4e6cd20.jpg" alt="karma">
-    <h2>karma</h2>
-    <p>A.R.C</p>
-  </div>
-    
-
-  <!-- Profile Display Logic -->
-  <script>
-    function showProfile(id) {
-      document.querySelectorAll('.profile').forEach(p => p.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-    }
-  </script>
-
-  <!-- Red Snow -->
-  <div class="snow"></div>
-  <script>
-    const snowContainer = document.querySelector('.snow');
-    for (let i = 0; i < 80; i++) {
-      const flake = document.createElement('div');
-      flake.classList.add('snowflake');
-      flake.style.left = Math.random() * 100 + 'vw';
-      flake.style.animationDuration = 5 + Math.random() * 5 + 's';
-      flake.textContent = '*';
-      snowContainer.appendChild(flake);
-    }
-  </script>
-
-  <!-- Security Scripts -->
-  <script>
-    // Force HTTPS
-    if (location.protocol !== 'https:') {
-      location.replace(`https:${location.href.substring(location.protocol.length)}`);
-    }
-
-    // Disable right-click and selection
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('dragstart', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-
-    // Disable key combos
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-        (e.ctrlKey && e.key === "U")
-      ) {
-        window.location.href = "https://google.com";
-      }
-    });
-
-    // DevTools detection
-    let devtoolsOpened = false;
-    const detect = () => {
-      devtoolsOpened = false;
-      const el = new Image();
-      Object.defineProperty(el, 'id', {
-        get: function () {
-          devtoolsOpened = true;
-          throw new Error("DevTools detected");
-        }
-      });
-      console.debug(el);
-      if (devtoolsOpened) {
-        window.location.href = "https://google.com";
-      }
-    };
-    detect();
-    setInterval(detect, 1000);
-  </script>
-
-  <!-- Audio -->
-  <audio id="bg-music" src="music/chainsaw_murda.mp3"></audio>
-
-  <!-- Skull + Track + Player + Welcome Logic -->
-  <script>
-    const bgMusic        = document.getElementById('bg-music');
-    const skull          = document.getElementById('music-skull');
-    const tracks         = Array.from(document.querySelectorAll('.track'));
-
-    const player         = document.querySelector('.player');
-    const playPauseBtn   = document.getElementById('play-pause-btn');
-    const prevBtn        = document.getElementById('prev-btn');
-    const nextBtn        = document.getElementById('next-btn');
-    const shuffleBtn     = document.getElementById('shuffle-btn');
-    const repeatBtn      = document.getElementById('repeat-btn');
-    const progressBar    = document.getElementById('progress-bar');
-    const progressFill   = document.getElementById('progress-fill');
-    const currentTimeEl  = document.getElementById('current-time');
-    const durationEl     = document.getElementById('duration');
-
-    const welcomeOverlay = document.getElementById('welcome-overlay');
-    const welcomeEnter   = document.getElementById('welcome-enter');
-
-    let playing   = false;
-    let isShuffle = false;
-    let isRepeat  = false;
-
-    let currentTrackIndex = tracks.findIndex(t => t.classList.contains('active'));
-    if (currentTrackIndex === -1) currentTrackIndex = 0;
-
-    function formatTime(sec) {
-      if (isNaN(sec)) return '0:00';
-      const m = Math.floor(sec / 60);
-      const s = Math.floor(sec % 60).toString().padStart(2, '0');
-      return `${m}:${s}`;
-    }
-
-    function setTrack(index) {
-      currentTrackIndex = index;
-      const track = tracks[currentTrackIndex];
-      const src = track.getAttribute('data-src');
-
-      tracks.forEach(t => t.classList.remove('active'));
-      track.classList.add('active');
-
-      if (bgMusic.getAttribute('src') !== src) {
-        bgMusic.setAttribute('src', src);
-        bgMusic.load();
-      }
-    }
-
-    function play() {
-      bgMusic.play().then(() => {
-        playing = true;
-        skull.style.opacity = '0.7';
-        playPauseBtn.textContent = '⏸';
-        player.classList.add('playing');
-      }).catch(() => {});
-    }
-
-    function pause() {
-      bgMusic.pause();
-      playing = false;
-      skull.style.opacity = '1';
-      playPauseBtn.textContent = '▶';
-      player.classList.remove('playing');
-    }
-
-    function togglePlay() {
-      playing ? pause() : play();
-    }
-
-    function nextTrack() {
-      if (isShuffle) {
-        let next;
-        do {
-          next = Math.floor(Math.random() * tracks.length);
-        } while (next === currentTrackIndex && tracks.length > 1);
-        setTrack(next);
-      } else {
-        setTrack((currentTrackIndex + 1) % tracks.length);
-      }
-      play();
-    }
-
-    function prevTrack() {
-      setTrack((currentTrackIndex - 1 + tracks.length) % tracks.length);
-      play();
-    }
-
-    // Skull toggles play/pause
-    skull.addEventListener('click', togglePlay);
-
-    // Clicking on track names (even though the box is hidden, JS still uses them)
-    tracks.forEach((track, index) => {
-      track.addEventListener('click', () => {
-        setTrack(index);
-        play();
-      });
-    });
-
-    // Player buttons
-    playPauseBtn.addEventListener('click', togglePlay);
-    nextBtn.addEventListener('click', nextTrack);
-    prevBtn.addEventListener('click', prevTrack);
-
-    shuffleBtn.addEventListener('click', () => {
-      isShuffle = !isShuffle;
-      shuffleBtn.classList.toggle('active', isShuffle);
-    });
-
-    repeatBtn.addEventListener('click', () => {
-      isRepeat = !isRepeat;
-      repeatBtn.classList.toggle('active', isRepeat);
-    });
-
-    // Progress bar + time
-    bgMusic.addEventListener('timeupdate', () => {
-      const { currentTime, duration } = bgMusic;
-      currentTimeEl.textContent = formatTime(currentTime);
-      durationEl.textContent = formatTime(duration || 0);
-
-      if (duration) {
-        const pct = (currentTime / duration) * 100;
-        progressFill.style.width = `${pct}%`;
-      } else {
-        progressFill.style.width = '0%';
-      }
-    });
-
-    bgMusic.addEventListener('ended', () => {
-      if (isRepeat) {
-        bgMusic.currentTime = 0;
-        play();
-      } else { nextTrack(); }
-    });
-
-    progressBar.addEventListener('click', (e) => {
-      const rect = progressBar.getBoundingClientRect();
-      const pct = (e.clientX - rect.left) / rect.width;
-      if (!isNaN(bgMusic.duration)) {
-        bgMusic.currentTime = pct * bgMusic.duration;
-      }
-    });
-
-    // WELCOME SCREEN: hide on enter + start music
-    welcomeEnter.addEventListener('click', () => {
-      welcomeOverlay.classList.add('hidden');
-      play();
-    });
-
-    // Initialize first track
-    setTrack(currentTrackIndex);
-  </script>
+welcomeEnter.onclick = () => {
+  welcomeOverlay.classList.add('hidden');
+  bgMusic.play();
+};
+</script>
 
 </body>
 </html>
