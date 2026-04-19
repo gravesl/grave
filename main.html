@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -245,6 +244,69 @@
       color: black;
     }
 
+    /* 🔊 VOLUME ROW (aesthetic slider) */
+    .volume-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 11px;
+    }
+
+    .vol-label {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #ff1a1a;
+    }
+
+    #volume-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 180px;
+      height: 4px;
+      cursor: pointer;
+      background: #120000;
+      border-radius: 999px;
+      border: 1px solid #330000;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    }
+
+    #volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ff0000;
+      border: 1px solid #ff8080;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+      margin-top: -5px;
+    }
+
+    #volume-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ff0000;
+      border: 1px solid #ff8080;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    }
+
+    #volume-slider::-moz-range-track {
+      height: 4px;
+      background: #120000;
+      border-radius: 999px;
+      border: 1px solid #330000;
+    }
+
+    #volume-slider:hover::-webkit-slider-thumb,
+    #volume-slider:active::-webkit-slider-thumb,
+    #volume-slider:hover::-moz-range-thumb,
+    #volume-slider:active::-moz-range-thumb {
+      box-shadow: 0 0 14px rgba(255, 0, 0, 1);
+    }
+
     /* WELCOME SCREEN */
     #welcome-overlay {
       position: fixed;
@@ -312,7 +374,7 @@
     <div class="track" data-src="music/Deira City Centre.mp3">deira city centre</div>
     <div class="track" data-src="music/darklight.mp3">dark light</div>
     <div class="track" data-src="music/ArniTheSavage x Schillah x JSTN - Es eskaliert.mp3">es eskaliert</div>
-   <div class="track" data-src="Alone_KLICKAUD.mp3">Alone_KLICKAUD.mp3</div>
+  </div>
 
   <!-- Skull (click to start/stop music) -->
   <img
@@ -345,6 +407,19 @@
       <span id="duration">0:00</span>
     </div>
 
+    <!-- 🔊 VOLUME BAR -->
+    <div class="volume-row">
+      <span class="vol-label">vol</span>
+      <input
+        id="volume-slider"
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.8"
+      />
+    </div>
+
     <div class="player-controls">
       <button id="shuffle-btn" class="icon-btn">⤨</button>
       <button id="prev-btn" class="icon-btn">⏮</button>
@@ -357,30 +432,43 @@
   <div class="arc-title">‎ ‎  </div>
 
   <div class="names">
-    <span onclick="showProfile('ɠrave')">ɠrave</span>
-    <span onclick="showProfile('rain')">rain</span>
-    <span onclick="showProfile('iraqi')">iraqi</span> 
+    <span onclick="showProfile('grave')">ɠrave</span>
+    <span onclick="showProfile('sano')">sano</span>
+    <span onclick="showProfile('fraud')">fraud</span>
+    <span onclick="showProfile('purge')">purge</span>
+    <span onclick="showProfile('crime')">crime</span>
     <span onclick="showProfile('envy')">envy</span>
-    <span onclick="showProfile('rune')">rune</span>
   </div>
 
   <!-- Profiles -->
-  <div id="ɠrave" class="profile">
-    <img src="https://i.pinimg.com/736x/f5/69/13/f56913fc0a2fc5bc97589059604b9143.jpg" alt="ɠrave">
+  <div id="grave" class="profile">
+    <img src="https://i.pinimg.com/1200x/33/25/98/3325981bbdf309360ff76fb76566364d.jpg" alt="grave">
     <h2>ɠrave</h2>
-    <p>Founder</p>
+    <p>Never died, just archived.</p>
   </div>
 
-  <div id="rune" class="profile">
-    <img src="https://i.pinimg.com/736x/5d/d9/dc/5dd9dcbc6fa04c6df8828fe39365165e.jpg" alt="rune">
-    <h2>rune</h2>
-    <p>Owner</p>
+  <div id="sano" class="profile">
+    <img src="https://i.pinimg.com/1200x/bb/b7/6a/bbb76a3bf4f181b4f4d611ba719ed124.jpg" alt="sano">
+    <h2>sano</h2>
+    <p>you notice he's already watching.</p>
   </div>
 
-  <div id="iraqi" class="profile">
-    <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="iraqi">
-    <h2>iraqi</h2>
-    <p>Admin</p>
+  <div id="fraud" class="profile">
+    <img src="https://i.pinimg.com/1200x/38/53/c6/3853c670ee6ba27c913c866f7a358489.jpg" alt="fraud">
+    <h2>fraud</h2>
+    <p>Quiet, unreadable.</p>
+  </div>
+
+  <div id="purge" class="profile">
+    <img src="https://i.pinimg.com/736x/03/df/27/03df2783b8b31000802548bfa16c3616.jpg" alt="purge">
+    <h2>purge</h2>
+    <p>There’s no empathy in his code.</p>
+  </div>
+
+  <div id="crime" class="profile">
+    <img src="https://i.pinimg.com/1200x/59/ea/f5/59eaf5a2d4771cf5f3a064936f3f7410.jpg" alt="crime">
+    <h2>crime</h2>
+    <p>always watching</p>
   </div>
  
   <div id="envy" class="profile">
@@ -388,25 +476,6 @@
     <h2>envy</h2>
     <p>envious</p>
   </div>
- 
-    <div id="rain" class="profile">
-    <img src="https://i.pinimg.com/736x/b6/fc/0f/b6fc0fb4f9cdc48002313cdf1b00dae8.jpg" alt="rain">
-    <h2>rain</h2>
-    <p>A.R.C</p>
-  </div>
-     
-    <div id="woe" class="profile">
-    <img src="https://i.pinimg.com/736x/d4/18/ad/d418ad932541eac7095ee9fc7905d087.jpg" alt="woe">
-    <h2>woe</h2>
-    <p>A.R.C M1</p>
-  </div>
-
-    <div id="karma" class="profile">
-    <img src="https://i.pinimg.com/736x/65/a8/a4/65a8a4543213cf6b63873c10e4e6cd20.jpg" alt="karma">
-    <h2>karma</h2>
-    <p>A.R.C</p>
-  </div>
-    
 
   <!-- Profile Display Logic -->
   <script>
@@ -492,6 +561,7 @@
     const progressFill   = document.getElementById('progress-fill');
     const currentTimeEl  = document.getElementById('current-time');
     const durationEl     = document.getElementById('duration');
+    const volumeSlider   = document.getElementById('volume-slider');
 
     const welcomeOverlay = document.getElementById('welcome-overlay');
     const welcomeEnter   = document.getElementById('welcome-enter');
@@ -588,6 +658,14 @@
       isRepeat = !isRepeat;
       repeatBtn.classList.toggle('active', isRepeat);
     });
+
+    // 🔊 Volume slider logic
+    if (volumeSlider) {
+      bgMusic.volume = parseFloat(volumeSlider.value);
+      volumeSlider.addEventListener('input', () => {
+        bgMusic.volume = parseFloat(volumeSlider.value);
+      });
+    }
 
     // Progress bar + time
     bgMusic.addEventListener('timeupdate', () => {
